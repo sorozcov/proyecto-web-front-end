@@ -4,11 +4,20 @@ import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
 import Button from '../General/Button';
 import * as selectors from '../../reducers';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommonActions } from '@react-navigation/native';
 
 function Start({navigation,isAuthenticated}) {
-  console.log(isAuthenticated)
+  
   if(isAuthenticated){
-    navigation.navigate("Home")
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: 'Home' },
+         
+        ],
+      })
+    );
   }
   return (
     <View style={styles.container}>

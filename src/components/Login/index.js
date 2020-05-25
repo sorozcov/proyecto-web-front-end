@@ -9,6 +9,8 @@ import * as selectors from '../../reducers';
 import * as AuthActions from '../../actions/auth'
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommonActions } from '@react-navigation/native';
+
 
 
 function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user,isAuthenticated}) {
@@ -18,7 +20,15 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
   }
   
   if(isAuthenticated){
-    navigation.navigate("Home")
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: 'Home' },
+         
+        ],
+      })
+    );
   }
 
   return (

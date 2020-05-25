@@ -6,8 +6,7 @@ import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import * as actionsAuth from '../../../actions/auth'
 import Constants from 'expo-constants';
-
-
+import { CommonActions } from '@react-navigation/native';
 
 
 function DrawerScreen({navigation,user,logout}) {
@@ -170,7 +169,15 @@ export default connect(
   dispatch => ({
     logout(navigation) {
       dispatch(actionsAuth.logout());
-      navigation.navigate('Start');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'Start' },
+           
+          ],
+        })
+      );
     },
   }),
 )(DrawerScreen);
