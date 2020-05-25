@@ -15,8 +15,9 @@ import * as types from '../types/auth';
   
 
 import { Alert } from 'react-native';
-import API_BASE_URL from './apibaseurl';
-  
+import API_BASE_URL from './settings/apibaseurl';
+import TOKEN_LIFE_TIME from './settings/tokenLifeTime';  
+
   function* login(action) {
     try {
       const response = yield call(
@@ -106,40 +107,28 @@ import API_BASE_URL from './apibaseurl';
         );
       
       
-      if (response.status <= 300) {
-        const jsonResultUser = yield response.json();
-        yield put(actions.authenticationUserInformationCompleted(jsonResultUser));
-        
-      } else {
-        
-        
-       
-        
-        
-        // const alertButtons =[
-        //     {text: 'Aceptar', style:'default'},
-        // ]
-        // const titleError ="Inténtalo de nuevo"
-        // const errorMessage='El nombre de usuario y contraseña introducidos no coinciden con nuestros registros. Revísalos e inténtalo de nuevo.';
-    
-        // yield call(Alert.alert,titleError,errorMessage,alertButtons)
-     
-        
-        
+        if (response.status <= 300) {
+          const jsonResultUser = yield response.json();
+          yield put(actions.authenticationUserInformationCompleted(jsonResultUser));
+          
+        } else {
+          yield AsyncStorage.removeItem('auth');
+          yield put(actions.logout());
+          yield put(actions.failTokenRefresh('Se venció la sesión de tu usuario'));
+          yield delay(200);
+          const alertButtons =[
+                {text: 'Aceptar', style:'default'},
+            ]
+          const titleError ="Estuviste desconectado por mucho tiempo"
+          const errorMessage="Se venció la sesión de tu usuario."
+          yield call(Alert.alert,titleError,errorMessage,alertButtons)        
         }
       }
     } catch (error) {
-      
       console.log(error);
-      // yield delay(200)
-      // const alertButtons =[
-      //       {text: 'Aceptar', style:'default'},
-      //   ]
-      // const titleError ="Inténtalo de nuevo"
-      // const errorMessage="Falló la conexión con el servidor."
-        
-    
-      // yield call(Alert.alert,titleError,errorMessage,alertButtons)
+      yield AsyncStorage.removeItem('auth');
+      yield put(actions.logout());
+      yield put(actions.failTokenRefresh('Falló la conexión'));    
     }
   }
 
@@ -150,3 +139,52 @@ import API_BASE_URL from './apibaseurl';
       userInformationRequest,
     );
   }
+  
+function* refreshToken(action) {
+  const expiration = yield select(selectors.getAuthExpiration);
+  const now =  parseInt(new Date().getTime() / 1000);
+  if (expiration - now < (TOKEN_LIFE_TIME/2)) {
+    try {
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/token-refresh/`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ token }),
+          headers:{
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        const jResponse = yield response.json();
+        yield put(actions.completeTokenRefresh(jResponse.token));
+      } else {
+        yield AsyncStorage.removeItem('auth');
+        yield put(actions.logout());
+        const { non_field_errors } = yield response.json();
+        yield put(actions.failTokenRefresh(non_field_errors[0]));
+        yield delay(200);
+        const alertButtons =[
+          {text: 'Aceptar', style:'default'},
+        ]
+        const titleError ="Estuviste desconectado por mucho tiempo"
+        const errorMessage="Se venció la sesión de tu usuario."
+        yield call(Alert.alert,titleError,errorMessage,alertButtons)   
+      }
+    } catch (error) {
+      yield AsyncStorage.removeItem('auth');
+      yield put(actions.logout());
+      yield put(actions.failTokenRefresh('Falló la conexión'));
+    }
+  }
+}
+
+export function* watchRefreshTokenStarted() {
+  yield takeEvery(
+    types.TOKEN_REFRESH_STARTED,
+    refreshToken,
+  );
+}

@@ -2,10 +2,11 @@ import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
-import DrawerScreen from '../HomeDrawerNavigation'
-import BottomNavigationScreen from '../HomeBottomNavigation'
 import { CommonActions } from '@react-navigation/native';
 
+import DrawerScreen from '../HomeDrawerNavigation'
+import BottomNavigationScreen from '../HomeBottomNavigation'
+import TokenRefresh from '../../TokenRefresh'
 
 const DrawerR = createDrawerNavigator();
 
@@ -22,9 +23,12 @@ function RootNavigator({navigation,isAuthenticated}) {
     );
   }
   return (
-    <DrawerR.Navigator drawerContent={() => <DrawerScreen navigation={navigation}  />}>
-      <DrawerR.Screen name="Main" component={BottomNavigationScreen} />
-    </DrawerR.Navigator>
+    <React.Fragment>
+      <TokenRefresh reviewTime={10000} />
+      <DrawerR.Navigator drawerContent={() => <DrawerScreen navigation={navigation}  />}>
+        <DrawerR.Screen name="Main" component={BottomNavigationScreen} />
+      </DrawerR.Navigator>
+    </React.Fragment>
   );
 };
 

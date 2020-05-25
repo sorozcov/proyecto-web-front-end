@@ -1,5 +1,5 @@
 import { fork, all,spawn } from 'redux-saga/effects';
-import { watchLoginStarted,watchUserInformationRequest } from './auth';
+import { watchLoginStarted,watchUserInformationRequest, watchRefreshTokenStarted } from './auth';
 import { watchSignUpStarted } from './signUp';
 import { watchAddTweet,watchRemoveTweet,watchTweetsHomeFetch } from './tweets';
 import { watchAlertChannel } from 'redux-saga-rn-alert';
@@ -10,6 +10,7 @@ function* mainSaga() {
   yield all([
     fork(watchLoginStarted),
     fork(watchUserInformationRequest),
+    fork(watchRefreshTokenStarted),
     fork(watchSignUpStarted),
     fork(watchTweetsHomeFetch),
     fork(watchAddTweet),
