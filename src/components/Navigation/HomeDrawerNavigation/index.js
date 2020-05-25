@@ -4,7 +4,6 @@ import { AsyncStorage } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import Constants from 'expo-constants';
 import { CommonActions } from '@react-navigation/native';
 import { connect } from 'react-redux';
 

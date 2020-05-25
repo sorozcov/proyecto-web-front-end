@@ -20,11 +20,13 @@ function* fetchTweets(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
     const userId = yield select(selectors.getAuthUserID)
+    console.log("Fetch Tweets")
+   
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/user/${userId}/followingTweets/`,
+        `${API_BASE_URL}/users/${userId}/followingTweets/`,
         {
           method: 'GET',
           headers:{
@@ -33,14 +35,15 @@ function* fetchTweets(action) {
           },
         }
       );
-
+     
       if (response.status <= 300) {
         const jsonResult = yield response.json();
+        
         const {
           entities: { tweets },
           result,
         } = normalize(jsonResult, schemas.tweets);
-
+       
         yield put(
           actions.completeFetchingTweetsHome(
             tweets,

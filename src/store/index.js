@@ -26,7 +26,7 @@ export const configureStore = () => {
     reducer,
     applyMiddleware(sagaMiddleware),
   );
-
+  const unsubscribe = store.subscribe(() => console.log(store.getState()))
   //const persistor = persistStore(store);
 
   sagaMiddleware.run(mainSaga);

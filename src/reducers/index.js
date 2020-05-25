@@ -48,6 +48,6 @@ export const getSigningUpError = state => signUpSelectors.getSigningUpError(stat
 
 //Tweets Selectors
 export const getTweet = (state, id) => tweetsSelector.getTweet(state.tweets,id);
-export const getTweets = state => tweetsSelector.getTweet(state.tweets);
+export const getTweets = state => tweetsSelector.getTweets(state.tweets);
 export const isFetchingTweets = state => tweetsSelector.isFetchingTweets(state.tweets);
 export const getFetchingTweetsError = state => tweetsSelector.getFetchingTweetsError(state.tweets);

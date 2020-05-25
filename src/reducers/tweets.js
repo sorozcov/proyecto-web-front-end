@@ -7,7 +7,7 @@ const byId = (state = {}, action) => {
   switch(action.type) {
     case types.TWEETS_HOME_FETCH_COMPLETED: {
       const { entities, order } = action.payload;
-      const newState = { ...state };
+      const newState = {  };
       order.forEach(id => {
         newState[id] = {
           ...entities[id],
@@ -61,7 +61,7 @@ const byId = (state = {}, action) => {
 const order = (state = [], action) => {
   switch(action.type) {
     case types.TWEETS_HOME_FETCH_COMPLETED: {
-      return [...state, ...action.payload.order];
+      return [...action.payload.order];
     }
     case types.TWEET_ADD_STARTED: {
       return [...state, action.payload.id];
