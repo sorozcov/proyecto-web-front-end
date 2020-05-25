@@ -2,11 +2,13 @@ import React,{useEffect} from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Image } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 import Button from '../General/Button';
 import TextInput from '../General/TextInput'
 import ModalLoading from '../General/ModalLoading';
 import * as selectors from '../../reducers';
-import * as AuthActions from '../../actions/auth'
+import * as AuthActions from '../../actions/auth';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CommonActions } from '@react-navigation/native';
@@ -33,7 +35,7 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
 
   return (
     <View style={styles.container}>
-      <View style={{flex:0.02}}/>
+      <View style={{height:hp('2%')}}/>
       <View style={styles.imageContainer}>
           <Image
             source={ require('../../assets/images/twitter.png') }
@@ -41,7 +43,7 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
           />
       </View>
       
-      <View style={{flex:0.2}}/>
+      <View style={{height:hp('18%')}}/>
      
       <Field name={'username'} component={TextInput} label='Username' placeholder='Ingresa tu usuario' keyboardType='default' />
       <Field name={'password'} component={TextInput} label='Contraseña' placeholder='Ingresa tu contraseña' secureTextEntry={true}/>
@@ -52,9 +54,9 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
        onPress={handleSubmit(login)}/>
       
     
-      <View style={{flex:0.4}}/>
-      <ModalLoading isLoading={isLoading}/>
-    </View>
+      <View style={{height:hp('10%')}}/>
+        <ModalLoading isLoading={isLoading}/>
+      </View>
   );
 }
 
@@ -98,7 +100,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: hp('100%'),
     backgroundColor: '#fff',
    
   },
@@ -106,16 +108,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logoImage: {
-    width: 60,
-    height: 60,
+    width: wp('20%'),
+    height: hp('9%'),
     resizeMode: 'contain',
-  },
-  textStyle:{
-    paddingLeft:'10%',
-    paddingRight:'5%',
-    fontSize:16,
-    paddingTop:'4%',
-    
   },
 
 });

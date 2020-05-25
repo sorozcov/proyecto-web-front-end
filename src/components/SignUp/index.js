@@ -2,6 +2,8 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 import Button from '../General/Button';
 import TextInput from '../General/TextInput'
 import ModalLoading from '../General/ModalLoading';
@@ -36,7 +38,7 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
    style={styles.container}>
     <ScrollView style={styles.container} contentContainerStyle={styles.container}>
       
-      <View style={{flex:0.02}}/>
+      <View style={{height:hp('2%')}}/>
       <View style={styles.imageContainer}>
           <Image
             source={ require('../../assets/images/twitter.png') }
@@ -44,7 +46,7 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
           />
       </View>
       
-      <View style={{flex:0.02}}/>
+      <View style={{height:hp('7%')}}/>
      
       <Field name={'username'} component={TextInput} label='Usuario' placeholder='Ingresa un nombre de usuario' keyboardType='default' />
       <Field name={'email'} component={TextInput} label='Correo' placeholder='Ingresa tu correo' keyboardType='email-address' />
@@ -117,7 +119,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: hp('100%'),
     backgroundColor: '#fff',
    
   },
@@ -125,8 +127,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logoImage: {
-    width: 60,
-    height: 60,
+    width: wp('20%'),
+    height: hp('9%'),
     resizeMode: 'contain',
   },
   textStyle:{

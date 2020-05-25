@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View,TextInput,Text } from 'react-native';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 export default function MyTextInput(props) {
   const { input, meta, ...inputProps } = props;
 
   return (
-    <View style={{flex:(meta.touched && meta.error)?0.15:0.10,marginTop:5,marginBottom:5,...inputProps.containerStyle}}>
+    <View style={{height:(meta.touched && meta.error) ? hp('10%') : hp('7.5%'),marginTop:5,marginBottom:5,...inputProps.containerStyle}}>
       
       <TextInput
         onChangeText={input.onChange}
@@ -27,7 +27,7 @@ export default function MyTextInput(props) {
         style={{...styles.inputContainerStyle,...inputProps.style}}
         />
         
-      {meta.touched && (meta.error && <View style={{flex:0.5}}><Text style={styles.textError}>{meta.error}</Text></View>)}
+      {meta.touched && (meta.error && <View style={{height:hp('7%')}}><Text style={styles.textError}>{meta.error}</Text></View>)}
         
     </View>
   );
@@ -36,18 +36,18 @@ export default function MyTextInput(props) {
 
 const styles = StyleSheet.create({
   inputContainerStyle: { 
-    flex:1, 
+    height:hp('7.5%'), 
     borderColor: 'gray', 
     borderWidth: 1,
     borderRadius:10,
-    marginLeft:'5%',
-    marginRight:'5%',
-    paddingLeft:'4%',
-    fontSize:17 },
+    marginLeft: wp('5%'),
+    marginRight: wp('5%'),
+    paddingLeft: wp('4%'),
+    fontSize:wp('4.5%') 
+  },
   textError: {
     color: 'red',
-    paddingLeft: 30,
-    paddingRight: 20,
-    paddingTop:5
+    paddingLeft: hp('4%'),
+    paddingTop: hp('0.1%')
   },
 });
