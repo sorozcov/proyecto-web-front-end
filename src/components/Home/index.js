@@ -1,66 +1,91 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
+import React,{useEffect} from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import { StyleSheet, View, Image } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import FAB from '../General/FAB';
 import Button from '../General/Button';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import TextInput from '../General/TextInput'
+import ModalLoading from '../General/ModalLoading';
+import * as selectors from '../../reducers';
+import * as AuthActions from '../../actions/auth';
 
-export default function Login({navigation}) {
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommonActions } from '@react-navigation/native';
+
+
+
+function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user,isAuthenticated}) {
+  const login = values => {
+    console.log('Login Form', values)
+    startLogin(navigation,values)
+  }
+  
+
 
   return (
     <View style={styles.container}>
-      <View style={{flex:0.02}}/>
-      <View style={styles.imageContainer}>
-          <Image
-            source={ require('../../assets/images/twitter.png') }
-            style={styles.logoImage}
+     
+      
+        <ModalLoading isLoading={isLoading}/>
+        <FAB 
+          icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
           />
-      </View>
-      <View style={{flex:0.3}}/>
-      <Text style={{...styles.textStyle,fontWeight:'bold',fontSize:30}}>
-        Home  
-      </Text>
-      <Button label={'Crear una cuenta'}  onPress={()=>navigation.navigate('SignUp')}
-      // icon={<MaterialCommunityIcons
-      //         name="account"
-      //         color={'white'}
-      //         size={30}
-      //         style={{paddingRight:5}}
-      //       />}
-      />
-    
-      <View style={{flex:0.4}}/>
-      <View style={{flexDirection:'row'}}>
-          <Text style={{...styles.textStyle,color:'gray',paddingRight:'2%'}}>
-            ¿Ya tienes una cuenta?  
-          </Text>
-          <TouchableOpacity style={{...styles.textStyle,paddingLeft:0}} onPress={() => navigation.navigate('Login') }> 
-            <Text style={{ fontSize:16, color: '#00ACEE', }} > 
-              Iniciar Sesión
-            </Text>
-          </TouchableOpacity>
-      </View>
     </View>
   );
 }
 
+export default connect(
+  state => ({
+    isLoading: selectors.getIsAuthenticating(state),
+    isAuthenticated: selectors.isAuthenticated(state),
+    user: selectors.getAuthUser(state),
+    token:selectors.getAuthToken(state),
+   
+  }),
+  dispatch => ({
+    startLogin(navigation,values) {
+      dispatch(AuthActions.startLogin(values));
+      //navigation.replace('Login');
+    },
+  }),
+)(reduxForm({ 
+  form: 'login',
+  enableReinitialize : true,
+  validate: (values) => {
+    const errors = {};
+
+    errors.username = !values.username
+      ? 'Este campo es obligatorio'
+      : undefined;
+      errors.password = !values.password
+        ? 'Este campo es obligatorio'
+        : undefined;
+      // errors.passwordConfirm = !values.passwordConfirm
+      //   ? 'Debe confirmar su contraseña'
+      //   : values.passwordConfirm !== values.password 
+      //   ? 'La contraseñas ingresadas no coinciden'
+      //   : undefined;
+
+
+    return errors;
+  }
+})(Login));
+
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    height: hp('100%'),
+    
    
   },
   imageContainer: {
     alignItems: 'center'
   },
   logoImage: {
-    width: 60,
-    height: 60,
+    width: wp('20%'),
+    height: hp('9%'),
     resizeMode: 'contain',
   },
-  textStyle:{
-    paddingLeft:'10%',
-    paddingRight:'5%',
-    fontSize:16,
-    paddingTop:'4%',
-    
-  },
+
 });

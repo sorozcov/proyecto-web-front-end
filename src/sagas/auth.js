@@ -88,7 +88,7 @@ import API_BASE_URL from './apibaseurl';
       if (isAuth) {
        
         const token = yield select(selectors.getAuthToken);
-        console.log(token);
+        
         const response = yield call(
           fetch,
           `${API_BASE_URL}/users/${userId}/`,

@@ -1,19 +1,23 @@
 import * as React from 'react';
 import { Text, Platform,Image,View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import FAB from '../../General/FAB';
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
-import Constants from 'expo-constants';
+import HomeStack from '../HomeStackNavigator';
+
+
+
 
 
 const Tab = createBottomTabNavigator();
 
 function componentExample(){
-  return(<View style={{flex:1}}>
-      <Text>Hola</Text>
+  return(<View style={{height:hp('100%')}}>
+      
   </View>)
 }
 
@@ -22,7 +26,7 @@ function HomeBottomNavigation({navigation}) {
 
   return (
       <Tab.Navigator
-        initialRouteName="Explorar"
+        initialRouteName="Home"
         tabBarOptions={{
           keyboardHidesTabBar:true,
           activeBackgroundColor:"#f0edf6",
@@ -34,7 +38,7 @@ function HomeBottomNavigation({navigation}) {
         }}
         >
        
-        <Tab.Screen name="Home"  component={componentExample}
+        <Tab.Screen name="Home"  component={HomeStack}
           options={{            
             tabBarLabel: '',
             
