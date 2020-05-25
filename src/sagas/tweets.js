@@ -9,7 +9,7 @@ import {
 } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
-import API_BASE_URL  from './apibaseurl';
+import API_BASE_URL  from './settings/apibaseurl';
 import * as selectors from '../reducers';
 import * as actions from '../actions/tweets';
 import * as types from '../types/tweets';

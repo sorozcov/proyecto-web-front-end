@@ -28,3 +28,17 @@ export const authenticationUserInformationCompleted= (user) => ({
   type: types.AUTHENTICATION_USER_INFORMATION_COMPLETED,
   payload: { user },
 });
+
+export const startTokenRefresh = () => ({
+  type: types.TOKEN_REFRESH_STARTED,
+});
+
+export const completeTokenRefresh = newToken => ({
+  type: types.TOKEN_REFRESH_COMPLETED,
+  payload: { newToken },
+});
+
+export const failTokenRefresh = error => ({
+  type: types.TOKEN_REFRESH_FAILED,
+  payload: { error },
+});
