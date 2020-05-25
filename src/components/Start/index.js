@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+
 import Button from '../General/Button';
 import * as selectors from '../../reducers';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,15 +15,15 @@ function Start({navigation,isAuthenticated}) {
   }
   return (
     <View style={styles.container}>
-      <View style={{flex:0.02}}/>
+      <View style={{height:hp('2%')}}/>
       <View style={styles.imageContainer}>
           <Image
             source={ require('../../assets/images/twitter.png') }
             style={styles.logoImage}
           />
       </View>
-      <View style={{flex:0.3}}/>
-      <Text style={{...styles.textStyle,fontWeight:'bold',fontSize:30}}>
+      <View style={{height:hp('16%')}}/>
+      <Text style={{...styles.textStyle,fontWeight:'bold',fontSize:wp('8.5%')}}>
         Entérate de lo que está pasando en el mundo en este momento.  
       </Text>
       <Button label={'Crear una cuenta'}  onPress={()=>navigation.navigate('SignUp')}
@@ -32,12 +35,12 @@ function Start({navigation,isAuthenticated}) {
       //       />}
       />
     
-      <View style={{flex:0.4}}/>
+      <View style={{height:hp('24%')}}/>
       <View style={{flexDirection:'row'}}>
-          <Text style={{...styles.textStyle,color:'gray',paddingRight:'2%'}}>
+          <Text style={{...styles.textStyle,color:'gray',paddingRight:wp('2%')}}>
             ¿Ya tienes una cuenta?  
           </Text>
-          <TouchableOpacity style={{...styles.textStyle,paddingLeft:0}} onPress={() => navigation.navigate('Login') }> 
+          <TouchableOpacity style={{...styles.textStyle,paddingLeft:wp('0%')}} onPress={() => navigation.navigate('Login') }> 
             <Text style={{ fontSize:16, color: '#00ACEE', }} > 
               Iniciar Sesión
             </Text>
@@ -64,7 +67,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: hp('100%'),
     backgroundColor: '#fff',
    
   },
@@ -72,15 +75,15 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logoImage: {
-    width: 60,
-    height: 60,
+    width: wp('20%'),
+    height: hp('9%'),
     resizeMode: 'contain',
   },
   textStyle:{
-    paddingLeft:'10%',
-    paddingRight:'5%',
-    fontSize:16,
-    paddingTop:'4%',
+    paddingLeft:wp('10%'),
+    paddingRight:wp('5%'),
+    fontSize:wp('4.4%'),
+    paddingTop:wp('4%'),
     
   },
 });
