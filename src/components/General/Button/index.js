@@ -24,7 +24,7 @@ export default function Button({buttonStyle={},labelStyle={},label="",onPress=nu
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: hp('7%'),
     backgroundColor: '#fff',
    
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   labelStyle:{
       color:'white',
-      fontSize:20,
-      fontWeight:'500',
+      fontWeight:'bold',
+      fontSize:wp('5.8%'),
   }
 });
