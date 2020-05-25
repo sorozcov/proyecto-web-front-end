@@ -2,120 +2,66 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Platform,Image } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Constants from 'expo-constants';
+import { CommonActions } from '@react-navigation/native';
+
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import * as actionsAuth from '../../../actions/auth'
-import Constants from 'expo-constants';
-import { CommonActions } from '@react-navigation/native';
 
 
 function DrawerScreen({navigation,user,logout}) {
  
   return (
     <DrawerContentScrollView >
-    <View
-      style={
-        styles.drawerContent
-      }
-    >
-   
-      <View style={styles.userInfoSection}>
+      <View style={styles.drawerContent}>
+        <View style={styles.userInfoSection}>
 
-       
-        {/* <Title style={styles.title}>{user.name + " "+ user.lastName}</Title>
-        <Caption style={styles.caption}>{user.email}</Caption>
-        */}
-      </View>
-
-      <DrawerItem
-          icon={({ color="red", size=20 }) => (
-            <MaterialCommunityIcons
-              name="account"
-              color={color}
-              size={size}
-            />
-          )}
-          label="Perfil"
-          labelStyle={{ fontSize: 16}}
-          // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
-        />
-        <DrawerItem
-          icon={({ color="red", size=20 }) => (
-            <MaterialCommunityIcons
-              name="account"
-              color={color}
-              size={size}
-            />
-          )}
-          label="Cerrar sesión"
-          labelStyle={{ fontSize: 16, }}
-          onPress={() => logout(navigation)}
-        />
         
+          {/* <Title style={styles.title}>{user.name + " "+ user.lastName}</Title>
+          <Caption style={styles.caption}>{user.email}</Caption>
+          */}
+        </View>
 
-    
-     
-    </View>
-  </DrawerContentScrollView>
+        <DrawerItem
+            icon={({ color="red", size=20 }) => (
+              <MaterialCommunityIcons
+                name="account"
+                color={'gray'}
+                size={wp('7%')}
+              />
+            )}
+            label="Perfil"
+            labelStyle={{ fontSize: wp('4.5%')}}
+            // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
+          />
+          <DrawerItem
+            icon={() => (
+              <MaterialCommunityIcons
+                name="account"
+                color={'gray'}
+                size={wp('7%')}
+              />
+            )}
+            label="Cerrar sesión"
+            labelStyle={{ fontSize: wp('4.5%'), }}
+            onPress={() => logout(navigation)}
+          /> 
+      </View>
+    </DrawerContentScrollView>
   );
 }
 
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-   
-  },
-  topContainer: {
-    flex: 0.8,
-  },
-  bottomContainer: {
-    position: 'absolute',
-    bottom: 50,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-  },
-  inputContainerStyle: {
-    margin: 8,
-  },
-  imageContainer: {
-    alignItems: 'center'
-  },
-  logoImage: {
-    width: 100,
-    height: 100,
-    marginTop:40,
-    resizeMode: 'contain',
-    alignSelf:'center',
-  },
-  inputContainerStyle: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 10,
-  },
-  textStyle:{
-    textAlign: 'center', 
-    
-    fontSize:16
-  },
   drawerContent: {
-    flex: 1,
-    flexDirection:'column',
+    height: hp('100%'),
   },
   userInfoSection: {
     paddingLeft: 20,
     backgroundColor:'black',
-    marginBottom:10,
-    paddingBottom:10,
-    paddingTop:10,
-  },
-  checkpointInfo: {
-    paddingLeft: 20,
-    backgroundColor:'red',
     marginBottom:10,
     paddingBottom:10,
     paddingTop:10,
