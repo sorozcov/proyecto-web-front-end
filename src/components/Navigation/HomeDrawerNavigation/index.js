@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
-import AuthActions from '../../../actions/auth'
+import * as actionsAuth from '../../../actions/auth'
 import Constants from 'expo-constants';
 
 
@@ -169,7 +169,7 @@ export default connect(
   }),
   dispatch => ({
     logout(navigation) {
-      dispatch(AuthActions.logout());
+      dispatch(actionsAuth.logout());
       navigation.navigate('Start');
     },
   }),

@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import auth, * as authSelectors from './auth';
-import signUp, * as signUpSelectors from './signUp';
 import { reducer as formReducer } from 'redux-form'
 import { alertReducer } from 'redux-saga-rn-alert';
+
 import * as types from '../types/auth';
+import auth, * as authSelectors from './auth';
+import signUp, * as signUpSelectors from './signUp';
+import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
 
 const reducer = combineReducers({
   auth,
@@ -13,8 +15,15 @@ const reducer = combineReducers({
 });
 
 
+const rootReducer = (state, action) => {
+  if (action.type === AUTHENTICATION_IDENTITY_CLEARED) {
+    state = undefined
+  }
 
-export default reducer;
+  return reducer(state, action)
+}
+
+export default rootReducer;
 
 
 
