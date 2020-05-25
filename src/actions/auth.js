@@ -19,3 +19,12 @@ export const failLogin = error => ({
 export const logout = () => ({
   type: types.AUTHENTICATION_IDENTITY_CLEARED,
 });
+
+export const authenticationUserInformationStarted = () => ({
+  type: types.AUTHENTICATION_USER_INFORMATION_STARTED,
+});
+
+export const authenticationUserInformationCompleted= (user) => ({
+  type: types.AUTHENTICATION_USER_INFORMATION_COMPLETED,
+  payload: { user },
+});

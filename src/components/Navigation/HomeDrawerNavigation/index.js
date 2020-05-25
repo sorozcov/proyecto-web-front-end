@@ -5,12 +5,12 @@ import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import * as actionsAuth from '../../../actions/auth'
-import Constants from 'expo-constants';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { CommonActions } from '@react-navigation/native';
 
 
-function DrawerScreen({navigation,user,logout}) {
- 
+function DrawerScreen({navigation,user,logout,userInformation}) {
+ console.log(userInformation);
   return (
     <DrawerContentScrollView >
     <View
@@ -21,32 +21,39 @@ function DrawerScreen({navigation,user,logout}) {
    
       <View style={styles.userInfoSection}>
 
-       
-        {/* <Title style={styles.title}>{user.name + " "+ user.lastName}</Title>
-        <Caption style={styles.caption}>{user.email}</Caption>
-        */}
+        <Image style={{borderRadius:'50%',height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/user.jpg')}></Image>
+        <Text style={styles.title}>{userInformation.first_name + " "+ userInformation.last_name}</Text>
+        <Text style={styles.caption}>@{userInformation.username}</Text>
+        <View style={{flexDirection:'row',flex:1,paddingTop:10}}>
+          <Text style={{...styles.caption,fontWeight:'bold'}}>{userInformation.following} </Text>
+          <Text style={styles.caption}>Siguiendo </Text>
+          <Text style={{...styles.caption,fontWeight:'bold'}}>{userInformation.following} </Text>
+          <Text style={styles.caption}>Seguidores </Text>
+        </View>
       </View>
 
       <DrawerItem
-          icon={({ color="red", size=20 }) => (
+          icon={({ color, size}) => (
             <MaterialCommunityIcons
-              name="account"
+              name="account-outline"
               color={color}
               size={size}
             />
           )}
+          style={{paddingTop:0,marginTop:0}}
           label="Perfil"
           labelStyle={{ fontSize: 16}}
           // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
         />
         <DrawerItem
-          icon={({ color="red", size=20 }) => (
+          icon={({ color, size }) => (
             <MaterialCommunityIcons
-              name="account"
+              name="logout"
               color={color}
               size={size}
             />
           )}
+          style={{paddingTop:0,marginTop:0,}}
           label="Cerrar sesión"
           labelStyle={{ fontSize: 16, }}
           onPress={() => logout(navigation)}
@@ -64,13 +71,13 @@ function DrawerScreen({navigation,user,logout}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
+    height: hp('100%'),
+   
     backgroundColor: '#fff',
    
   },
   topContainer: {
-    flex: 0.8,
+    height: hp('100%'),
   },
   bottomContainer: {
     position: 'absolute',
@@ -103,68 +110,39 @@ const styles = StyleSheet.create({
     fontSize:16
   },
   drawerContent: {
-    flex: 1,
-    flexDirection:'column',
+    height: hp('100%'),
   },
   userInfoSection: {
     paddingLeft: 20,
-    backgroundColor:'black',
+    backgroundColor:'white',
     marginBottom:10,
     paddingBottom:10,
     paddingTop:10,
+    height: hp('20%'),
   },
-  checkpointInfo: {
-    paddingLeft: 20,
-    backgroundColor:'red',
-    marginBottom:10,
-    paddingBottom:10,
-    paddingTop:10,
-  },
+
   title: {
     marginTop: 20,
     fontWeight: 'bold',
+    textTransform:'uppercase',
    
-    color:'white'
+    color:'black'
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
+    paddingTop:5,
   
-    color:'white'
+    color:'gray'
   },
-  restaurantName: {
-    fontSize: 14,
-    lineHeight: 14,
-   
-    color:'black',
 
-  },
-  row: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  section: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 15,
-  },
-  
-  drawerSection: {
-    marginTop: 15,
-  },
-  preference: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
 });
 
 
 export default connect(
   state => ({
     user: selectors.getAuthUser(state),
+    userInformation: selectors.getAuthUserInformation(state),
   }),
   dispatch => ({
     logout(navigation) {

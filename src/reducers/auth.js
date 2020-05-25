@@ -43,6 +43,8 @@ const user = (state = null, action) => {
   return state;
 };
 
+
+
 const isAuthenticating = (state = false, action) => {
   switch(action.type) {
     case types.AUTHENTICATION_STARTED: {
@@ -75,9 +77,23 @@ const error = (state = null, action) => {
   return state;
 };
 
+const userInformation = (state = null, action) => {
+  switch(action.type) {
+    case types.AUTHENTICATION_USER_INFORMATION_STARTED: {
+      return null;
+    }
+    case types.AUTHENTICATION_USER_INFORMATION_COMPLETED: {
+      
+      return action.payload.user;
+    }
+  }
+  return state;
+};
+
 const auth = combineReducers({
   token,
   user,
+  userInformation,
   isAuthenticating,
   error,
 });
@@ -93,3 +109,4 @@ export const getAuthUserID = state => state.user ? state.user.user_id : null;
 export const getAuthExpiration = state => state.user ? state.user.exp : null;
 export const getAuthUsername = state => state.user ? state.user.username : null;
 export const getAuthUser = state => state.user ? state.user : null;
+export const getAuthUserInformation = state => state.userInformation ? state.userInformation : null;

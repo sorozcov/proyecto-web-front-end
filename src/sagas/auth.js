@@ -29,10 +29,11 @@ import API_BASE_URL from './apibaseurl';
           },
         },
       );
-      console.log(response.status);
+      
       if (response.status <= 300) {
         const { token } = yield response.json();
         yield put(actions.completeLogin(token));
+        yield put(actions.authenticationUserInformationStarted());
       } else {
         
         
@@ -74,3 +75,72 @@ import API_BASE_URL from './apibaseurl';
     );
   }
   
+
+
+
+  function* userInformationRequest(action) {
+    try {
+      yield delay(100)
+      const isAuth = yield select(selectors.isAuthenticated);
+      const userId = yield select(selectors.getAuthUserID);
+      
+      if (isAuth) {
+        const token = yield select(selectors.getAuthToken);
+        console.log(token);
+        const response = yield call(
+          fetch,
+          `${API_BASE_URL}/users/${userId}/`,
+          {
+            method: 'GET',
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': `JWT ${token}`,
+            },
+          }
+        );
+      
+      
+      if (response.status <= 300) {
+        const jsonResultUser = yield response.json();
+        yield put(actions.authenticationUserInformationCompleted(jsonResultUser));
+        
+      } else {
+        
+        
+       
+        
+        
+        // const alertButtons =[
+        //     {text: 'Aceptar', style:'default'},
+        // ]
+        // const titleError ="Inténtalo de nuevo"
+        // const errorMessage='El nombre de usuario y contraseña introducidos no coinciden con nuestros registros. Revísalos e inténtalo de nuevo.';
+    
+        // yield call(Alert.alert,titleError,errorMessage,alertButtons)
+     
+        
+        
+        }
+      }
+    } catch (error) {
+      
+      console.log(error);
+      // yield delay(200)
+      // const alertButtons =[
+      //       {text: 'Aceptar', style:'default'},
+      //   ]
+      // const titleError ="Inténtalo de nuevo"
+      // const errorMessage="Falló la conexión con el servidor."
+        
+    
+      // yield call(Alert.alert,titleError,errorMessage,alertButtons)
+    }
+  }
+
+
+  export function* watchUserInformationRequest() {
+    yield takeEvery(
+      types.AUTHENTICATION_USER_INFORMATION_STARTED,
+      userInformationRequest,
+    );
+  }
