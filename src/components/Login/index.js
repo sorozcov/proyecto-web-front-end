@@ -18,7 +18,7 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
   }
   
   if(isAuthenticated){
-    navigation.replace("Home")
+    navigation.navigate("Home")
   }
 
   return (
@@ -33,7 +33,7 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
       
       <View style={{flex:0.2}}/>
      
-      <Field name={'username'} component={TextInput} label='Correo' placeholder='Ingresa tu correo' keyboardType='email-address' />
+      <Field name={'username'} component={TextInput} label='Username' placeholder='Ingresa tu usuario' keyboardType='default' />
       <Field name={'password'} component={TextInput} label='Contraseña' placeholder='Ingresa tu contraseña' secureTextEntry={true}/>
      
      

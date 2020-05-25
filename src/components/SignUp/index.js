@@ -17,7 +17,7 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
   }
   
   if(isAuthenticated){
-    navigation.replace("Home")
+    navigation.navigate("Home")
   }
 
   return (

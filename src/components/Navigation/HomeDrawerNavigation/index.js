@@ -169,7 +169,7 @@ export default connect(
   }),
   dispatch => ({
     logout(navigation) {
-      dispatch(AuthActions.logoutUser());
+      dispatch(AuthActions.logout());
       navigation.navigate('Start');
     },
   }),
