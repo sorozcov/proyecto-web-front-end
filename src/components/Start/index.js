@@ -26,10 +26,7 @@ function Start({navigation,isAuthenticated}) {
     <View style={styles.container}>
       <View style={{height:hp('2%')}}/>
       <View style={styles.imageContainer}>
-          <Image
-            source={ require('../../assets/images/twitter.png') }
-            style={styles.logoImage}
-          />
+          <MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={80}/>
       </View>
       <View style={{height:hp('16%')}}/>
       <Text style={{...styles.textStyle,fontWeight:'bold',fontSize:wp('8.5%')}}>

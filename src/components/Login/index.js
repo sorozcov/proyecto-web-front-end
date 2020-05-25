@@ -37,13 +37,10 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
     <View style={styles.container}>
       <View style={{height:hp('2%')}}/>
       <View style={styles.imageContainer}>
-          <Image
-            source={ require('../../assets/images/twitter.png') }
-            style={styles.logoImage}
-          />
+          <MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={80}/>
       </View>
       
-      <View style={{height:hp('18%')}}/>
+      <View style={{height:hp('14%')}}/>
      
       <Field name={'username'} component={TextInput} label='Username' placeholder='Ingresa tu usuario' keyboardType='default' />
       <Field name={'password'} component={TextInput} label='Contraseña' placeholder='Ingresa tu contraseña' secureTextEntry={true}/>

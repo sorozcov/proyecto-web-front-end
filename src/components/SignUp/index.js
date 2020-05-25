@@ -40,10 +40,7 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
       
       <View style={{height:hp('2%')}}/>
       <View style={styles.imageContainer}>
-          <Image
-            source={ require('../../assets/images/twitter.png') }
-            style={styles.logoImage}
-          />
+          <MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={80}/>
       </View>
       
       <View style={{height:hp('7%')}}/>
