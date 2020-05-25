@@ -2,6 +2,10 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Platform,Image } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Constants from 'expo-constants';
+import { CommonActions } from '@react-navigation/native';
+
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import * as actionsAuth from '../../../actions/auth'
@@ -59,11 +63,35 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
           onPress={() => logout(navigation)}
         />
         
+          
+       
 
-    
-     
-    </View>
-  </DrawerContentScrollView>
+        <DrawerItem
+            icon={({ color="red", size=20 }) => (
+              <MaterialCommunityIcons
+                name="account"
+                color={'gray'}
+                size={wp('7%')}
+              />
+            )}
+            label="Perfil"
+            labelStyle={{ fontSize: wp('4.5%')}}
+            // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
+          />
+          <DrawerItem
+            icon={() => (
+              <MaterialCommunityIcons
+                name="account"
+                color={'gray'}
+                size={wp('7%')}
+              />
+            )}
+            label="Cerrar sesión"
+            labelStyle={{ fontSize: wp('4.5%'), }}
+            onPress={() => logout(navigation)}
+          /> 
+      </View>
+    </DrawerContentScrollView>
   );
 }
 
