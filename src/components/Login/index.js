@@ -1,11 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import Button from '../General/Button';
+import React,{useEffect} from 'react';
+import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
+import { StyleSheet, View, Image } from 'react-native';
+import Button from '../General/Button';
+import TextInput from '../General/TextInput'
+import ModalLoading from '../General/ModalLoading';
+import * as selectors from '../../reducers';
 import * as AuthActions from '../../actions/auth'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function Login({navigation}) {
+
+function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user,isAuthenticated}) {
+  const login = values => {
+    console.log('Login Form', values)
+    startLogin(navigation,values)
+  }
+  console.log(isAuthenticated);
+  if(isAuthenticated){
+    navigation.navigate("Home")
+  }
 
   return (
     <View style={styles.container}>
@@ -17,35 +30,59 @@ function Login({navigation}) {
           />
       </View>
       
-      <View style={{flex:0.3}}/>
+      <View style={{flex:0.2}}/>
+     
+      <Field name={'username'} component={TextInput} label='Correo' placeholder='Ingresa tu correo' keyboardType='email-address' />
+      <Field name={'password'} component={TextInput} label='Contraseña' placeholder='Ingresa tu contraseña' secureTextEntry={true}/>
+     
+     
+      <Button label={'Iniciar sesión'} 
+       disabled={!(dirty && valid)}
+       onPress={handleSubmit(login)}/>
       
-      <Button label={'Iniciar sesión'}  onPress={()=>navigation.navigate('Signup')}
-      // icon={<MaterialCommunityIcons
-      //         name="account"
-      //         color={'white'}
-      //         size={30}
-      //         style={{paddingRight:5}}
-      //       />}
-      />
     
       <View style={{flex:0.4}}/>
-      
+      <ModalLoading isLoading={isLoading}/>
     </View>
   );
 }
 
 export default connect(
   state => ({
-
-    //user: selectors.getLoggedUser(state),
+    isLoading: selectors.getIsAuthenticating(state),
+    isAuthenticated: selectors.isAuthenticated(state),
+    user: selectors.getAuthUser(state),
+    token:selectors.getAuthToken(state),
+   
   }),
   dispatch => ({
-    startLogin(navigation) {
-      dispatch(AuthActions.startLogin({}));
+    startLogin(navigation,values) {
+      dispatch(AuthActions.startLogin(values));
       //navigation.replace('Login');
     },
   }),
-)(Login);
+)(reduxForm({ 
+  form: 'login',
+  enableReinitialize : true,
+  validate: (values) => {
+    const errors = {};
+
+    errors.username = !values.username
+      ? 'Este campo es obligatorio'
+      : undefined;
+      errors.password = !values.password
+        ? 'Este campo es obligatorio'
+        : undefined;
+      // errors.passwordConfirm = !values.passwordConfirm
+      //   ? 'Debe confirmar su contraseña'
+      //   : values.passwordConfirm !== values.password 
+      //   ? 'La contraseñas ingresadas no coinciden'
+      //   : undefined;
+
+
+    return errors;
+  }
+})(Login));
 
 
 const styles = StyleSheet.create({
@@ -69,4 +106,5 @@ const styles = StyleSheet.create({
     paddingTop:'4%',
     
   },
+
 });

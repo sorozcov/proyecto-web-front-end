@@ -3,20 +3,21 @@ import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-export default function Button({buttonStyle={},labelStyle={},label="",onPress=null, icon=null}) {
+export default function Button({buttonStyle={},labelStyle={},label="",onPress=null, icon=null,disabled=false}) {
 
   return (
     
       
       
       <TouchableOpacity
-        style={{...styles.buttonStyle,...buttonStyle}}
-        onPress={onPress}>
+        style={(disabled)?{...styles.buttonStyle,...buttonStyle,backgroundColor:'#DADADA'}:{...styles.buttonStyle,...buttonStyle}}
+        onPress={onPress}
+        disabled={disabled}
+      >
+       
         {icon!=null && icon }
         <Text style={{...styles.labelStyle,...labelStyle}}>{label}</Text>
       </TouchableOpacity>
- 
-   
   );
 }
 
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
    
   },
   buttonStyle:{
-   flex:0.1,
+   flex:0.085,
    marginLeft:'5%',
    marginRight:'5%',
    alignItems:'center',

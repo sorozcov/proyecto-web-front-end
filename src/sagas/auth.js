@@ -7,12 +7,13 @@ import {
     delay,
     select,
   } from 'redux-saga/effects';
-  
+
   import * as selectors from '../reducers';
   import * as actions from '../actions/auth';
   import * as types from '../types/auth';
   
 import {API_BASE_URL} from './index';
+import { Alert } from 'react-native';
   
   
   function* login(action) {
@@ -28,18 +29,43 @@ import {API_BASE_URL} from './index';
           },
         },
       );
-  
+      console.log(response.status);
       if (response.status === 200) {
         const { token } = yield response.json();
         yield put(actions.completeLogin(token));
       } else {
-        const { non_field_errors } = yield response.json();
-        yield put(actions.failLogin(non_field_errors[0]));
+        
+        
+       
+        yield put(actions.failLogin('El nombre de usuario y contraseña introducidos no coinciden con nuestros registros. Revísalos e inténtalo de nuevo.'));
+        yield delay(200)
+        const alertButtons =[
+            {text: 'Aceptar', style:'default'},
+        ]
+        const titleError ="Inténtalo de nuevo"
+        const errorMessage='El nombre de usuario y contraseña introducidos no coinciden con nuestros registros. Revísalos e inténtalo de nuevo.';
+    
+        yield call(Alert.alert,titleError,errorMessage,alertButtons)
+     
+        
+        
       }
     } catch (error) {
+      
       yield put(actions.failLogin('Falló la autentitación.'));
+      yield delay(200)
+      const alertButtons =[
+            {text: 'Aceptar', style:'default'},
+        ]
+      const titleError ="Inténtalo de nuevo"
+      const errorMessage="Falló la conexión con el servidor."
+        
+    
+      yield call(Alert.alert,titleError,errorMessage,alertButtons)
     }
   }
+  
+
   
   export function* watchLoginStarted() {
     yield takeEvery(

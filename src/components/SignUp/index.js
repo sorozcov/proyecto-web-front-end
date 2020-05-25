@@ -1,0 +1,135 @@
+import React from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import { StyleSheet, View, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
+import Button from '../General/Button';
+import TextInput from '../General/TextInput'
+import ModalLoading from '../General/ModalLoading';
+import * as selectors from '../../reducers';
+import * as SignUpActions from '../../actions/signUp'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
+function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isAuthenticated,error}) {
+  const signUp = values => {
+    console.log('Login Form', values)
+    startSignUp(navigation,values)
+  }
+  console.log(isAuthenticated);
+  if(isAuthenticated){
+    navigation.navigate("Start")
+  }
+
+  return (
+    
+    <KeyboardAvoidingView
+    behavior={Platform.OS == "ios" ? "padding" : "height"}
+    
+   style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.container}>
+      
+      <View style={{flex:0.02}}/>
+      <View style={styles.imageContainer}>
+          <Image
+            source={ require('../../assets/images/twitter.png') }
+            style={styles.logoImage}
+          />
+      </View>
+      
+      <View style={{flex:0.02}}/>
+     
+      <Field name={'username'} component={TextInput} label='Usuario' placeholder='Ingresa un nombre de usuario' keyboardType='default' />
+      <Field name={'email'} component={TextInput} label='Correo' placeholder='Ingresa tu correo' keyboardType='email-address' />
+      <Field name={'first_name'} component={TextInput} label='Nombre' placeholder='Ingresa tu nombre' keyboardType='default' />
+      <Field name={'last_name'} component={TextInput} label='Apellido' placeholder='Ingresa tu apellido' keyboardType='default' />
+      <Field name={'password'} component={TextInput} label='Contraseña' placeholder='Ingresa tu contraseña' secureTextEntry={true}/>
+      <Field name={'passwordConfirm'} component={TextInput} label='Confirmar Contrase;a' placeholder='Confirmar contraseña' secureTextEntry={true}/>
+      
+      
+      <Button label={'Crear Cuenta'} 
+       disabled={!(dirty && valid)}
+       onPress={handleSubmit(signUp)}/>
+
+    
+    
+      <ModalLoading isLoading={isLoading}/>
+      </ScrollView>
+  
+    </KeyboardAvoidingView>
+    
+  );
+}
+
+export default connect(
+  state => ({
+    isLoading: selectors.getIsSigningUpUser(state),
+    isAuthenticated: selectors.isAuthenticated(state),
+    issue: selectors.getSigningUpError(state),
+   
+  }),
+  dispatch => ({
+    startSignUp(navigation,values) {
+      dispatch(SignUpActions.startSignUp(values));
+      //navigation.replace('Login');
+    },
+  }),
+)(reduxForm({ 
+  form: 'signUp',
+  enableReinitialize : true,
+  validate: (values) => {
+    const errors = {};
+    errors.email = !values.email
+      ? 'Este campo es obligatorio'
+      :  !values.email.includes('@')
+      ? 'Tienes que ingresar un correo válido.'
+      : undefined;
+    errors.username = !values.username
+      ? 'Este campo es obligatorio'
+      : undefined;
+    errors.first_name = !values.first_name
+      ? 'Este campo es obligatorio'
+      : undefined;
+    errors.last_name = !values.last_name
+      ? 'Este campo es obligatorio'
+      : undefined;
+      errors.password = !values.password
+        ? 'Este campo es obligatorio'
+        : undefined;
+      errors.passwordConfirm = !values.passwordConfirm
+        ? 'Debe confirmar su contraseña'
+        : values.passwordConfirm !== values.password 
+        ? 'La contraseñas ingresadas no coinciden'
+        : undefined;
+
+
+    return errors;
+  }
+})(Login));
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+   
+  },
+  imageContainer: {
+    alignItems: 'center'
+  },
+  logoImage: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+  },
+  textStyle:{
+    paddingLeft:'10%',
+    paddingRight:'5%',
+    fontSize:16,
+    paddingTop:'4%',
+    
+  },
+  contentContainer: {
+    paddingTop: 30,
+  },
+
+});

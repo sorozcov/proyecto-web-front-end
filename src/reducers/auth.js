@@ -92,3 +92,4 @@ export const getAuthenticatingError = state => state.error;
 export const getAuthUserID = state => state.user ? state.user.user_id : null;
 export const getAuthExpiration = state => state.user ? state.user.exp : null;
 export const getAuthUsername = state => state.user ? state.user.username : null;
+export const getAuthUser = state => state.user ? state.user : null;

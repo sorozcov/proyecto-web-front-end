@@ -18,7 +18,7 @@ export default function Login({navigation}) {
       <Text style={{...styles.textStyle,fontWeight:'bold',fontSize:30}}>
         Entérate de lo que está pasando en el mundo en este momento.  
       </Text>
-      <Button label={'Crear una cuenta'}  onPress={()=>navigation.navigate('Signup')}
+      <Button label={'Crear una cuenta'}  onPress={()=>navigation.navigate('SignUp')}
       // icon={<MaterialCommunityIcons
       //         name="account"
       //         color={'white'}
@@ -28,9 +28,16 @@ export default function Login({navigation}) {
       />
     
       <View style={{flex:0.4}}/>
-      <Text style={{...styles.textStyle,color:'gray'}}>¿Ya tienes una cuenta?  
-          <Text style={{...styles.textStyle, color: '#00ACEE', }} onPress={() => navigation.navigate('Login') }> Iniciar Sesión</Text>
-      </Text>
+      <View style={{flexDirection:'row'}}>
+          <Text style={{...styles.textStyle,color:'gray',paddingRight:'2%'}}>
+            ¿Ya tienes una cuenta?  
+          </Text>
+          <TouchableOpacity style={{...styles.textStyle,paddingLeft:0}} onPress={() => navigation.navigate('Login') }> 
+            <Text style={{ fontSize:16, color: '#00ACEE', }} > 
+              Iniciar Sesión
+            </Text>
+          </TouchableOpacity>
+      </View>
     </View>
   );
 }
