@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Platform,Image } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -147,7 +148,8 @@ export default connect(
     userInformation: selectors.getAuthUserInformation(state),
   }),
   dispatch => ({
-    logout(navigation) {
+    async logout(navigation) {
+      await AsyncStorage.removeItem('auth');
       dispatch(actionsAuth.logout());
       navigation.dispatch(
         CommonActions.reset({

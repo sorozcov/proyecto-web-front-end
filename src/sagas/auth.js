@@ -7,10 +7,11 @@ import {
     delay,
     select,
   } from 'redux-saga/effects';
+import { AsyncStorage } from 'react-native';
 
-  import * as selectors from '../reducers';
-  import * as actions from '../actions/auth';
-  import * as types from '../types/auth';
+import * as selectors from '../reducers';
+import * as actions from '../actions/auth';
+import * as types from '../types/auth';
   
 
 import { Alert } from 'react-native';
@@ -32,6 +33,9 @@ import API_BASE_URL from './apibaseurl';
       
       if (response.status <= 300) {
         const { token } = yield response.json();
+        //Se guarda el persisted storage////////
+        yield AsyncStorage.setItem('auth', JSON.stringify(token));
+        ////////////////////////////////////////
         yield put(actions.completeLogin(token));
         yield put(actions.authenticationUserInformationStarted());
       } else {

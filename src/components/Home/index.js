@@ -15,9 +15,8 @@ import { CommonActions } from '@react-navigation/native';
 
 
 
-function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user,isAuthenticated}) {
+function HomeFeed({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user,isAuthenticated}) {
   const login = values => {
-    console.log('Login Form', values)
     startLogin(navigation,values)
   }
   
@@ -25,12 +24,12 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
 
   return (
     <View style={styles.container}>
-     
       
-        <ModalLoading isLoading={isLoading}/>
-        <FAB 
-          icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
-          />
+      
+      <ModalLoading isLoading={isLoading}/>
+      <FAB 
+        icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
+        />
     </View>
   );
 }
@@ -49,43 +48,11 @@ export default connect(
       //navigation.replace('Login');
     },
   }),
-)(reduxForm({ 
-  form: 'login',
-  enableReinitialize : true,
-  validate: (values) => {
-    const errors = {};
-
-    errors.username = !values.username
-      ? 'Este campo es obligatorio'
-      : undefined;
-      errors.password = !values.password
-        ? 'Este campo es obligatorio'
-        : undefined;
-      // errors.passwordConfirm = !values.passwordConfirm
-      //   ? 'Debe confirmar su contraseña'
-      //   : values.passwordConfirm !== values.password 
-      //   ? 'La contraseñas ingresadas no coinciden'
-      //   : undefined;
-
-
-    return errors;
-  }
-})(Login));
+)(HomeFeed);
 
 
 const styles = StyleSheet.create({
   container: {
     height: hp('100%'),
-    
-   
   },
-  imageContainer: {
-    alignItems: 'center'
-  },
-  logoImage: {
-    width: wp('20%'),
-    height: hp('9%'),
-    resizeMode: 'contain',
-  },
-
 });

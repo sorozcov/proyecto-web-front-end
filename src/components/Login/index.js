@@ -17,7 +17,6 @@ import { CommonActions } from '@react-navigation/native';
 
 function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user,isAuthenticated}) {
   const login = values => {
-    console.log('Login Form', values)
     startLogin(navigation,values)
   }
   

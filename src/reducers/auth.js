@@ -29,7 +29,6 @@ const user = (state = null, action) => {
       return null;
     }
     case types.AUTHENTICATION_COMPLETED: {
-      console.log(jwtDecode(action.payload.token))
       return jwtDecode(action.payload.token);
     }
     case types.AUTHENTICATION_FAILED: {
