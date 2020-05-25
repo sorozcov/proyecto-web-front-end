@@ -1,15 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
 import Button from '../General/Button';
-import * as selectors from '../../reducers';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function Start({navigation,isAuthenticated}) {
-  console.log(isAuthenticated)
-  if(isAuthenticated){
-    navigation.navigate("Home")
-  }
+export default function Login({navigation}) {
+
   return (
     <View style={styles.container}>
       <View style={{flex:0.02}}/>
@@ -21,7 +16,7 @@ function Start({navigation,isAuthenticated}) {
       </View>
       <View style={{flex:0.3}}/>
       <Text style={{...styles.textStyle,fontWeight:'bold',fontSize:30}}>
-        Entérate de lo que está pasando en el mundo en este momento.  
+        Home  
       </Text>
       <Button label={'Crear una cuenta'}  onPress={()=>navigation.navigate('SignUp')}
       // icon={<MaterialCommunityIcons
@@ -46,21 +41,6 @@ function Start({navigation,isAuthenticated}) {
     </View>
   );
 }
-
-export default connect(
-  state => ({
-    
-    isAuthenticated: selectors.isAuthenticated(state),
-    
-   
-  }),
-  dispatch => ({
-    // startLogin(navigation,values) {
-    //   dispatch(AuthActions.startLogin(values));
-    //   //navigation.replace('Login');
-    // },
-  }),
-)(Start);
 
 const styles = StyleSheet.create({
   container: {

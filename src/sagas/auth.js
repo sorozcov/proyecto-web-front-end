@@ -12,9 +12,9 @@ import {
   import * as actions from '../actions/auth';
   import * as types from '../types/auth';
   
-import {API_BASE_URL} from './index';
+
 import { Alert } from 'react-native';
-  
+import API_BASE_URL from './apibaseurl';
   
   function* login(action) {
     try {
@@ -30,7 +30,7 @@ import { Alert } from 'react-native';
         },
       );
       console.log(response.status);
-      if (response.status === 200) {
+      if (response.status <= 300) {
         const { token } = yield response.json();
         yield put(actions.completeLogin(token));
       } else {

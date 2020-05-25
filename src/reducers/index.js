@@ -3,7 +3,7 @@ import auth, * as authSelectors from './auth';
 import signUp, * as signUpSelectors from './signUp';
 import { reducer as formReducer } from 'redux-form'
 import { alertReducer } from 'redux-saga-rn-alert';
-
+import { AUTHENTICATION_LOGOUT } from '../types/auth';
 
 const reducer = combineReducers({
   auth,
@@ -12,8 +12,16 @@ const reducer = combineReducers({
   alertReducer,
 });
 
+const rootReducer = (state, action) => {
+  if (action.type === AUTHENTICATION_LOGOUT) {
+    state = undefined
+  }
 
-export default reducer;
+  return reducer(state, action)
+}
+
+export default rootReducer;
+
 
 
 

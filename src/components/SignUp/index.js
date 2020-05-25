@@ -15,9 +15,9 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
     console.log('Login Form', values)
     startSignUp(navigation,values)
   }
-  console.log(isAuthenticated);
+  
   if(isAuthenticated){
-    navigation.navigate("Start")
+    navigation.replace("Home")
   }
 
   return (
@@ -62,7 +62,7 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
 
 export default connect(
   state => ({
-    isLoading: selectors.getIsSigningUpUser(state),
+    isLoading: selectors.getIsSigningUpUser(state) || selectors.getIsAuthenticating(state),
     isAuthenticated: selectors.isAuthenticated(state),
     issue: selectors.getSigningUpError(state),
    

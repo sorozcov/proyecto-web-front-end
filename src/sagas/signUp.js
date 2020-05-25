@@ -13,7 +13,7 @@ import * as actions from '../actions/signUp';
 import * as actionsAuth from '../actions/auth';
 import * as types from '../types/signUp';
   
-import {API_BASE_URL} from './index';
+import API_BASE_URL from './apibaseurl';
 import { Alert } from 'react-native';
   
   

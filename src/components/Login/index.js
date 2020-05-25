@@ -7,6 +7,7 @@ import TextInput from '../General/TextInput'
 import ModalLoading from '../General/ModalLoading';
 import * as selectors from '../../reducers';
 import * as AuthActions from '../../actions/auth'
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -15,9 +16,9 @@ function Login({navigation, dirty, valid, handleSubmit,startLogin,isLoading,user
     console.log('Login Form', values)
     startLogin(navigation,values)
   }
-  console.log(isAuthenticated);
+  
   if(isAuthenticated){
-    navigation.navigate("Home")
+    navigation.replace("Home")
   }
 
   return (

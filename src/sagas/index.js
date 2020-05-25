@@ -3,7 +3,7 @@ import { watchLoginStarted } from './auth';
 import { watchSignUpStarted } from './signUp';
 import { watchAlertChannel } from 'redux-saga-rn-alert';
 
-export const API_BASE_URL = 'http://192.168.0.3:8000/api/v1';
+
 
 function* mainSaga() {
   yield all([
