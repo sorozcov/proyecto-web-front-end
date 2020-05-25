@@ -20,7 +20,6 @@ function MainStack({navigation,route,isAuthenticated,savePersistedStorage}) {
   async function getPersistedStorage() {
     try {
       const token = JSON.parse(await AsyncStorage.getItem('auth'));
-      console.log(verify);
       if(!isAuthenticated && token !== null){
         savePersistedStorage(token);
       }else {
