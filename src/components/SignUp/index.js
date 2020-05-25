@@ -8,7 +8,7 @@ import ModalLoading from '../General/ModalLoading';
 import * as selectors from '../../reducers';
 import * as SignUpActions from '../../actions/signUp'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { CommonActions } from '@react-navigation/native';
 
 function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isAuthenticated,error}) {
   const signUp = values => {
@@ -17,7 +17,15 @@ function Login({navigation, dirty, valid, handleSubmit,startSignUp,isLoading,isA
   }
   
   if(isAuthenticated){
-    navigation.navigate("Home")
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: 'Home' },
+         
+        ],
+      })
+    );
   }
 
   return (
