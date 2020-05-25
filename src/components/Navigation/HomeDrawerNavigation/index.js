@@ -5,16 +5,14 @@ import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import { CommonActions } from '@react-navigation/native';
+import { connect } from 'react-redux';
 
 import * as selectors from '../../../reducers';
-import { connect } from 'react-redux';
 import * as actionsAuth from '../../../actions/auth'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { CommonActions } from '@react-navigation/native';
 
 
 function DrawerScreen({navigation,user,logout,userInformation}) {
- console.log(userInformation);
+ //console.log(userInformation);
   return (
     <DrawerContentScrollView >
     <View
@@ -22,19 +20,19 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
         styles.drawerContent
       }
     >
-   
+    {userInformation!==null &&
       <View style={styles.userInfoSection}>
 
-        <Image style={{borderRadius:'50%',height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/user.jpg')}></Image>
+        <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/user.jpg')}></Image>
         <Text style={styles.title}>{userInformation.first_name + " "+ userInformation.last_name}</Text>
         <Text style={styles.caption}>@{userInformation.username}</Text>
         <View style={{flexDirection:'row',flex:1,paddingTop:10}}>
-          <Text style={{...styles.caption,fontWeight:'bold'}}>{userInformation.following} </Text>
+          <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.following} </Text>
           <Text style={styles.caption}>Siguiendo </Text>
-          <Text style={{...styles.caption,fontWeight:'bold'}}>{userInformation.following} </Text>
+          <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.following} </Text>
           <Text style={styles.caption}>Seguidores </Text>
         </View>
-      </View>
+      </View>}
 
       <DrawerItem
           icon={({ color, size}) => (
@@ -66,30 +64,6 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
           
        
 
-        <DrawerItem
-            icon={({ color="red", size=20 }) => (
-              <MaterialCommunityIcons
-                name="account"
-                color={'gray'}
-                size={wp('7%')}
-              />
-            )}
-            label="Perfil"
-            labelStyle={{ fontSize: wp('4.5%')}}
-            // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
-          />
-          <DrawerItem
-            icon={() => (
-              <MaterialCommunityIcons
-                name="account"
-                color={'gray'}
-                size={wp('7%')}
-              />
-            )}
-            label="Cerrar sesión"
-            labelStyle={{ fontSize: wp('4.5%'), }}
-            onPress={() => logout(navigation)}
-          /> 
       </View>
     </DrawerContentScrollView>
   );

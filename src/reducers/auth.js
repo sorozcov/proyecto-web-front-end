@@ -56,6 +56,13 @@ const isAuthenticating = (state = false, action) => {
     case types.AUTHENTICATION_FAILED: {
       return false;
     }
+    case types.AUTHENTICATION_USER_INFORMATION_STARTED: {
+      return true;
+    }
+    case types.AUTHENTICATION_USER_INFORMATION_COMPLETED: {
+      
+      return false;
+    }
   }
 
   return state;

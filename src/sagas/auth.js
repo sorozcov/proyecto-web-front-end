@@ -80,11 +80,13 @@ import API_BASE_URL from './apibaseurl';
 
   function* userInformationRequest(action) {
     try {
-      yield delay(100)
+      
+     
       const isAuth = yield select(selectors.isAuthenticated);
       const userId = yield select(selectors.getAuthUserID);
-      
+     
       if (isAuth) {
+       
         const token = yield select(selectors.getAuthToken);
         console.log(token);
         const response = yield call(
