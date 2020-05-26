@@ -47,6 +47,32 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
           labelStyle={{ fontSize: 16}}
           // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
         />
+         <DrawerItem
+          icon={({ color, size}) => (
+            <MaterialCommunityIcons
+              name="card-text-outline"
+              color={color}
+              size={size}
+            />
+          )}
+          style={{paddingTop:0,marginTop:0}}
+          label="Listas"
+          labelStyle={{ fontSize: 16}}
+          // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
+        />
+         <DrawerItem
+          icon={({ color, size}) => (
+            <MaterialCommunityIcons
+              name="bookmark-outline"
+              color={color}
+              size={size}
+            />
+          )}
+          style={{paddingTop:0,marginTop:0}}
+          label="Elementos guardados"
+          labelStyle={{ fontSize: 16}}
+          // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
+        />
         <DrawerItem
           icon={({ color, size }) => (
             <MaterialCommunityIcons
