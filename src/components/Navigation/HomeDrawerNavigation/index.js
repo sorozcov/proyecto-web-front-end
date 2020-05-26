@@ -23,7 +23,7 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
     {userInformation!==null &&
       <View style={styles.userInfoSection}>
 
-        <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/user.jpg')}></Image>
+        <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/egg.jpg')}></Image>
         <Text style={styles.title}>{userInformation.first_name + " "+ userInformation.last_name}</Text>
         <Text style={styles.caption}>@{userInformation.username}</Text>
         <View style={{flexDirection:'row',flex:1,paddingTop:10}}>
