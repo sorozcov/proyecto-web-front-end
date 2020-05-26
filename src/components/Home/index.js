@@ -39,7 +39,7 @@ function HomeFeed({navigation,tweetsHome,token,startFetchingTweetsHome,isFetchin
             
           />
       
-      <FAB 
+      <FAB  onPress={()=>navigation.navigate('NewTweet')}
         icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
         />
     </View>

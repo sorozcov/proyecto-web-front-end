@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import HomeFeed from '../../Home';
 import Profile from '../../Profile';
+import NewTweet from '../../NewTweet';
 
 
 
@@ -26,6 +27,10 @@ export default function HomeStack({navigation,route}) {
             name="Profile" 
             options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
             component={Profile} />
+        <Stack.Screen 
+            name="NewTweet" 
+            options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
+            component={NewTweet} />
         
       </Stack.Navigator>
    

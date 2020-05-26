@@ -8,7 +8,7 @@ import {
   select,
 } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
-
+import { Alert } from 'react-native';
 import API_BASE_URL  from './settings/apibaseurl';
 import * as selectors from '../reducers';
 import * as actions from '../actions/tweets';
@@ -77,12 +77,14 @@ function* addTweet(action) {
 
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
+      const {content,user} = action.payload;
+      
       const response = yield call(
         fetch,
         `${API_BASE_URL}/tweets/`,
         {
           method: 'POST',
-          body: JSON.stringify(action.payload),
+          body: JSON.stringify({content,user}),
           headers:{
             'Content-Type': 'application/json',
             'Authorization': `JWT ${token}`,
@@ -92,18 +94,34 @@ function* addTweet(action) {
 
       if (response.status <= 300) {
         const jsonResult = yield response.json();
+        const tweet ={
+          id:'tweet-'+jsonResult.id,
+          itemType:'tweet',
+          data:jsonResult
+        }
+        console.log('jeje')
         yield put(
           actions.completeAddingTweet(
             action.payload.id,
-            jsonResult,
+            tweet,
           ),
         );
+        console.log(tweet)
+        
 
       } else {
         const { detail } = yield response.json();
-        let errorMessage ="Error agregando tweet.";
+        let errorMessage ="Error al crear el tweet.";
         if(detail!=undefined){errorMessage=detail}
         yield put(actions.failAddingTweet(action.payload.id,errorMessage));
+        yield delay(200)
+        const alertButtons =[
+              {text: 'Aceptar', style:'default'},
+          ]
+        const titleError ="Inténtalo de nuevo"
+          
+      
+        yield call(Alert.alert,titleError,errorMessage,alertButtons)
       }
     }
   } catch (error) {
@@ -145,9 +163,18 @@ function* removeTweet(action) {
 
       } else {
         const { detail } = yield response.json();
-        let errorMessage ="Error eliminado tweet.";
+        let errorMessage ="Error al eliminar el tweet.";
         if(detail!=undefined){errorMessage=detail}
         yield put(actions.failRemovingTweet(action.payload.id,errorMessage));
+        yield delay(200)
+        const alertButtons =[
+              {text: 'Aceptar', style:'default'},
+          ]
+        const titleError ="Inténtalo de nuevo"
+     
+          
+      
+        yield call(Alert.alert,titleError,errorMessage,alertButtons)
       }
     }
   } catch (error) {

@@ -9,12 +9,12 @@ import * as selectors from '../../reducers';
 import * as actionsProfile from '../../actions/profile'
 
 
-let backgroundColorTweet ='white';
-function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId}) {
-    backgroundColorTweet = (tweet.isConfirmed ? 'white' : '#EAEAEA')
+function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed}) {
+    
+    
     
     return(
-    <View style={{...styles.tweetContainer,...styleContainer}}>
+    <View style={tweet.isConfirmed? {...styles.tweetContainer,...styleContainer}:{...styles.tweetContainer,...styleContainer,backgroundColor:'transparent'}}>
     <View style={styles.flexRow}>
       <TouchableOpacity onPress={()=>selectProfileUserId(navigation,tweet.data.user.id)}>
         <View style={styles.imageContainer} >
@@ -67,6 +67,7 @@ Tweet = connect(
       tweetsHome: selectors.getTweets(state),
       user: selectors.getAuthUser(state),
       token:selectors.getAuthToken(state),
+      isTweetConfirmed:(id)=>selectors.getTweet(state,id).isConfirmed
      
     }),
     dispatch => ({
@@ -81,7 +82,7 @@ export default Tweet;
 const styles = StyleSheet.create({
     tweetContainer: {
         width:wp('100%'),
-        backgroundColor:backgroundColorTweet,
+        backgroundColor:'white',
         borderBottomColor:'#EAEAEA',
         borderBottomWidth:0.5,
         flexDirection:'column'

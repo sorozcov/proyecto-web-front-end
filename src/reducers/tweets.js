@@ -64,7 +64,7 @@ const order = (state = [], action) => {
       return [...action.payload.order];
     }
     case types.TWEET_ADD_STARTED: {
-      return [...state, action.payload.id];
+      return [action.payload.id,...state ];
     }
     case types.TWEET_ADD_COMPLETED: {
       const { oldId, tweet } = action.payload;
