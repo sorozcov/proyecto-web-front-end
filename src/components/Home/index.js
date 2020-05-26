@@ -29,7 +29,7 @@ function HomeFeed({navigation,tweetsHome,token,startFetchingTweetsHome,isFetchin
           // onEndReached={()=> onLoadMore()}
           renderItem={(tweet) => (
             <View>
-            <Tweet tweet={tweet.item}/>
+            <Tweet tweet={tweet.item} navigation={navigation}/>
             
             </View>
            )

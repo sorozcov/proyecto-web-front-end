@@ -1,21 +1,26 @@
 import React from 'react';
 import TimeAgo from 'react-native-timeago';
-import { StyleSheet,View, Image,Text } from 'react-native';
+import { StyleSheet, View, Image, Text, Button, TouchableOpacity } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { connect } from 'react-redux';
 
+import * as selectors from '../../reducers';
+import * as actionsProfile from '../../actions/profile'
 
 
 let backgroundColorTweet ='white';
-export default function Tweet({tweet,styleContainer={},styleContent={}}) {
+function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId}) {
     backgroundColorTweet = (tweet.isConfirmed ? 'white' : '#EAEAEA')
     
     return(
     <View style={{...styles.tweetContainer,...styleContainer}}>
     <View style={styles.flexRow}>
-      <View style={styles.imageContainer}>
-          <Image style={styles.imageProfile} source={require('../../assets/images/egg.jpg')}></Image>
-      </View>
+      <TouchableOpacity onPress={()=>selectProfileUserId(navigation,tweet.data.user.id)}>
+        <View style={styles.imageContainer} >
+            <Image style={styles.imageProfile}   source={require('../../assets/images/egg.jpg')}></Image>
+        </View>
+      </TouchableOpacity>
       <View style={styles.titleContainer}>
         <View style={styles.flexRow}>
           <View style={styles.titleInfo}>
@@ -33,7 +38,7 @@ export default function Tweet({tweet,styleContainer={},styleContent={}}) {
         </View>
         {tweet.itemType=='retweet' && tweet.itemType!==null && 
                     <View style={{paddingBottom:hp('1%')}}>
-                    <Tweet styleContent={{width:wp('62%')}} styleContainer={{borderBottomColor:'#EAEAEA',borderColor:'#EAEAEA',borderWidth:1,borderRadius:10,width:wp('80%')}} tweet={{data:tweet.data.originalTweet,itemType:null}} ></Tweet>
+                    <Tweet navigation={navigation} styleContent={{width:wp('62%')}} styleContainer={{borderBottomColor:'#EAEAEA',borderColor:'#EAEAEA',borderWidth:1,borderRadius:10,width:wp('80%')}} tweet={{data:tweet.data.originalTweet,itemType:null}} ></Tweet>
                     </View>
         }
         {tweet.itemType!==null && <View style={styles.footerContainerStyle}>
@@ -54,6 +59,24 @@ export default function Tweet({tweet,styleContainer={},styleContent={}}) {
 
 }
 
+
+Tweet = connect(
+    state => ({
+      isFetchingHomeTweets: selectors.isFetchingTweets(state),
+      tweetsHome: selectors.getTweets(state),
+      user: selectors.getAuthUser(state),
+      token:selectors.getAuthToken(state),
+     
+    }),
+    dispatch => ({
+        selectProfileUserId(navigation, userId){
+            
+            dispatch(actionsProfile.setSelectedProfileUserId(userId));
+            navigation.navigate('Profile');
+        }
+    }),
+  )(Tweet);
+export default Tweet;
 const styles = StyleSheet.create({
     tweetContainer: {
         width:wp('100%'),
@@ -126,3 +149,4 @@ const styles = StyleSheet.create({
 
 
   });
+
