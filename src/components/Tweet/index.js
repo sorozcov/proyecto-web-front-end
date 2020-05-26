@@ -110,12 +110,10 @@ const styles = StyleSheet.create({
     },
     userNameStyle:{
         marginTop:wp('2.4%'),
-        fontFamily:'HelveticaNeue-Bold',
         fontSize:17
     },
     userNameStyle:{
         marginTop:wp('2.4%'),
-        fontFamily:'HelveticaNeue-Bold',
         fontSize:17
     },
     infoUserNameStyle:{
@@ -136,7 +134,6 @@ const styles = StyleSheet.create({
     },
     textContainerStyle:{
         marginTop:wp('2%'),
-        fontFamily:'HelveticaNeue',
         fontSize:16,
         marginRight:wp('2%')
     },
