@@ -110,11 +110,8 @@ const styles = StyleSheet.create({
     },
     userNameStyle:{
         marginTop:wp('2.4%'),
-        fontSize:17
-    },
-    userNameStyle:{
-        marginTop:wp('2.4%'),
-        fontSize:17
+        fontSize:17,
+        fontWeight:'bold',
     },
     infoUserNameStyle:{
         marginTop:wp('2.4%'),
