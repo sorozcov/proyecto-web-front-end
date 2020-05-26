@@ -23,14 +23,13 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
       </TouchableOpacity>
       <View style={styles.titleContainer}>
         <View style={styles.flexRow}>
-        <TouchableOpacity onPress={()=>selectProfileUserId(navigation,tweet.data.user.id)}>
+            
           <View style={styles.titleInfo}>
             <Text numberOfLines={1} style={styles.userNameStyle}>{tweet.data.user.first_name}</Text>
             <Text numberOfLines={1}  style={styles.infoUserNameStyle}>@{tweet.data.user.username}  · </Text>
             <TimeAgo style={styles.infoUserNameStyle} time={tweet.data.date} hideAgo={true} interval={300}/>
             
           </View>
-          </TouchableOpacity>
           <View style={styles.caretContainer}>
               <MaterialCommunityIcons style={styles.caretIcon} name="chevron-down" color={'gray'} size={22} />
           </View>
