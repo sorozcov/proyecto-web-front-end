@@ -13,7 +13,7 @@ import { CommonActions } from '@react-navigation/native';
 
 function HomeFeed({navigation,tweetsHome,token,startFetchingTweetsHome,isFetchingHomeTweets,user}) {
   useEffect(startFetchingTweetsHome,[]);
-  console.log(tweetsHome);
+  //console.log(tweetsHome);
   const refFlatList = React.useRef(null);
   return (
     <View style={styles.container}>

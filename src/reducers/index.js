@@ -6,12 +6,14 @@ import * as types from '../types/auth';
 import auth, * as authSelectors from './auth';
 import signUp, * as signUpSelectors from './signUp';
 import tweets,* as tweetsSelector from './tweets';
+import profile,* as profileSelector from './profile';
 import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
 
 const reducer = combineReducers({
   auth,
   signUp,
   tweets,
+  profile,
   form: formReducer,
   alertReducer,
 });
@@ -53,3 +55,17 @@ export const getTweet = (state, id) => tweetsSelector.getTweet(state.tweets,id);
 export const getTweets = state => tweetsSelector.getTweets(state.tweets);
 export const isFetchingTweets = state => tweetsSelector.isFetchingTweets(state.tweets);
 export const getFetchingTweetsError = state => tweetsSelector.getFetchingTweetsError(state.tweets);
+
+//Profile Selectors
+export const getProfileSelectedUserId = state => profileSelector.getProfileSelectedUserId(state.profile);
+export const getProfileInfo = state => profileSelector.getProfileInfo(state.profile);
+export const getProfileFollower = (state, id) => profileSelector.getProfileFollower(state.profile, id);
+export const getProfileFollowers = state => profileSelector.getProfileFollowers(state.profile);
+export const getProfileFollowing = (state, id) => profileSelector.getProfileFollowing(state.profile, id);
+export const getProfileFollowings = state => profileSelector.getProfileFollowings(state.profile);
+export const getProfileMyTweet = (state, id) => profileSelector.getProfileMyTweet(state.profile, id);
+export const getProfileMyTweets = state => profileSelector.getProfileMyTweets(state.profile);
+export const getProfileLikedTweet = (state, id) => profileSelector.getProfileLikedTweet(state.profile, id);
+export const getProfileLikedTweets = state => profileSelector.getProfileLikedTweets(state.profile);
+export const isProfileFetching = state => profileSelector.isProfileFetching(state.profile);
+export const getProfileFetchingError = state => profileSelector.getProfileFetchingError(state.profile);

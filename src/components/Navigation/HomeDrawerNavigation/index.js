@@ -9,9 +9,10 @@ import { connect } from 'react-redux';
 
 import * as selectors from '../../../reducers';
 import * as actionsAuth from '../../../actions/auth'
+import * as actionsProfile from '../../../actions/profile'
 
 
-function DrawerScreen({navigation,user,logout,userInformation}) {
+function DrawerScreen({navigation,user,logout,userInformation, selectProfileUserId}) {
  //console.log(userInformation);
   return (
     <DrawerContentScrollView >
@@ -29,7 +30,7 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
         <View style={{flexDirection:'row',flex:1,paddingTop:10}}>
           <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.following} </Text>
           <Text style={styles.caption}>Siguiendo </Text>
-          <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.following} </Text>
+          <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.followers} </Text>
           <Text style={styles.caption}>Seguidores </Text>
         </View>
       </View>}
@@ -45,7 +46,7 @@ function DrawerScreen({navigation,user,logout,userInformation}) {
           style={{paddingTop:0,marginTop:0}}
           label="Perfil"
           labelStyle={{ fontSize: 16}}
-          // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
+          onPress={() => selectProfileUserId(navigation,userInformation.id)}
         />
          <DrawerItem
           icon={({ color, size}) => (
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     paddingBottom:10,
     paddingTop:10,
-    height: hp('20%'),
+    height: hp('24%'),
   },
 
   title: {
@@ -186,5 +187,9 @@ export default connect(
         })
       );
     },
+    selectProfileUserId(navigation, userId){
+      dispatch(actionsProfile.setSelectedProfileUserId(userId));
+      navigation.navigate('Profile');
+    }
   }),
 )(DrawerScreen);
