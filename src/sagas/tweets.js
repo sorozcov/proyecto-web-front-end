@@ -20,8 +20,7 @@ function* fetchTweets(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
     const userId = yield select(selectors.getAuthUserID)
-    console.log("Fetch Tweets")
-   
+    
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
