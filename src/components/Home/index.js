@@ -6,7 +6,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
 import * as tweetActions from '../../actions/tweets';
-import TweetList from '../General/TweetList';
+import TweetList from '../TweetList';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Tweet from '../Tweet'

@@ -9,12 +9,13 @@ import { CommonActions } from '@react-navigation/native';
 import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
-import Tweet from '../Tweet';
+import User from '../User';
 
 
-function Followers({ navigation, isFetchingProfile, startFetchingProfileFollowers, startFetchingProfileFollowing, SelectedUserId, profileInfo, profileFollowers, profileFollowing }) {
+function Followers({ navigation, route, isFetchingProfile, startFetchingProfileFollowers, startFetchingProfileFollowing, SelectedUserId, profileInfo, profileFollowers, profileFollowing }) {
   const refFlatList = React.useRef(null);
-  const [toolBarOption, setToolBarOption] = useState(0);
+  const option = JSON.stringify(route.params.itemId);
+  const [toolBarOption, setToolBarOption] = useState(parseInt(option));
   useEffect(() => {
     if(toolBarOption===1)
       startFetchingProfileFollowers();
@@ -43,7 +44,7 @@ function Followers({ navigation, isFetchingProfile, startFetchingProfileFollower
           // onEndReached={()=> onLoadMore()}
           renderItem={(user) => (
             <View>
-            <Text>Hola</Text>
+            <User navigation={navigation} user={user.item.userFollower} ></User>
             </View>
            )
           }
@@ -62,7 +63,7 @@ function Followers({ navigation, isFetchingProfile, startFetchingProfileFollower
           // onEndReached={()=> onLoadMore()}
           renderItem={(user) => (
             <View>
-            <Text>Hola</Text>
+            <User navigation={navigation} user={user.item.userFollowing} ></User>
             </View>
            )
           }

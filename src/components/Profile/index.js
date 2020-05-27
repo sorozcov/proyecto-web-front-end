@@ -10,7 +10,7 @@ import { CommonActions } from '@react-navigation/native';
 import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
-import TweetList from '../General/TweetList';
+import TweetList from '../TweetList';
 import Tweet from '../Tweet';
 
 
@@ -21,8 +21,6 @@ function Profile({ navigation, startFetchingProfileInfo, startFetchingProfileMyT
   useEffect(() => {
     if(toolBarOption===0)
       startFetchingProfileMyTweets();
-  },[SelectedUserId,toolBarOption]);
-  useEffect(() => {
     if(toolBarOption===1)
       startFetchingProfileLikedTweets();
   },[SelectedUserId,toolBarOption]);
@@ -44,13 +42,13 @@ function Profile({ navigation, startFetchingProfileInfo, startFetchingProfileMyT
               <Text style={styles.caption}>{' Se unió en ' + moment(profileInfo.date_joined).subtract(1, "month").startOf("month").format('MMMM') + ' de ' + moment(profileInfo.date_joined).year() }</Text>
             </View>
               <View style={{flexDirection:'row',paddingTop:hp('0.5%'),height:hp('4%')}}>
-                <TouchableOpacity onPress={()=> navigation.navigate('Followers')}>
+                <TouchableOpacity onPress={()=> navigation.navigate('Followers', { itemId: 0 })}>
                   <View style={{flexDirection:'row',height:hp('4%')}}>
                     <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{profileInfo.following} </Text>
                     <Text style={styles.caption}>Siguiendo </Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> navigation.navigate('Followers')}>
+                <TouchableOpacity onPress={()=> navigation.navigate('Followers', { itemId: 1 })}>
                   <View style={{flexDirection:'row',height:hp('4%')}}>
                     <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{profileInfo.followers} </Text>
                     <Text style={styles.caption}>Seguidores </Text>
