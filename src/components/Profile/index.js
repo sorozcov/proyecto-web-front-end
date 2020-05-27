@@ -10,13 +10,22 @@ import { CommonActions } from '@react-navigation/native';
 import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
+import TweetList from '../General/TweetList';
 import Tweet from '../Tweet';
 
 
-function Profile({ navigation, startFetchingProfile, isFetchingProfile, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets }) {
-  useEffect(startFetchingProfile,[SelectedUserId]);
+function Profile({ navigation, startFetchingProfileInfo, startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets }) {
   const refFlatList = React.useRef(null);
   const [toolBarOption, setToolBarOption] = useState(0);
+  useEffect(startFetchingProfileInfo,[SelectedUserId]);
+  useEffect(() => {
+    if(toolBarOption===0)
+      startFetchingProfileMyTweets();
+  },[SelectedUserId,toolBarOption]);
+  useEffect(() => {
+    if(toolBarOption===1)
+      startFetchingProfileLikedTweets();
+  },[SelectedUserId,toolBarOption]);
   return (
     <View style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -56,45 +65,26 @@ function Profile({ navigation, startFetchingProfile, isFetchingProfile, Selected
       <View style={{flexDirection:'row',paddingTop:hp('0.5%'),height:hp('7%')}}>
         <ButtonOption options={['Tweets','Me Gusta']}  onPressVar={toolBarOption} onPressAction={setToolBarOption} />
       </View>
-      {toolBarOption===0 && profileMyTweets.length > 0 &&
-          <FlatList style={{margin:0,}}
-          data={profileMyTweets}
-          ref={refFlatList}
-          key={"FlatListMyTweets"} 
-          numColumns={1}
-          keyExtractor={(tweet, index) => tweet.id}
-          onEndReachedThreshold={0.1}
-          refreshing={isFetchingProfile}
-          onRefresh={()=>{startFetchingProfile()}}
-          // onEndReached={()=> onLoadMore()}
-          renderItem={(tweet) => (
-            <View>
-            <Tweet tweet={tweet.item} navigation={navigation}/>
-            </View>
-           )
-          }
-          />}
-
-      {toolBarOption===1 && profileLikedTweets.length > 0 &&
-          <FlatList style={{margin:0,}}
-          data={profileLikedTweets}
-          ref={refFlatList}
-          key={"FlatListLikedTweets"} 
-          numColumns={1}
-          keyExtractor={(tweet, index) => tweet.id}
-          onEndReachedThreshold={0.1}
-          refreshing={isFetchingProfile}
-          onRefresh={()=>{startFetchingProfile()}}
-          // onEndReached={()=> onLoadMore()}
-          renderItem={(tweet) => (
-            <View>
-            <Tweet tweet={tweet.item} navigation={navigation}/>
-            </View>
-           )
-          }
-          />}
-
+      {toolBarOption===0 && 
+        <TweetList navigation={navigation} tweetArray={profileMyTweets} container={{height: hp('58%')}}
+          key={'profileMyTweets'} infoText={'Aún no ha publicado ningún tweet'} 
+          isFetching={isFetchingProfile}  onRefresh={()=>{
+            startFetchingProfileInfo();  
+            startFetchingProfileMyTweets();
+          }} >
+        </TweetList>
+      }      
+      {toolBarOption===1 && 
+        <TweetList navigation={navigation} tweetArray={profileLikedTweets} container={{height: hp('58%')}}
+          key={'profileLikedTweets'} infoText={'Aún no le ha gustado ningún tweet'} 
+          isFetching={isFetchingProfile}  onRefresh={()=>{
+            startFetchingProfileInfo();
+            startFetchingProfileLikedTweets();
+          }} >
+        </TweetList>
+      }      
         <FAB  onPress={()=>navigation.navigate('NewTweet')}
+          buttonStyle={{marginTop: hp('80%'),}}
           icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
         />
     </View>
@@ -110,8 +100,14 @@ export default connect(
     isFetchingProfile: selectors.isProfileFetching(state),
   }),
   dispatch => ({
-    startFetchingProfile() {
+    startFetchingProfileInfo() {
       dispatch(profileActions.startFetchingProfileInfo());      
+    },
+    startFetchingProfileMyTweets() {
+      dispatch(profileActions.startFetchingProfileMyTweets());      
+    },
+    startFetchingProfileLikedTweets() {
+      dispatch(profileActions.startFetchingProfileLikedTweets());      
     },
   }),
 )(Profile);
@@ -141,4 +137,8 @@ const styles = StyleSheet.create({
     paddingTop: hp('0.8%'),
     color:'gray'
   },
+  infoText: {
+    paddingTop:hp('2%'),
+    fontSize:wp('5%'),
+    alignSelf:'center'}
 });

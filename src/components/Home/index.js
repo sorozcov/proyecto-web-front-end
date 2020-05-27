@@ -6,6 +6,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
 import * as tweetActions from '../../actions/tweets';
+import TweetList from '../General/TweetList';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Tweet from '../Tweet'
@@ -17,31 +18,15 @@ function HomeFeed({navigation,tweetsHome,token,startFetchingTweetsHome,isFetchin
   const refFlatList = React.useRef(null);
   return (
     <View style={styles.container}>
-          <FlatList style={{margin:0,}}
-          data={tweetsHome}
-          ref={refFlatList}
-          key={"FlatListTweets"} 
-          numColumns={1}
-          keyExtractor={(tweet, index) => tweet.id}
-          onEndReachedThreshold={0.1}
-          refreshing={isFetchingHomeTweets}
-          onRefresh={()=>{startFetchingTweetsHome()}}
-          // onEndReached={()=> onLoadMore()}
-          renderItem={(tweet) => (
-            <View>
-            <Tweet tweet={tweet.item} navigation={navigation}/>
-            
-            </View>
-           )
-           
-          }
           
-            
-          />
+      <TweetList navigation={navigation} tweetArray={tweetsHome} container={{height: hp('84%')}}
+        key={'tweetsHome'} infoText={'No hay ningún tweet que mostrar'} 
+        isFetching={isFetchingHomeTweets}  onRefresh={()=>{startFetchingTweetsHome()}} >
+      </TweetList>
       
       <FAB  onPress={()=>navigation.navigate('NewTweet')}
         icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
-        />
+      />
     </View>
   );
 }

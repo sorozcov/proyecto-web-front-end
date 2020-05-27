@@ -2,7 +2,6 @@ import React,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Image,FlatList,Text, TouchableOpacity } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import FAB from '../General/FAB';
 var moment = require('moment');
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CommonActions } from '@react-navigation/native';
@@ -13,10 +12,17 @@ import ButtonOption from '../General/ButtonOption';
 import Tweet from '../Tweet';
 
 
-function Followers({ navigation, isFetchingProfile, startFetchingProfile, SelectedUserId, profileInfo, profileFollowers, profileFollowing }) {
-  useEffect(startFetchingProfile,[SelectedUserId]);
+function Followers({ navigation, isFetchingProfile, startFetchingProfileFollowers, startFetchingProfileFollowing, SelectedUserId, profileInfo, profileFollowers, profileFollowing }) {
   const refFlatList = React.useRef(null);
   const [toolBarOption, setToolBarOption] = useState(0);
+  useEffect(() => {
+    if(toolBarOption===1)
+      startFetchingProfileFollowers();
+  },[SelectedUserId,toolBarOption]);
+  useEffect(() => {
+    if(toolBarOption===0)
+      startFetchingProfileFollowing();
+  },[SelectedUserId,toolBarOption]);
   if(profileInfo!==null)
     navigation.setOptions({ headerTitle: profileInfo.first_name + " "+ profileInfo.last_name });
   return (
@@ -33,7 +39,7 @@ function Followers({ navigation, isFetchingProfile, startFetchingProfile, Select
           keyExtractor={(user, index) => user.id}
           onEndReachedThreshold={0.1}
           refreshing={isFetchingProfile}
-          onRefresh={()=>{startFetchingProfile()}}
+          onRefresh={()=>{startFetchingProfileFollowers()}}
           // onEndReached={()=> onLoadMore()}
           renderItem={(user) => (
             <View>
@@ -52,7 +58,7 @@ function Followers({ navigation, isFetchingProfile, startFetchingProfile, Select
           keyExtractor={(user, index) => user.id}
           onEndReachedThreshold={0.1}
           refreshing={isFetchingProfile}
-          onRefresh={()=>{startFetchingProfile()}}
+          onRefresh={()=>{startFetchingProfileFollowing()}}
           // onEndReached={()=> onLoadMore()}
           renderItem={(user) => (
             <View>
@@ -62,9 +68,6 @@ function Followers({ navigation, isFetchingProfile, startFetchingProfile, Select
           }
           />}
 
-      <FAB 
-        icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
-        />
     </View>
   );
 }
@@ -78,8 +81,11 @@ export default connect(
     isFetchingProfile: selectors.isProfileFetching(state),
   }),
   dispatch => ({
-    startFetchingProfile() {
+    startFetchingProfileFollowers() {
       dispatch(profileActions.startFetchingProfileFollowers());      
+    },
+    startFetchingProfileFollowing() {
+      dispatch(profileActions.startFetchingProfileFollowing());      
     },
   }),
 )(Followers);

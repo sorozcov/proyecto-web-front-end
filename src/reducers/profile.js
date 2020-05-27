@@ -158,12 +158,18 @@ const isFetching = (state = false, action) => {
     case types.PROFILE_INFO_FETCH_STARTED: {
       return true;
     }
+    case types.PROFILE_INFO_FETCH_COMPLETED: {
+      return false;
+    }
     case types.PROFILE_INFO_FETCH_FAILED: {
       return false;
     }
     //Profile Followers
     case types.PROFILE_FOLLOWERS_FETCH_STARTED: {
       return true;
+    }
+    case types.PROFILE_FOLLOWERS_FETCH_COMPLETED: {
+      return false;
     }
     case types.PROFILE_FOLLOWERS_FETCH_FAILED: {
       return false;
@@ -181,6 +187,9 @@ const isFetching = (state = false, action) => {
     //Profile my tweets
     case types.PROFILE_MY_TWEETS_FETCH_STARTED: {
       return true;
+    }
+    case types.PROFILE_MY_TWEETS_FETCH_COMPLETED: {
+      return false;
     }
     case types.PROFILE_MY_TWEETS_FETCH_FAILED: {
       return false;
