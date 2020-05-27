@@ -15,7 +15,7 @@ function User({navigation,user,styleContainer={},selectProfileUserId}) {
       <View style={styles.flexRow}>
         <TouchableOpacity onPress={()=>selectProfileUserId(navigation,user.id)}>
           <View style={styles.imageContainer} >
-              <Image style={styles.imageProfile}   source={require('../../../assets/images/egg.jpg')}></Image>
+              <Image style={styles.imageProfile}   source={require('../../assets/images/egg.jpg')}></Image>
           </View>
         </TouchableOpacity>
         <View style={styles.titleContainer}>    
