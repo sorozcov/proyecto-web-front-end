@@ -172,6 +172,9 @@ const isFetching = (state = false, action) => {
     case types.PROFILE_FOLLOWING_FETCH_STARTED: {
       return true;
     }
+    case types.PROFILE_FOLLOWING_FETCH_COMPLETED: {
+      return false;
+    }
     case types.PROFILE_FOLLOWING_FETCH_FAILED: {
       return false;
     }

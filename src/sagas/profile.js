@@ -44,7 +44,7 @@ function* profileInfoRequest(action) {
       if (response.status <= 300) {
         const jsonResultUser = yield response.json();
         yield put(actions.completeFetchingProfileInfo(jsonResultUser));
-        yield put(actions.startFetchingProfileFollowers());
+        yield put(actions.startFetchingProfileMyTweets());
         
       } else {
         const { detail } = yield response.json();
@@ -159,7 +159,6 @@ function* fetchProfileFollowing(action) {
             result,
           ),
         );
-        yield put(actions.startFetchingProfileMyTweets());
       } else {
         const { detail } = yield response.json();
         let errorMessage ="Error obteniendo followings.";

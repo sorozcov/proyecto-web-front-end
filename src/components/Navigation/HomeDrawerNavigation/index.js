@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Platform,Image } from 'react-native';
+import { Text, View, StyleSheet,Image, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DrawerItem,DrawerContentScrollView } from '@react-navigation/drawer';
@@ -22,18 +22,25 @@ function DrawerScreen({navigation,user,logout,userInformation, selectProfileUser
       }
     >
     {userInformation!==null &&
-      <View style={styles.userInfoSection}>
-
-        <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/egg.jpg')}></Image>
-        <Text style={styles.title}>{userInformation.first_name + " "+ userInformation.last_name}</Text>
-        <Text style={styles.caption}>@{userInformation.username}</Text>
-        <View style={{flexDirection:'row',flex:1,paddingTop:10}}>
-          <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.following} </Text>
-          <Text style={styles.caption}>Siguiendo </Text>
-          <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.followers} </Text>
-          <Text style={styles.caption}>Seguidores </Text>
-        </View>
-      </View>}
+        <View style={styles.userInfoSection}>
+          <TouchableOpacity style={{width:wp('20%')}} onPress={()=> selectProfileUserId(navigation,userInformation.id)}>
+            <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../../assets/images/egg.jpg')}></Image>
+          </TouchableOpacity>
+          <TouchableOpacity style={{width:wp('30%')}} onPress={()=> selectProfileUserId(navigation,userInformation.id)}>
+            <Text style={styles.title}>{userInformation.first_name + " "+ userInformation.last_name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{width:wp('20%')}} onPress={()=> selectProfileUserId(navigation,userInformation.id)}>
+            <Text style={styles.caption}>@{userInformation.username}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=> selectProfileUserId(navigation,userInformation.id)}>
+            <View style={{flexDirection:'row',paddingTop:hp('1%'),height:hp('4%')}}>
+              <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.following} </Text>
+              <Text style={styles.caption}>Siguiendo </Text>
+              <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{userInformation.followers} </Text>
+              <Text style={styles.caption}>Seguidores </Text>
+            </View>
+          </TouchableOpacity>
+        </View>}
 
       <DrawerItem
           icon={({ color, size}) => (
@@ -142,29 +149,25 @@ const styles = StyleSheet.create({
     height: hp('100%'),
   },
   userInfoSection: {
-    paddingLeft: 20,
+    paddingLeft: wp('5%'),
     backgroundColor:'white',
-    marginBottom:10,
-    paddingBottom:10,
-    paddingTop:10,
-    height: hp('24%'),
+    marginBottom: hp('1.5%'),
+    paddingBottom: hp('1.5%'),
+    paddingTop:hp('1.5%'),
+    height: hp('23%'),
   },
-
   title: {
-    marginTop: 20,
+    marginTop: hp('2%'),
     fontWeight: 'bold',
     textTransform:'uppercase',
-   
     color:'black'
   },
   caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    paddingTop:5,
-  
+    fontSize: wp('4%'),
+    lineHeight: hp('2%'),
+    paddingTop: hp('0.8%'),
     color:'gray'
   },
-
 });
 
 

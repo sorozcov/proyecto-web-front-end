@@ -36,13 +36,14 @@ export default function MyTextInput(props) {
 
 
 const styles = StyleSheet.create({
-  inputContainerStyle: { 
+  inputContainerStyle: {
+    textAlignVertical:'top', 
     height:hp('100%'), 
     marginLeft: wp('2%'),
     marginRight: wp('0%'),
     paddingLeft: wp('4%'),
     paddingTop: wp('4%'),
-    fontSize:wp('4.5%') 
+    fontSize:wp('4.5%'),
   },
   textError: {
     color: 'red',

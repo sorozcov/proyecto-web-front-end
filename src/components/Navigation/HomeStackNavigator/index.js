@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import HomeFeed from '../../Home';
 import Profile from '../../Profile';
+import Followers from '../../Followers';
 import NewTweet from '../../NewTweet';
 
 
@@ -14,8 +15,12 @@ import NewTweet from '../../NewTweet';
 const Stack = createStackNavigator();
 
 export default function HomeStack({navigation,route}) {
+  if(route.state && route.state.index > 0) {
+    navigation.setOptions({tabBarVisible: false})
+  } else {
+    navigation.setOptions({tabBarVisible: true})
+  };
   return (
-   
       <Stack.Navigator screenOptions={{ headerBackTitleVisible:false,
         headerShown: true ,
         headerMode: 'screen'}} initialRouteName="HomeFeed">
@@ -27,6 +32,10 @@ export default function HomeStack({navigation,route}) {
             name="Profile" 
             options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
             component={Profile} />
+        <Stack.Screen 
+            name="Followers" 
+            options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
+            component={Followers} />
         <Stack.Screen 
             name="NewTweet" 
             options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 

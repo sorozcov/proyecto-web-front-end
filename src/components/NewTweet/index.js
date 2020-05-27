@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
       flexDirection:'row',
   },
   contentCotainer:{
+      height:hp('100%'), 
       width:wp('82%'),
       flexDirection:'column',
       
