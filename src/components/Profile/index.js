@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Image,Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FAB from '../General/FAB';
-var moment = require('moment');
+import moment from 'moment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -28,8 +28,6 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
     startFetchingProfileMyTweets();
     startFetchingProfileLikedTweets();
   },[SelectedUserId]);
-
-  console.log(profileInfoIsMe)
   return (
     <View style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -37,7 +35,10 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
             <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../assets/images/egg.jpg')}></Image>
             <View style={{flexDirection:'column'}}>
               {!profileInfoIsMe && <Button label={profileInfoImFollowing ? 'Siguiendo':'Seguir'} buttonStyle={{height: hp('4%'),width: wp('25%'),marginLeft:wp('43%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />}
-              {!profileInfoIsMe && profileInfoTheyFollow && <Text style={{marginLeft:wp('46%'),backgroundColor:'#EAEAEA',width:wp('19%'),textAlign:'center',padding:4}}>Te Sigue </Text>}
+              {!profileInfoIsMe && profileInfoTheyFollow && 
+              <View style={styles.theyFollow}>
+                <Text  style={{textAlign:'center'}}>Te Sigue </Text>
+              </View>}
             </View>
         </View>
         {profileInfo!==null ? (
@@ -161,5 +162,13 @@ const styles = StyleSheet.create({
   infoText: {
     paddingTop:hp('2%'),
     fontSize:wp('5%'),
-    alignSelf:'center'}
+    alignSelf:'center'
+  },
+  theyFollow: {
+    marginLeft:wp('46%'),
+    backgroundColor:'#EAEAEA',
+    borderRadius:wp('2%'),
+    width:wp('19%'),
+    padding:wp('1%'),
+  },
 });

@@ -1,19 +1,12 @@
 import React from 'react';
-import { StyleSheet, View,TextInput,Text } from 'react-native';
+import { StyleSheet, View,TextInput,Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
-export default function SearchTextInput({onChange,value,disabled,label,placeholder,keyboardType,secureTextEntry,multiline,maxLength,style}) {
+export default function ChatTextInput({onChange,value,disabled,label,placeholder,keyboardType,secureTextEntry,multiline,maxLength,style}) {
   return (
     <View style={styles.flexRow}>
-      <View style={styles.icon}>
-        <MaterialCommunityIcons
-          name="magnify"
-          color='black'
-          size={wp('10%')}
-        />
-      </View>
       <TextInput
         onChangeText={onChange}
         value={value}
@@ -28,7 +21,14 @@ export default function SearchTextInput({onChange,value,disabled,label,placehold
         multiline={multiline}
         maxLength={maxLength}
         style={{...styles.inputContainerStyle,...style}}
-        />        
+      />        
+      <TouchableOpacity style={styles.icon}>
+        <MaterialCommunityIcons
+          name="send"
+          color='#00ACEE'
+          size={wp('7%')}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -36,20 +36,29 @@ export default function SearchTextInput({onChange,value,disabled,label,placehold
 
 const styles = StyleSheet.create({
   inputContainerStyle: { 
-    height:hp('7.5%'), 
-    marginLeft: wp('5%'),
+    height:hp('6%'), 
+    marginLeft: wp('3%'),
+    marginBottom: wp('2%'),
     fontSize:wp('4.5%'),
-    width:wp('80%'),
+    width:wp('78%'),
+    borderBottomWidth:1,
+    borderBottomColor:'#bab9b8',
   },
   icon: {
-    height:hp('7.5%'),
+    height:hp('5%'),
+    paddingLeft:wp('4%'),
+    borderLeftWidth:1,
+    borderLeftColor:'#d4d3d2',
     marginLeft:wp('3%'),
     justifyContent:"center",
   },
   flexRow:{
     flexDirection:'row',
+    height:hp('8%'),
     marginRight: wp('0%'),
-    backgroundColor:'#e1e3ed'
-
+    backgroundColor:'white',
+    borderWidth:1,
+    borderColor:'#d4d3d2',
+    alignItems:'center'
   },
 });

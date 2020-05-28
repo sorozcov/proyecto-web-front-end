@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { connect } from 'react-redux';
 
 import * as selectors from '../../reducers';
-import * as actionsProfile from '../../actions/profile'
+import * as actionsProfile from '../../actions/profile';
 
 
 function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed}) {
