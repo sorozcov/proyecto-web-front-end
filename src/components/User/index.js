@@ -9,11 +9,11 @@ import * as actionsProfile from '../../actions/profile';
 import Button from '../General/Button';
 
 
-function User({navigation,user,styleContainer={},selectProfileUserId}) {
+function User({navigation,user,styleContainer={},selectProfileUserId,blockAction=false}) {
     return(
     <View style={{...styles.userContainer,...styleContainer}}>
       <View style={styles.flexRow}>
-        <TouchableOpacity onPress={()=>selectProfileUserId(navigation,user.id)}>
+        <TouchableOpacity onPress={()=> {if(!blockAction) selectProfileUserId(navigation,user.id)}}>
           <View style={styles.imageContainer} >
               <Image style={styles.imageProfile}   source={require('../../assets/images/egg.jpg')}></Image>
           </View>
@@ -22,7 +22,7 @@ function User({navigation,user,styleContainer={},selectProfileUserId}) {
           <Text numberOfLines={1} style={styles.userNameStyle}>{user.first_name + " "+ user.last_name}</Text>
           <Text numberOfLines={1}  style={styles.infoUserNameStyle}>@{user.username}</Text>
         </View>
-        <Button label={'Siguiendo'} buttonStyle={{height: hp('4%'),width: wp('25%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />      
+        {/* <Button label={'Siguiendo'} buttonStyle={{height: hp('4%'),width: wp('25%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />       */}
       </View>
     </View>
   )

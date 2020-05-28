@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import User from '../User';
 
 
-export default function UserList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' , userType="" }) {
+export default function UserList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' ,blockAction=false }) {
   const refFlatList = React.useRef(null);
   const isEmpty=(isFetching)=>{
     if(!isFetching){
@@ -34,7 +34,7 @@ export default function UserList({ navigation, container={}, infoContainer={},in
         // onEndReached={()=> onLoadMore()}
         renderItem={(user) => (
           <View>
-          <User navigation={navigation} user={userType === 'Followers' ? user.item.userFollower : userType === 'Following' ? user.item.userFollowing : user.item } ></User>
+          <User navigation={navigation} blockAction={blockAction} user={ user.item } ></User>
           </View>
           )
         }

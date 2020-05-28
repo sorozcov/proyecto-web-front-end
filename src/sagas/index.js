@@ -3,6 +3,7 @@ import { watchLoginStarted,watchUserInformationRequest, watchRefreshTokenStarted
 import { watchSignUpStarted } from './signUp';
 import { watchAddTweet,watchRemoveTweet,watchTweetsHomeFetch } from './tweets';
 import { watchProfileInfoRequest, watchProfileFollowersFetch, watchProfileFollowingFetch, watchProfileMyTweetsFetch, watchProfileLikedTweetsFetch } from './profile';
+import { watchSearchUsersFetch, watchSearchTweetsFetch } from './search';
 import { watchAlertChannel } from 'redux-saga-rn-alert';
 
 
@@ -21,6 +22,8 @@ function* mainSaga() {
     fork(watchProfileFollowingFetch),
     fork(watchProfileMyTweetsFetch),
     fork(watchProfileLikedTweetsFetch),
+    fork(watchSearchUsersFetch),
+    fork(watchSearchTweetsFetch),
     
     spawn(watchAlertChannel),
   ]);
