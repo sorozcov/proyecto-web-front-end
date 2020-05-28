@@ -64,10 +64,17 @@ export default connect(
           retweets:0,
           content:content,
           id,
+          is_mine:true,
+          user_follows_me: false,
+          user_followed_by_me: false,
+          is_retweeted: false,
+          is_liked: false,
 
         },
         content,
-        user:userId,        
+        user:userId,  
+        
+
 
       }
       dispatch(tweetsActions.startAddingTweet(payload));    
