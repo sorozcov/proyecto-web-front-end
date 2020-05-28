@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     marginLeft: wp('5%'),
     fontSize:wp('4.5%'),
     width:wp('80%'),
+    textAlignVertical:'top',
   },
   icon: {
     height:hp('7.5%'),

@@ -62,6 +62,9 @@ export const getFetchingTweetsError = state => tweetsSelector.getFetchingTweetsE
 //Profile Selectors
 export const getProfileSelectedUserId = state => profileSelector.getProfileSelectedUserId(state.profile);
 export const getProfileInfo = state => profileSelector.getProfileInfo(state.profile);
+export const getProfileInfoIsMe = state => profileSelector.getProfileInfoIsMe(state.profile);
+export const getProfileInfoImFollowing = state => profileSelector.getProfileInfoImFollowing(state.profile);
+export const getProfileInfoTheyFollow = state => profileSelector.getProfileInfoTheyFollow(state.profile);
 export const getProfileFollower = (state, id) => profileSelector.getProfileFollower(state.profile, id);
 export const getProfileFollowers = state => profileSelector.getProfileFollowers(state.profile);
 export const getProfileFollowing = (state, id) => profileSelector.getProfileFollowing(state.profile, id);

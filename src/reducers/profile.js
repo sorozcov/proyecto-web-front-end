@@ -331,6 +331,9 @@ export default combineReducers({
 
 export const getProfileSelectedUserId = state => state.profileSelectedUserId ? state.profileSelectedUserId : null;
 export const getProfileInfo = state => state.profileInfo ? state.profileInfo : null;
+export const getProfileInfoIsMe = state => state.profileInfo ? state.profileInfo.is_me : null;
+export const getProfileInfoImFollowing = state => state.profileInfo ? state.profileInfo.im_following : null;
+export const getProfileInfoTheyFollow = state => state.profileInfo ? state.profileInfo.they_follow : null;
 export const getProfileFollower = (state, id) => state.profileFollowersById[id];
 export const getProfileFollowers = state => state.profileFollowersOrder.map(id => getProfileFollower(state, id));
 export const getProfileFollowing = (state, id) => state.profileFollowingById[id];

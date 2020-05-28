@@ -18,7 +18,7 @@ function NewMessage({navigation, startFetchingSearchUsers, users}) {
   },[searchInput]);
   return (
     <View style={styles.container}>
-      <SearchTextInput onChange={setSerchInput} value={searchInput} placeholder={'Buscar personas'} multiline={true} />
+      <SearchTextInput onChange={setSerchInput} value={searchInput} placeholder={'Buscar personas'} multiline={false} />
       <UserList blockAction={true} navigation={navigation} userArray={users} container={{height: hp('80%')}}
         currentKey={'users'} infoEmptyText={''}
         recommendEmptyText={''} >

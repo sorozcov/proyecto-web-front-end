@@ -1,20 +1,20 @@
 import React,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Image,FlatList,Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Image,Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FAB from '../General/FAB';
 var moment = require('moment');
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CommonActions } from '@react-navigation/native';
+
 
 import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
 import TweetList from '../TweetList';
-import Tweet from '../Tweet';
+import Button from '../General/Button';
 
 
-function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile,isProfileFetchingTweets,isProfileFetchingTweetsLike, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets }) {
+function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile,isProfileFetchingTweets,isProfileFetchingTweetsLike, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets,profileInfoIsMe,profileInfoImFollowing,profileInfoTheyFollow }) {
   const refFlatList = React.useRef(null);
   const [toolBarOption, setToolBarOption] = useState(0);
   useEffect(() => {
@@ -29,12 +29,17 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
     startFetchingProfileLikedTweets();
   },[SelectedUserId]);
 
-  
+  console.log(profileInfoIsMe)
   return (
     <View style={styles.container}>
       <View style={styles.userInfoSection}>
-
-        <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../assets/images/egg.jpg')}></Image>
+        <View style={{flexDirection:"row"}}>
+            <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../assets/images/egg.jpg')}></Image>
+            <View style={{flexDirection:'column'}}>
+              {!profileInfoIsMe && <Button label={profileInfoImFollowing ? 'Siguiendo':'Seguir'} buttonStyle={{height: hp('4%'),width: wp('25%'),marginLeft:wp('43%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />}
+              {!profileInfoIsMe && profileInfoTheyFollow && <Text style={{marginLeft:wp('46%'),backgroundColor:'#EAEAEA',width:wp('19%'),textAlign:'center',padding:4}}>Te Sigue </Text>}
+            </View>
+        </View>
         {profileInfo!==null ? (
           <>
             <Text style={styles.title}>{profileInfo.first_name + " "+ profileInfo.last_name}</Text>
@@ -61,6 +66,8 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
                   </View>
                 </TouchableOpacity>
               </View>
+              
+                   
           </>
         ) : (
           <ActivityIndicator size="large" animating={true} color='#00ACEE'/>
@@ -70,22 +77,22 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
         <ButtonOption options={['Tweets','Me Gusta']}  onPressVar={toolBarOption} onPressAction={setToolBarOption} />
       </View>
       {toolBarOption===0 && 
-        <TweetList navigation={navigation} tweetArray={profileMyTweets} container={{height: hp('58%')}}
+        <TweetList navigation={navigation} tweetArray={profileMyTweets} container={{height: hp('56%')}}
           key={'profileMyTweets'} 
           isFetching={isProfileFetchingTweets}  onRefresh={()=>{
             startFetchingProfileInfo();  
             startFetchingProfileMyTweets();
           }} 
-          infoEmptyText={'Tus Tweets se mostrarán aquí.'} 
+          infoEmptyText={profileInfoIsMe ? 'Tus Tweets se mostrarán aquí.':'No hay ningún tweet para mostrar.'} 
          
         >
         </TweetList>
       }      
       {toolBarOption===1 && 
-        <TweetList navigation={navigation} tweetArray={profileLikedTweets} container={{height: hp('58%')}}
+        <TweetList navigation={navigation} tweetArray={profileLikedTweets} container={{height: hp('56%')}}
           key={'profileLikedTweets'} 
-          infoEmptyText={'No tienes ningún Me Gusta todavía'} 
-        recommendEmptyText={'Pulsa el corazón en cualquier Tweet para demostrar que te gusta. Cuando lo hagas, se mostrará aquí.'}
+          infoEmptyText={profileInfoIsMe ?  'No tienes ningún Me Gusta todavía' : 'No hay nada que mostrar.'} 
+        recommendEmptyText={profileInfoIsMe ? 'Pulsa el corazón en cualquier Tweet para demostrar que te gusta. Cuando lo hagas, se mostrará aquí.':''}
           isFetching={isProfileFetchingTweetsLike}  onRefresh={()=>{
             startFetchingProfileInfo();
             startFetchingProfileLikedTweets();
@@ -104,6 +111,9 @@ export default connect(
   state => ({
     SelectedUserId: selectors.getProfileSelectedUserId(state),
     profileInfo: selectors.getProfileInfo(state),
+    profileInfoIsMe: selectors.getProfileInfoIsMe(state),
+    profileInfoTheyFollow: selectors.getProfileInfoTheyFollow(state),
+    profileInfoImFollowing: selectors.getProfileInfoImFollowing(state),
     profileMyTweets: selectors.getProfileMyTweets(state),
     profileLikedTweets: selectors.getProfileLikedTweets(state),
     isFetchingProfile: selectors.isProfileFetching(state),
