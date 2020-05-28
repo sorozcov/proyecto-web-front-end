@@ -10,19 +10,17 @@ import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
 import User from '../User';
+import UserList from '../UserList';
 
 
 function Followers({ navigation, route, isFetchingProfile, startFetchingProfileFollowers, startFetchingProfileFollowing, SelectedUserId, profileInfo, profileFollowers, profileFollowing }) {
-  const refFlatList = React.useRef(null);
   const option = JSON.stringify(route.params.itemId);
   const [toolBarOption, setToolBarOption] = useState(parseInt(option));
   useEffect(() => {
-    if(toolBarOption===1)
-      startFetchingProfileFollowers();
-  },[SelectedUserId,toolBarOption]);
-  useEffect(() => {
     if(toolBarOption===0)
       startFetchingProfileFollowing();
+    if(toolBarOption===1)
+      startFetchingProfileFollowers();
   },[SelectedUserId,toolBarOption]);
   if(profileInfo!==null)
     navigation.setOptions({ headerTitle: profileInfo.first_name + " "+ profileInfo.last_name });
@@ -31,44 +29,20 @@ function Followers({ navigation, route, isFetchingProfile, startFetchingProfileF
       <View style={{flexDirection:'row',height:hp('7%')}}>
         <ButtonOption options={['Siguiendo','Seguidores']}  onPressVar={toolBarOption} onPressAction={setToolBarOption} />
       </View>
-      {toolBarOption===1 && profileFollowers.length > 0 &&
-          <FlatList style={{margin:0,}}
-          data={profileFollowers}
-          ref={refFlatList}
-          key={"FlatListFollowers"} 
-          numColumns={1}
-          keyExtractor={(user, index) => user.id}
-          onEndReachedThreshold={0.1}
-          refreshing={isFetchingProfile}
-          onRefresh={()=>{startFetchingProfileFollowers()}}
-          // onEndReached={()=> onLoadMore()}
-          renderItem={(user) => (
-            <View>
-            <User navigation={navigation} user={user.item.userFollower} ></User>
-            </View>
-           )
-          }
-          />}
+      
+      {toolBarOption===1 && 
+        <UserList navigation={navigation} userArray={profileFollowers} container={{height: hp('80%')}}
+          key={'profileFollowers'} infoText={'Aún no tiene seguidores'} userType={'Followers'}
+          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowers()}} >
+        </UserList>
+      }
 
-      {toolBarOption===0 && profileFollowing.length > 0 &&
-          <FlatList style={{margin:0,}}
-          data={profileFollowing}
-          ref={refFlatList}
-          key={"FlatListFollowing"} 
-          numColumns={1}
-          keyExtractor={(user, index) => user.id}
-          onEndReachedThreshold={0.1}
-          refreshing={isFetchingProfile}
-          onRefresh={()=>{startFetchingProfileFollowing()}}
-          // onEndReached={()=> onLoadMore()}
-          renderItem={(user) => (
-            <View>
-            <User navigation={navigation} user={user.item.userFollowing} ></User>
-            </View>
-           )
-          }
-          />}
-
+      {toolBarOption===0 && 
+        <UserList navigation={navigation} userArray={profileFollowing} container={{height: hp('80%')}}
+          key={'profileFollowing'} infoText={'Aún no sigue a ningún usuario'} userType={'Following'}
+          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowing()}} >
+        </UserList>
+      }
     </View>
   );
 }

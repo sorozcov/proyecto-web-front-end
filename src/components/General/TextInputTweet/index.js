@@ -24,7 +24,6 @@ export default function MyTextInput(props) {
         maxLength={240}
         returnKeyType={"done"}
         multiline={inputProps.multiline}
-        maxLength={inputProps.maxLength}
         style={{...styles.inputContainerStyle,...inputProps.style}}
         />
         
