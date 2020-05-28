@@ -54,6 +54,7 @@ export const getSigningUpError = state => signUpSelectors.getSigningUpError(stat
 export const getTweet = (state, id) => tweetsSelector.getTweet(state.tweets,id);
 export const getTweets = state => tweetsSelector.getTweets(state.tweets);
 export const isFetchingTweets = state => tweetsSelector.isFetchingTweets(state.tweets);
+
 export const getFetchingTweetsError = state => tweetsSelector.getFetchingTweetsError(state.tweets);
 
 //Profile Selectors
@@ -69,3 +70,5 @@ export const getProfileLikedTweet = (state, id) => profileSelector.getProfileLik
 export const getProfileLikedTweets = state => profileSelector.getProfileLikedTweets(state.profile);
 export const isProfileFetching = state => profileSelector.isProfileFetching(state.profile);
 export const getProfileFetchingError = state => profileSelector.getProfileFetchingError(state.profile);
+export const isProfileFetchingTweets = state => profileSelector.isProfileFetchingTweets(state.profile);
+export const isProfileFetchingTweetsLike = state => profileSelector.isProfileFetchingTweetsLike(state.profile);

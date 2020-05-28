@@ -6,8 +6,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Tweet from '../Tweet';
 
 
-export default function TweetList({ navigation, container={}, infoContainer={}, infoTextStyle={}, viewCondition=true, tweetArray=[], currentKey='', isFetching, onRefresh, infoText="" }) {
+export default function TweetList({ navigation, container={}, infoContainer={}, infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, tweetArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' }) {
   const refFlatList = React.useRef(null);
+  const isEmpty=(isFetching)=>{
+      if(!isFetching){
+        return(
+          <View style={{...styles.infoContainer,...infoContainer}}>
+            {iconEmpty!=null && iconEmpty}
+            <Text style={{...styles.infoEmptyText,...infoEmptyTextStyle}}>{infoEmptyText}</Text>
+            <Text style={{...styles.recommendText,...recommendEmptyTextStyle}}>{recommendEmptyText}</Text>
+          </View>
+        )
+      }
+      return null
+  }
   return (
     <View style={{...styles.container,...container}}>
       
@@ -27,13 +39,9 @@ export default function TweetList({ navigation, container={}, infoContainer={}, 
           </View>
           )
         }
+        ListEmptyComponent={isEmpty(isFetching)}
         /> 
-      {tweetArray.length === 0 && !isFetching &&
-        <View style={{...styles.infoContainer,...infoContainer}}>
-          <MaterialCommunityIcons name="information" color='black' size={wp('10%')} />
-          <Text style={{...styles.infoText,...infoTextStyle}}>{infoText}</Text>
-        </View>
-      }
+
     </View>
   );
 }
@@ -44,13 +52,33 @@ const styles = StyleSheet.create({
     height: hp('100%'),
   },
   infoContainer: {
-    height:hp('20%'),
+    height:hp('50%'),
     flexDirection:'column',
     alignItems:'center',
     justifyContent:'center'
   },
-  infoText: {
+  infoEmptyText: {
     paddingTop:hp('2%'),
-    fontSize:wp('5%'),
-    alignSelf:'center'}
+    fontSize:wp('6.5%'),
+    alignSelf:'center',
+    alignItems:'center',
+    justifyContent:'center',
+    fontWeight:'bold',
+    textAlign:'center',
+    paddingLeft:wp('5%'),
+    paddingRight:wp('5%'),
+  },
+  recommendText: {
+    paddingTop:hp('1%'),
+    fontSize:wp('4.8%'),
+    paddingLeft:wp('5%'),
+    paddingRight:wp('5%'),
+    textAlign:'center',
+    alignSelf:'center',
+    alignItems:'center',
+    justifyContent:'center',
+    color:'gray',
+  
+  },
+
 });

@@ -19,8 +19,9 @@ function HomeFeed({navigation,tweetsHome,token,startFetchingTweetsHome,isFetchin
   return (
     <View style={styles.container}>
           
-      <TweetList navigation={navigation} tweetArray={tweetsHome} container={{height: hp('84%')}}
-        key={'tweetsHome'} infoText={'No hay ningún tweet que mostrar'} 
+      <TweetList navigation={navigation} tweetArray={tweetsHome} 
+        key={'tweetsHome'} infoEmptyText={'¿Qué?¿Todavía no ves Tweets?'} 
+        recommendEmptyText={'Esta cronología no estará vacía para siempre. Comienza a seguir personas y sus tweets estarán aquí.'}
         isFetching={isFetchingHomeTweets}  onRefresh={()=>{startFetchingTweetsHome()}} >
       </TweetList>
       

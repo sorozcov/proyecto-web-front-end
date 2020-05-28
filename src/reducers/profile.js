@@ -152,6 +152,48 @@ const profileLikedTweetsOrder = (state = [], action) => {
   }
 };
 
+const isFetchingProfileLikeTweets = (state = false, action)=>{
+  switch(action.type) {
+
+
+    
+    //Profile liked tweets
+    case types.PROFILE_LIKED_TWEETS_FETCH_STARTED: {
+      return true;
+    }
+    case types.PROFILE_LIKED_TWEETS_FETCH_COMPLETED: {
+      return false;
+    }
+    case types.PROFILE_LIKED_TWEETS_FETCH_FAILED: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+const isFetchingProfileTweets = (state = false, action)=>{
+  switch(action.type) {
+
+
+    //Profile my tweets
+    case types.PROFILE_MY_TWEETS_FETCH_STARTED: {
+      return true;
+    }
+    case types.PROFILE_MY_TWEETS_FETCH_COMPLETED: {
+      return false;
+    }
+    case types.PROFILE_MY_TWEETS_FETCH_FAILED: {
+      return false;
+    }
+
+    default: {
+      return state;
+    }
+  }
+}
+
 const isFetching = (state = false, action) => {
   switch(action.type) {
     //Profile Information
@@ -281,6 +323,8 @@ export default combineReducers({
   profileLikedTweetsById,
   profileLikedTweetsOrder,
   isFetching,
+  isFetchingProfileLikeTweets,
+  isFetchingProfileTweets,
   error,
 });
 
@@ -296,4 +340,6 @@ export const getProfileMyTweets = state => state.profileMyTweetsOrder.map(id => 
 export const getProfileLikedTweet = (state, id) => state.profileLikedTweetsById[id];
 export const getProfileLikedTweets = state => state.profileLikedTweetsOrder.map(id => getProfileLikedTweet(state, id));
 export const isProfileFetching = state => state.isFetching;
+export const isProfileFetchingTweets = state => state.isFetchingProfileTweets;
+export const isProfileFetchingTweetsLike = state => state.isFetchingProfileLikeTweets;
 export const getProfileFetchingError = state => state.error;

@@ -32,14 +32,18 @@ function Followers({ navigation, route, isFetchingProfile, startFetchingProfileF
       
       {toolBarOption===1 && 
         <UserList navigation={navigation} userArray={profileFollowers} container={{height: hp('80%')}}
-          key={'profileFollowers'} infoText={'Aún no tiene seguidores'} userType={'Followers'}
+          key={'profileFollowers'} infoEmptyText={'Todavía no tienes seguidores'}
+          recommendEmptyText={'Cuando alguien te siga, lo verás aquí.'}
+          userType={'Followers'}
           isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowers()}} >
         </UserList>
       }
 
       {toolBarOption===0 && 
-        <UserList navigation={navigation} userArray={profileFollowing} container={{height: hp('80%')}}
-          key={'profileFollowing'} infoText={'Aún no sigue a ningún usuario'} userType={'Following'}
+        <UserList navigation={navigation} userArray={profileFollowing} 
+          key={'profileFollowing'}  userType={'Following'} container={{height: hp('80%')}}
+          infoEmptyText={'Todavía no sigues a nadie'}
+          recommendEmptyText={'Cuando lo hagas, estos usuarios se detallarán aquí y veras sus Tweets en tu cronología.'}
           isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowing()}} >
         </UserList>
       }

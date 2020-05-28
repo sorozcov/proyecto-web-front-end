@@ -14,16 +14,18 @@ import TweetList from '../TweetList';
 import Tweet from '../Tweet';
 
 
-function Profile({ navigation, startFetchingProfileInfo, startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets }) {
+function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile,isProfileFetchingTweets,isProfileFetchingTweetsLike, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets }) {
   const refFlatList = React.useRef(null);
   const [toolBarOption, setToolBarOption] = useState(0);
-  useEffect(startFetchingProfileInfo,[SelectedUserId]);
   useEffect(() => {
     if(toolBarOption===0)
       startFetchingProfileMyTweets();
     if(toolBarOption===1)
       startFetchingProfileLikedTweets();
   },[SelectedUserId,toolBarOption]);
+  useEffect(startFetchingProfileInfo,[SelectedUserId]);
+
+  
   return (
     <View style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -65,17 +67,22 @@ function Profile({ navigation, startFetchingProfileInfo, startFetchingProfileMyT
       </View>
       {toolBarOption===0 && 
         <TweetList navigation={navigation} tweetArray={profileMyTweets} container={{height: hp('58%')}}
-          key={'profileMyTweets'} infoText={'Aún no ha publicado ningún tweet'} 
-          isFetching={isFetchingProfile}  onRefresh={()=>{
+          key={'profileMyTweets'} 
+          isFetching={isProfileFetchingTweets}  onRefresh={()=>{
             startFetchingProfileInfo();  
             startFetchingProfileMyTweets();
-          }} >
+          }} 
+          infoEmptyText={'Tus Tweets se mostrarán aquí.'} 
+         
+        >
         </TweetList>
       }      
       {toolBarOption===1 && 
         <TweetList navigation={navigation} tweetArray={profileLikedTweets} container={{height: hp('58%')}}
-          key={'profileLikedTweets'} infoText={'Aún no le ha gustado ningún tweet'} 
-          isFetching={isFetchingProfile}  onRefresh={()=>{
+          key={'profileLikedTweets'} 
+          infoEmptyText={'No tienes ningún Me Gusta todavía'} 
+        recommendEmptyText={'Pulsa el corazón en cualquier Tweet para demostrar que te gusta. Cuando lo hagas, se mostrará aquí.'}
+          isFetching={isProfileFetchingTweetsLike}  onRefresh={()=>{
             startFetchingProfileInfo();
             startFetchingProfileLikedTweets();
           }} >
@@ -96,6 +103,8 @@ export default connect(
     profileMyTweets: selectors.getProfileMyTweets(state),
     profileLikedTweets: selectors.getProfileLikedTweets(state),
     isFetchingProfile: selectors.isProfileFetching(state),
+    isProfileFetchingTweets: selectors.isProfileFetchingTweets(state),
+    isProfileFetchingTweetsLike: selectors.isProfileFetchingTweetsLike(state),
   }),
   dispatch => ({
     startFetchingProfileInfo() {
