@@ -8,6 +8,7 @@ import FAB from '../../General/FAB';
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import HomeStack from '../HomeStackNavigator';
+import DirectMessagesStack from '../DirectMessagesStackNavigator';
 
 
 
@@ -64,7 +65,7 @@ function HomeBottomNavigation({navigation}) {
              style={{ marginTop: 0,paddingBottom:8 }}/>
            ),
          }}/>
-         <Tab.Screen name="Messages" component={componentExample} 
+         <Tab.Screen name="Messages" component={DirectMessagesStack} 
           options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => (

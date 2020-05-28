@@ -7,6 +7,7 @@ import auth, * as authSelectors from './auth';
 import signUp, * as signUpSelectors from './signUp';
 import tweets,* as tweetsSelector from './tweets';
 import profile,* as profileSelector from './profile';
+import search,* as searchSelector from './search';
 import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
 
 const reducer = combineReducers({
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   signUp,
   tweets,
   profile,
+  search,
   form: formReducer,
   alertReducer,
 });
@@ -72,3 +74,12 @@ export const isProfileFetching = state => profileSelector.isProfileFetching(stat
 export const getProfileFetchingError = state => profileSelector.getProfileFetchingError(state.profile);
 export const isProfileFetchingTweets = state => profileSelector.isProfileFetchingTweets(state.profile);
 export const isProfileFetchingTweetsLike = state => profileSelector.isProfileFetchingTweetsLike(state.profile);
+
+//Search Selectors
+export const getSearchUser = (state, id) => searchSelector.getSearchUser(state.search, id);
+export const getSearchUsers = state => searchSelector.getSearchUsers(state.search);
+export const getSearchTweet = (state, id) => searchSelector.getSearchTweet(state.search, id);
+export const getSearchTweets = state => searchSelector.getSearchTweets(state.search);
+export const isSearchUsersFetching = state => searchSelector.isSearchUsersFetching(state.search);
+export const isSearchTweetsFetching = state => searchSelector.isSearchTweetsFetching(state.search);
+export const getSearchFetchingError = state => searchSelector.getSearchFetchingError(state.search);

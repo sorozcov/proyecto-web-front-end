@@ -23,7 +23,11 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
     if(toolBarOption===1)
       startFetchingProfileLikedTweets();
   },[SelectedUserId,toolBarOption]);
-  useEffect(startFetchingProfileInfo,[SelectedUserId]);
+  useEffect(() => { 
+    startFetchingProfileInfo();
+    startFetchingProfileMyTweets();
+    startFetchingProfileLikedTweets();
+  },[SelectedUserId]);
 
   
   return (

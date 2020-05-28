@@ -5,7 +5,6 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 export default function MyTextInput(props) {
   const { input, meta, ...inputProps } = props;
-
   return (
     <View style={{height:(meta.touched && meta.error) ? hp('10%') : hp('7.5%'),marginTop:5,marginBottom:5,...inputProps.containerStyle}}>
       
