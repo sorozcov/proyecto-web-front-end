@@ -8,19 +8,32 @@ import randomString from 'random-string'
 import SearchTextInput from '../General/SearchTextInput'
 import * as selectors from '../../reducers';
 import * as searchActions from '../../actions/search';
+import * as chatActions from '../../actions/chat';
 import UserList from '../UserList';
 
 
-function NewMessage({navigation, startFetchingSearchUsers, users}) {
-  const [searchInput, setSerchInput] = useState("");
+function NewMessage({navigation, clearSearchUsers, startFetchingSearchUsers, users, isSearchUsersFetching, getUserMessageInfoBySelectedUser, clearChatMessages}) {
+  const [searchInput, setSearchInput] = useState("");
   useEffect(() => { 
-    startFetchingSearchUsers(searchInput);
+    if(searchInput === '')
+      clearSearchUsers();
+    else
+      startFetchingSearchUsers(searchInput);
   },[searchInput]);
   return (
     <View style={styles.container}>
-      <SearchTextInput onChange={setSerchInput} value={searchInput} placeholder={'Buscar personas'} multiline={false} />
-      <UserList blockAction={true} navigation={navigation} userArray={users} container={{height: hp('80%')}}
-        currentKey={'users'} infoEmptyText={''}
+      <SearchTextInput onChange={setSearchInput} value={searchInput} placeholder={'Buscar personas'} multiline={false} />
+      <UserList otherAction={true} navigation={navigation} userArray={users} container={{height: hp('80%')}}
+        currentKey={'users'} infoEmptyText={''} isFetching={isSearchUsersFetching} action={(userId, first_name)=> {
+          const userMessage = getUserMessageInfoBySelectedUser(userId);
+          console.log(userMessage);
+          if(userMessage.length > 0){
+            navigation.navigate('Chat',{ chatId: userMessage[0].chat, first_name: userMessage[0].first_name });
+          } else {
+            clearChatMessages();
+            navigation.navigate('Chat',{ chatId: null, first_name: first_name });
+          }
+        }}
         recommendEmptyText={''} >
       </UserList>
     </View>
@@ -30,10 +43,20 @@ function NewMessage({navigation, startFetchingSearchUsers, users}) {
 export default connect(
   state => ({
     users: selectors.getSearchUsers(state),
+    isSearchUsersFetching: selectors.isSearchUsersFetching(state),
+    getUserMessageInfoBySelectedUser(userId) { 
+      return selectors.getUserMessageInfoBySelectedUser(state,userId) 
+    },
   }),
   dispatch => ({
     startFetchingSearchUsers(search){
       dispatch(searchActions.startFetchingSearchUsers(search));
+    },
+    clearSearchUsers(){
+      dispatch(searchActions.clearSearchUsers());
+    },
+    clearChatMessages(){
+      dispatch(chatActions.clearChatMessages());
     },
   }),
 )(NewMessage);

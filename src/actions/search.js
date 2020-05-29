@@ -21,6 +21,10 @@ export const failFetchingSearchUsers = error => ({
   },
 });
 
+export const clearSearchUsers = () => ({
+  type: types.SEARCH_USERS_CLEAR,
+});
+
 export const startFetchingSearchTweets = search => ({
   type: types.SEARCH_TWEETS_FETCH_STARTED,
   payload: { search },
@@ -39,4 +43,8 @@ export const failFetchingSearchTweets = error => ({
   payload: {
     error,
   },
+});
+
+export const clearSearchTweets = () => ({
+  type: types.SEARCH_TWEETS_CLEAR,
 });

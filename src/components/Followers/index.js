@@ -13,7 +13,7 @@ import User from '../User';
 import UserList from '../UserList';
 
 
-function Followers({ navigation, route, isFetchingProfile, startFetchingProfileFollowers, startFetchingProfileFollowing, SelectedUserId, profileInfo, profileFollowers, profileFollowing }) {
+function Followers({ navigation, route, isFetchingProfile, startFetchingProfileFollowers, startFetchingProfileFollowing, SelectedUserId, profileInfo, profileFollowers, profileFollowing, selectProfileUserId }) {
   const option = JSON.stringify(route.params.itemId);
   const [toolBarOption, setToolBarOption] = useState(parseInt(option));
   useEffect(() => {
@@ -34,7 +34,7 @@ function Followers({ navigation, route, isFetchingProfile, startFetchingProfileF
         <UserList navigation={navigation} userArray={profileFollowers} container={{height: hp('80%')}}
           currentKey={'profileFollowers'} infoEmptyText={'Todavía no tienes seguidores'}
           recommendEmptyText={'Cuando alguien te siga, lo verás aquí.'}
-          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowers()}} >
+          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowers()}}>
         </UserList>
       }
 
@@ -43,7 +43,7 @@ function Followers({ navigation, route, isFetchingProfile, startFetchingProfileF
           currentKey={'profileFollowing'}   container={{height: hp('80%')}}
           infoEmptyText={'Todavía no sigues a nadie'}
           recommendEmptyText={'Cuando lo hagas, estos usuarios se detallarán aquí y veras sus Tweets en tu cronología.'}
-          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowing()}} >
+          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowing()}}>
         </UserList>
       }
     </View>
@@ -64,6 +64,10 @@ export default connect(
     },
     startFetchingProfileFollowing() {
       dispatch(profileActions.startFetchingProfileFollowing());      
+    },
+    selectProfileUserId(navigation, userId){
+      dispatch(profileActions.setSelectedProfileUserId(userId));
+      navigation.navigate('Profile');
     },
   }),
 )(Followers);

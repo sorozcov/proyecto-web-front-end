@@ -9,11 +9,11 @@ import * as actionsProfile from '../../actions/profile';
 import Button from '../General/Button';
 
 
-function User({navigation,user,styleContainer={},selectProfileUserId,blockAction=false}) {
+function User({navigation,user,styleContainer={},selectProfileUserId,otherAction=false}) {
     return(
     <View style={{...styles.userContainer,...styleContainer}}>
       <View style={styles.flexRow}>
-        <TouchableOpacity onPress={()=> {if(!blockAction) selectProfileUserId(navigation,user.id)}}>
+        <TouchableOpacity onPress={()=> {if(!otherAction) selectProfileUserId(navigation,user.id)}}>
           <View style={styles.imageContainer} >
               <Image style={styles.imageProfile}   source={require('../../assets/images/egg.jpg')}></Image>
           </View>

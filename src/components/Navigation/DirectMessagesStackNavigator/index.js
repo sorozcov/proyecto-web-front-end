@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import DirectMessages from '../../DirectMessages';
 import NewMessage from '../../NewMessage';
+import Chat from '../../Chat';
 
 
 
@@ -30,6 +31,10 @@ export default function DirectMessagesStack({navigation,route}) {
             name="NewMessage" 
             options={{ title: "Nuevo mensaje", headerTitleAlign:'center'}} 
             component={NewMessage} />
+        <Stack.Screen 
+            name="Chat" 
+            options={{ title: "Chat", headerTitleAlign:'center'}} 
+            component={Chat} />
       </Stack.Navigator>
    
   );

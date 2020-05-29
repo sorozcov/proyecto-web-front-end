@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { StyleSheet, View, FlatList, Text  } from 'react-native';
+import { StyleSheet, View, FlatList, Text, TouchableOpacity  } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import User from '../User';
 
 
-export default function UserList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' ,blockAction=false }) {
+export default function UserList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' ,otherAction=false, action=null }) {
   const refFlatList = React.useRef(null);
   const isEmpty=(isFetching)=>{
     if(!isFetching){
@@ -33,9 +33,15 @@ export default function UserList({ navigation, container={}, infoContainer={},in
         onRefresh={onRefresh}
         // onEndReached={()=> onLoadMore()}
         renderItem={(user) => (
-          <View>
-          <User navigation={navigation} blockAction={blockAction} user={ user.item } ></User>
-          </View>
+          otherAction 
+          ? <TouchableOpacity onPress={()=> action(user.item.id, user.item.first_name)}>
+              <View>
+                <User navigation={navigation} otherAction={otherAction} user={ user.item } ></User>
+              </View>
+            </TouchableOpacity>
+          : <View>
+              <User navigation={navigation} otherAction={otherAction} user={ user.item } ></User>
+            </View>
           )
         }
         ListEmptyComponent={isEmpty(isFetching)}

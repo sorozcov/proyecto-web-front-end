@@ -17,6 +17,10 @@ const searchUsersById = (state = {}, action) => {
       });
       return newState;
     }
+    case types.SEARCH_USERS_CLEAR: {
+      const newState = {}
+      return newState;
+    } 
     default: {
       return state;
     }
@@ -28,6 +32,10 @@ const searchUsersOrder = (state = [], action) => {
     case types.SEARCH_USERS_FETCH_COMPLETED: {
       return [...action.payload.order];
     }
+    case types.SEARCH_USERS_CLEAR: {
+      const newState = []
+      return newState;
+    } 
     default: {
       return state;
     }
@@ -49,6 +57,10 @@ const searchTweetsById = (state = {}, action) => {
       });
       return newState;
     }
+    case types.SEARCH_TWEETS_CLEAR: {
+      const newState = {}
+      return newState;
+    } 
     default: {
       return state;
     }
@@ -60,6 +72,10 @@ const searchTweetsOrder = (state = [], action) => {
     case types.SEARCH_TWEETS_FETCH_COMPLETED: {
       return [...action.payload.order];
     }
+    case types.SEARCH_TWEETS_CLEAR: {
+      const newState = []
+      return newState;
+    } 
     default: {
       return state;
     }

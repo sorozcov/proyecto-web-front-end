@@ -114,13 +114,14 @@ const styles = StyleSheet.create({
         flexDirection:'row'
     },
     imageContainer:{
-        width:wp('15%')
+        width:wp('17%')
     },
     imageProfile:{
         borderRadius:hp('50%'),
-        height:hp('4.5%'),
-        width:hp('4.5%'),
-        margin:wp('2.4%'),
+        height:hp('5.4%'),
+        width:hp('5.4%'),
+        margin:wp('3%'),
+        marginTop:hp('1.5%'),
         marginRight:wp('0.5%'),
     },
     titleInfo:{

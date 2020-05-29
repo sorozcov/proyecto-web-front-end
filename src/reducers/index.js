@@ -5,9 +5,10 @@ import { alertReducer } from 'redux-saga-rn-alert';
 import * as types from '../types/auth';
 import auth, * as authSelectors from './auth';
 import signUp, * as signUpSelectors from './signUp';
-import tweets,* as tweetsSelector from './tweets';
-import profile,* as profileSelector from './profile';
-import search,* as searchSelector from './search';
+import tweets, * as tweetsSelector from './tweets';
+import profile, * as profileSelector from './profile';
+import search, * as searchSelector from './search';
+import chat, * as chatSelector from './chat';
 import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   tweets,
   profile,
   search,
+  chat,
   form: formReducer,
   alertReducer,
 });
@@ -86,3 +88,13 @@ export const getSearchTweets = state => searchSelector.getSearchTweets(state.sea
 export const isSearchUsersFetching = state => searchSelector.isSearchUsersFetching(state.search);
 export const isSearchTweetsFetching = state => searchSelector.isSearchTweetsFetching(state.search);
 export const getSearchFetchingError = state => searchSelector.getSearchFetchingError(state.search);
+
+//Chat selectors
+export const getUserMessage = (state, id) => chatSelector.getUserMessage(state.chat, id);
+export const getUserMessages = state => chatSelector.getUserMessages(state.chat);
+export const getChatMessage = (state, id) => chatSelector.getChatMessage(state.chat, id);
+export const getChatMessages = state => chatSelector.getChatMessages(state.chat);
+export const isUserMessagesFetching = state => chatSelector.isUserMessagesFetching(state.chat);
+export const isChatMessagesFetching = state => chatSelector.isChatMessagesFetching(state.chat);
+export const getChatFetchingError = state => chatSelector.getChatFetchingError(state.chat);
+export const getUserMessageInfoBySelectedUser = (state, id) => chatSelector.getUserMessageInfoBySelectedUser(state.chat,id);
