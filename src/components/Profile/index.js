@@ -34,8 +34,8 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
         <View style={{flexDirection:"row"}}>
             <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../assets/images/egg.jpg')}></Image>
             <View style={{flexDirection:'column'}}>
-              {!profileInfoIsMe && <Button label={profileInfoImFollowing ? 'Siguiendo':'Seguir'} buttonStyle={{height: hp('4%'),width: wp('25%'),marginLeft:wp('43%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />}
-              {!profileInfoIsMe && profileInfoTheyFollow && 
+              {!profileInfoIsMe && !isFetchingProfile && <Button label={profileInfoImFollowing ? 'Siguiendo':'Seguir'} buttonStyle={{height: hp('4%'),width: wp('25%'),marginLeft:wp('43%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />}
+              {!profileInfoIsMe && profileInfoTheyFollow && !isFetchingProfile  && 
               <View style={styles.theyFollow}>
                 <Text  style={{textAlign:'center'}}>Te Sigue </Text>
               </View>}

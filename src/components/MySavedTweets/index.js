@@ -9,12 +9,12 @@ import * as tweetActions from '../../actions/tweets';
 import TweetList from '../TweetList';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Tweet from '../Tweet'
 
 
 
-function HomeFeed({navigation,tweetsSaved,token,startFetchingtweetsSaved,isFetchingSavedTweets,user}) {
-  useEffect(startFetchingtweetsSaved,[]);
+
+function SavedTweetsS({navigation,tweetsSaved,token,startFetchingSavedTweets,isFetchingSavedTweets,user}) {
+  useEffect(startFetchingSavedTweets,[]);
   const refFlatList = React.useRef(null);
   return (
     <View style={styles.container}>
@@ -22,7 +22,7 @@ function HomeFeed({navigation,tweetsSaved,token,startFetchingtweetsSaved,isFetch
       <TweetList navigation={navigation} tweetArray={tweetsSaved} container={{height:hp('80%')}}
         key={'tweetsSaved'} infoEmptyText={'Todavía no has agregado ningún Tweet a tus Elementos guardados'} 
         recommendEmptyText={'Cuando lo hagas, se mostrarán aquí.'}
-        isFetching={isFetchingSavedTweets}  onRefresh={()=>{startFetchingtweetsSaved()}} >
+        isFetching={isFetchingSavedTweets}  onRefresh={()=>{startFetchingSavedTweets()}} >
       </TweetList>
       
       <FAB  onPress={()=>navigation.navigate('NewTweet')}
@@ -41,12 +41,12 @@ export default connect(
    
   }),
   dispatch => ({
-    startFetchingtweetsSaved() {
+    startFetchingSavedTweets() {
       dispatch(tweetActions.startFetchingSavedTweets());
       
     },
   }),
-)(HomeFeed);
+)(SavedTweetsS);
 
 
 const styles = StyleSheet.create({

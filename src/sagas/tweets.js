@@ -275,7 +275,7 @@ function* retweetTweet(action) {
         );
       
       if (response.status <= 300) {
-        yield put(actions.completeRemovingTweet({...action.payload}));
+        yield put(actions.completeRetweetingTweet({...action.payload}));
         
 
       } else {
@@ -395,9 +395,9 @@ function* fetchSavedTweets(action) {
           entities: { tweets },
           result,
         } = normalize(jsonResult, schemas.tweets);
-       
+        
         yield put(
-          actions.completeFetchingTweetsHome(
+          actions.completeFetchingSavedTweets(
             tweets,
             result,
           ),

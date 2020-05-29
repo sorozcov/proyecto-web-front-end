@@ -81,9 +81,9 @@ export const getProfileFollowers = state => profileSelector.getProfileFollowers(
 export const getProfileFollowing = (state, id) => profileSelector.getProfileFollowing(state.profile, id);
 export const getProfileFollowings = state => profileSelector.getProfileFollowings(state.profile);
 export const getProfileMyTweet = (state, id) => profileSelector.getProfileMyTweet(state.profile, id);
-export const getProfileMyTweets = state => profileSelector.getProfileMyTweets(state.profile);
+export const getProfileMyTweets = state => profileSelector.getProfileMyTweets(state.profile).filter(tweet=>(tweet.itemType='tweet'|| (tweet.itemType='retweet' && tweet.data.is_retweeted)));
 export const getProfileLikedTweet = (state, id) => profileSelector.getProfileLikedTweet(state.profile, id);
-export const getProfileLikedTweets = state => profileSelector.getProfileLikedTweets(state.profile);
+export const getProfileLikedTweets = state => profileSelector.getProfileLikedTweets(state.profile).filter(tweet=>tweet.data.is_liked==true);
 export const isProfileFetching = state => profileSelector.isProfileFetching(state.profile);
 export const getProfileFetchingError = state => profileSelector.getProfileFetchingError(state.profile);
 export const isProfileFetchingTweets = state => profileSelector.isProfileFetchingTweets(state.profile);

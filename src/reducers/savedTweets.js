@@ -6,6 +6,8 @@ import * as types from '../types/tweets';
 const byId = (state = {}, action) => {
   switch(action.type) {
     case types.TWEETS_SAVED_FETCH_COMPLETED: {
+      console.log('lleog')
+      console.log(action.payload)
       const { entities, order } = action.payload;
       const newState = {  };
       order.forEach(id => {
@@ -169,13 +171,13 @@ const order = (state = [], action) => {
 
 const isFetching = (state = false, action) => {
   switch(action.type) {
-    case types.TWEETS_HOME_FETCH_STARTED: {
+    case types.TWEETS_SAVED_FETCH_STARTED: {
       return true;
     }
-    case types.TWEETS_HOME_FETCH_COMPLETED: {
+    case types.TWEETS_SAVED_FETCH_COMPLETED: {
       return false;
     }
-    case types.TWEETS_HOME_FETCH_FAILED: {
+    case types.TWEETS_SAVED_FETCH_FAILED: {
       return false;
     }
     default: {
@@ -186,13 +188,13 @@ const isFetching = (state = false, action) => {
 
 const error = (state = null, action) => {
   switch(action.type) {
-    case types.TWEETS_HOME_FETCH_FAILED: {
+    case types.TWEETS_SAVED_FETCH_FAILED: {
       return action.payload.error;
     }
-    case types.TWEETS_HOME_FETCH_STARTED: {
+    case types.TWEETS_SAVED_FETCH_STARTED: {
       return null;
     }
-    case types.TWEETS_HOME_FETCH_COMPLETED: {
+    case types.TWEETS_SAVED_FETCH_COMPLETED: {
       return null;
     }
     default: {
