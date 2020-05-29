@@ -9,6 +9,7 @@ import HomeFeed from '../../Home';
 import Profile from '../../Profile';
 import Followers from '../../Followers';
 import NewTweet from '../../NewTweet';
+import MySavedTweets from '../../MySavedTweets';
 
 
 
@@ -40,6 +41,10 @@ export default function HomeStack({navigation,route}) {
             name="NewTweet" 
             options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
             component={NewTweet} />
+        <Stack.Screen 
+            name="SavedTweets" 
+            options={{ title:'Elementos guardados', headerTitleAlign:'center'}} 
+            component={MySavedTweets} />
         
       </Stack.Navigator>
    

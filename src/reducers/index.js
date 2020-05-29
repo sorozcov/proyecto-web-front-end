@@ -9,6 +9,7 @@ import tweets, * as tweetsSelector from './tweets';
 import profile, * as profileSelector from './profile';
 import search, * as searchSelector from './search';
 import chat, * as chatSelector from './chat';
+import savedTweets, * as savedTweetsSelector from './savedTweets';
 import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
 
 const reducer = combineReducers({
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   profile,
   search,
   chat,
+  savedTweets,
   form: formReducer,
   alertReducer,
 });
@@ -60,6 +62,13 @@ export const getTweets = state => tweetsSelector.getTweets(state.tweets);
 export const isFetchingTweets = state => tweetsSelector.isFetchingTweets(state.tweets);
 
 export const getFetchingTweetsError = state => tweetsSelector.getFetchingTweetsError(state.tweets);
+
+
+//Tweets Selectors
+export const getSavedTweet = (state, id) => savedTweetsSelector.getTweet(state.savedTweets,id);
+export const getSavedTweets = state => savedTweetsSelector.getTweets(state.savedTweets).filter(tweet => tweet.data.is_saved==true);
+export const isFetchingSavedTweets = state => savedTweetsSelector.isFetchingTweets(state.savedTweets);
+export const getFetchingSavedTweetsError = state => savedTweetsSelector.getFetchingTweetsError(state.savedTweets);
 
 //Profile Selectors
 export const getProfileSelectedUserId = state => profileSelector.getProfileSelectedUserId(state.profile);

@@ -20,6 +20,27 @@ export const failFetchingTweetsHome = error => ({
   },
 });
 
+//FETCH SAVED TWEETS
+export const startFetchingSavedTweets = () => ({
+  type: types.TWEETS_SAVED_FETCH_STARTED,
+});
+
+export const completeFetchingSavedTweets = (entities, order) => ({
+  type: types.TWEETS_SAVED_FETCH_COMPLETED,
+  payload: {
+    entities,
+    order,
+  },
+});
+
+export const failFetchingSavedTweets = error => ({
+  type: types.TWEETS_SAVED_FETCH_FAILED,
+  payload: {
+    error,
+  },
+});
+
+
 //ADD TWEET
 export const startAddingTweet = tweet => ({
   type: types.TWEET_ADD_STARTED,

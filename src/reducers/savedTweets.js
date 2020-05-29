@@ -5,7 +5,7 @@ import * as types from '../types/tweets';
 
 const byId = (state = {}, action) => {
   switch(action.type) {
-    case types.TWEETS_HOME_FETCH_COMPLETED: {
+    case types.TWEETS_SAVED_FETCH_COMPLETED: {
       const { entities, order } = action.payload;
       const newState = {  };
       order.forEach(id => {
@@ -17,24 +17,7 @@ const byId = (state = {}, action) => {
 
       return newState;
     }
-    case types.TWEET_ADD_STARTED: {
-      const newState = { ...state };
-      
-      newState[action.payload.id] = {
-        ...action.payload,
-        isConfirmed: false,
-      };
-      return newState;
-    }
-    case types.TWEET_ADD_COMPLETED: {
-      const { oldId, tweet } = action.payload;
-      const newState = omit(state, oldId);
-      newState[tweet.id] = {
-        ...tweet,
-        isConfirmed: true,
-      };
-      return newState;
-    }
+
     case types.TWEET_REMOVE_COMPLETED: {
       if(state[action.payload.id]){
         return omit(state, action.payload.id);
@@ -45,18 +28,18 @@ const byId = (state = {}, action) => {
 
     case types.TWEET_REMOVE_STARTED: {
       const newState = { ...state };
-      if(newState[action.payload.id]){
+      if(newState[action.payloadId]){
         newState[action.payload.id] = {
           ...newState[action.payload.id],
           isConfirmed: false,
         };
-     }
+        return newState;
+      }
       return newState;
     }
     
     case types.TWEET_REMOVE_FAILED: {
       const newState = {...state};
-      const { id } = action.payload;
       if(newState[id]){
         newState[id] = {
           ...newState[id],
@@ -77,7 +60,8 @@ const byId = (state = {}, action) => {
           newState[id].data.likes -=1
         }
         newState[id].data.is_liked = !is_liked;
-      }
+        
+      } 
       return newState;
     }
 
@@ -160,7 +144,7 @@ const byId = (state = {}, action) => {
     }
 
 
-
+ 
     
     default: {
       return state;
@@ -170,20 +154,10 @@ const byId = (state = {}, action) => {
 
 const order = (state = [], action) => {
   switch(action.type) {
-    case types.TWEETS_HOME_FETCH_COMPLETED: {
+    case types.TWEETS_SAVED_FETCH_COMPLETED: {
       return [...action.payload.order];
     }
-    case types.TWEET_ADD_STARTED: {
-      return [action.payload.id,...state ];
-    }
-    case types.TWEET_ADD_COMPLETED: {
-      const { oldId, tweet } = action.payload;
-      return state.map(id => id === oldId ? tweet.id : id);
-    }
-    case types.TWEET_ADD_FAILED: {
-      const { oldId } = action.payload;
-      return state.map(id => id !== oldId);
-    }
+
     case types.TWEET_REMOVE_COMPLETED: {
       return state.filter(id => id !== action.payload.id);
     }

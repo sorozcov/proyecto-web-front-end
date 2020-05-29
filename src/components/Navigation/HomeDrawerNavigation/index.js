@@ -10,9 +10,10 @@ import { connect } from 'react-redux';
 import * as selectors from '../../../reducers';
 import * as actionsAuth from '../../../actions/auth'
 import * as actionsProfile from '../../../actions/profile'
+import * as actionsTweets from '../../../actions/tweets'
 
 
-function DrawerScreen({navigation,user,logout,userInformation, selectProfileUserId}) {
+function DrawerScreen({navigation,user,logout,userInformation, selectProfileUserId,selectSavedTweets}) {
  //console.log(userInformation);
   return (
     <DrawerContentScrollView >
@@ -79,7 +80,8 @@ function DrawerScreen({navigation,user,logout,userInformation, selectProfileUser
           style={{paddingTop:0,marginTop:0}}
           label="Elementos guardados"
           labelStyle={{ fontSize: 16}}
-          // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
+          selectSavedTweets
+          onPress={() => selectSavedTweets(navigation)}
         />
         <DrawerItem
           icon={({ color, size }) => (
@@ -193,6 +195,9 @@ export default connect(
     selectProfileUserId(navigation, userId){
       dispatch(actionsProfile.setSelectedProfileUserId(userId));
       navigation.navigate('Profile');
+    },
+    selectSavedTweets(navigation){
+      navigation.navigate('SavedTweets');
     }
   }),
 )(DrawerScreen);

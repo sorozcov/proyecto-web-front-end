@@ -14,7 +14,7 @@ import * as selectors from '../reducers';
 import * as actions from '../actions/tweets';
 import * as types from '../types/tweets';
 import * as schemas from '../schemas/tweets';
-import { DrawerLayout } from 'react-native-gesture-handler';
+
 
 
 function* fetchTweets(action) {
@@ -369,3 +369,57 @@ export function* watchSaveTweet() {
 
 
 
+function* fetchSavedTweets(action) {
+  try {
+    const isAuth = yield select(selectors.isAuthenticated);
+    const userId = yield select(selectors.getAuthUserID)
+    
+    if (isAuth) {
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/users/${userId}/savedTweets/`,
+        {
+          method: 'GET',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `JWT ${token}`,
+          },
+        }
+      );
+     
+      if (response.status <= 300) {
+        const jsonResult = yield response.json();
+        
+        const {
+          entities: { tweets },
+          result,
+        } = normalize(jsonResult, schemas.tweets);
+       
+        yield put(
+          actions.completeFetchingTweetsHome(
+            tweets,
+            result,
+          ),
+        );
+      } else {
+        const { detail } = yield response.json();
+        let errorMessage ="Error obteniendo tweets guardados.";
+        if(detail!=undefined){errorMessage=detail}
+        yield put(actions.failFetchingSavedTweets(errorMessage));
+
+      }
+    }
+  } catch (error) {
+    console.log("ERROR", error)
+    let errorMessage ="Error en la conexión.";
+    yield put(actions.failFetchingSavedTweets(errorMessage));
+  }
+}
+
+export function* watchSavedTweetsFetch() {
+  yield takeEvery(
+    types.TWEETS_SAVED_FETCH_STARTED,
+    fetchSavedTweets,
+  );
+}

@@ -151,7 +151,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
             
             activeOpacity={1} 
             
-            style={{backgroundColor:'white',height:hp('35%'),borderColor:'gray',borderTopWidth:10,borderRadius: 20,}}
+            style={{backgroundColor:'white',height:hp('45%'),borderColor:'gray',borderTopWidth:10,borderRadius: 20,}}
           >
               
         <Button label={'Eliminar mi Tweet'} 
