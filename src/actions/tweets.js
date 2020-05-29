@@ -51,7 +51,7 @@ export const startRemovingTweet = (idDB,id) => ({
   },
 });
 
-export const completeRemovingTweet = (idDB,id) => ({
+export const completeRemovingTweet = ({idDB,id}) => ({
   type: types.TWEET_REMOVE_COMPLETED,
   payload: {
     id,
@@ -59,7 +59,7 @@ export const completeRemovingTweet = (idDB,id) => ({
   },
 });
 
-export const failRemovingTweet = (id,idDB, error) => ({
+export const failRemovingTweet = ({id,idDB, error}) => ({
   type: types.TWEET_REMOVE_FAILED,
   payload: {
     id,
@@ -78,7 +78,7 @@ export const startRetweetingTweet = (idDB,id,is_retweeted) => ({
   },
 });
 
-export const completeRetweetingTweet = (idDB,id,is_retweeted) => ({
+export const completeRetweetingTweet = ({idDB,id,is_retweeted}) => ({
   type: types.TWEET_RETWEET_COMPLETED,
   payload: {
     id,
@@ -87,7 +87,7 @@ export const completeRetweetingTweet = (idDB,id,is_retweeted) => ({
   },
 });
 
-export const failRetweetingTweet = (idDB,id,is_retweeted, error) => ({
+export const failRetweetingTweet = ({idDB,id,is_retweeted, error}) => ({
   type: types.TWEET_RETWEET_FAILED,
   payload: {
     id,
@@ -108,7 +108,7 @@ export const startLikingTweet = (idDB,id,is_liked) => ({
   },
 });
 
-export const completeLikingTweet = (idDB,id,is_liked) => ({
+export const completeLikingTweet = ({idDB,id,is_liked}) => ({
   type: types.TWEET_LIKE_COMPLETED,
   payload: {
     id,
@@ -117,7 +117,7 @@ export const completeLikingTweet = (idDB,id,is_liked) => ({
   },
 });
 
-export const failLikingTweet = (id,idDB,is_liked, error) => ({
+export const failLikingTweet = ({id,idDB,is_liked, error}) => ({
   type: types.TWEET_LIKE_FAILED,
   payload: {
     id,
@@ -170,7 +170,7 @@ export const startSavingTweet = (idDB,id,is_saved) => ({
   },
 });
 
-export const completeSavingTweet = (idDB,id,is_saved) => ({
+export const completeSavingTweet = ({idDB,id,is_saved}) => ({
   type: types.TWEET_SAVE_TWEET_COMPLETED,
   payload: {
     id,
@@ -179,7 +179,7 @@ export const completeSavingTweet = (idDB,id,is_saved) => ({
   },
 });
 
-export const failSavingTweet = (id,idDB,is_saved, error) => ({
+export const failSavingTweet = ({id,idDB,is_saved, error}) => ({
   type: types.TWEET_SAVE_TWEET_FAILED,
   payload: {
     id,

@@ -1,6 +1,6 @@
-import React from 'react';
+import React,{useState} from 'react';
 import TimeAgo from 'react-native-timeago';
-import { StyleSheet, View, Image, Text, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity,Modal,TouchableWithoutFeedback ,Alert} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
@@ -8,14 +8,38 @@ import { connect } from 'react-redux';
 import * as selectors from '../../reducers';
 import * as actionsProfile from '../../actions/profile'
 import * as actionsTweets from '../../actions/tweets'
+import Button from '../General/Button';
 
 
-function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed,likeTweet,retweetTweet}) {
+function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed,likeTweet,retweetTweet,saveTweet,deleteTweet}) {
+    const [optionsModal, setOptionsModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     function likeFormat(num) {
         if (num==0) return '';
         return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
     }
-
+    
+    function startDelete(id,tweetid){
+        Alert.alert(
+            '¿Eliminar tweet?',
+            'Esta acción no puede ser revertida',
+            [
+                {
+                    text: 'Cancelar', 
+                    style: 'cancel',
+                    onPress:()=>{setDeleteModal(false)}
+                },
+                {
+                    text: 'Eliminar',
+                    onPress:() => {deleteTweet(id,tweetid);setDeleteModal(false);},
+                    style: 'destructive'
+                }
+            ],
+            {
+                cancelable: true,
+            },
+        )
+    }
     
     return(
     <View style={tweet.isConfirmed? {...styles.tweetContainer,...styleContainer}:{...styles.tweetContainer,...styleContainer,backgroundColor:'transparent'}}>
@@ -46,7 +70,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
             
           </View>
           <View style={styles.caretContainer}>
-              <TouchableOpacity><MaterialCommunityIcons style={styles.caretIcon} name="chevron-down" color={'gray'} size={22} /></TouchableOpacity>
+              <TouchableOpacity onPress={()=>tweet.data.is_mine?setDeleteModal(true):null}><MaterialCommunityIcons style={styles.caretIcon} name="chevron-down" color={'gray'} size={22} /></TouchableOpacity>
           </View>
         </View>
         <View style={{...styles.contentCotainer,...styleContent}}>
@@ -61,13 +85,96 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
     <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="chat-outline" color={'gray'} size={18}  /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.comments)}</Text></TouchableOpacity>
      <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="twitter-retweet" onPress={()=>retweetTweet(tweet.data.id,tweet.id,tweet.data.is_retweeted)}  color={tweet.data.is_retweeted ? 'green':'gray'} size={22} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.retweets)}</Text></TouchableOpacity>
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>likeTweet(tweet.data.id,tweet.id,tweet.data.is_liked)}><MaterialCommunityIcons name={tweet.data.is_liked ? 'heart':'heart-outline'}  color={tweet.data.is_liked ? 'red':'gray'} size={18} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.likes)}</Text></TouchableOpacity>
-    <TouchableOpacity style={{flexDirection:'row'}} ><MaterialCommunityIcons name="export-variant" color={'gray'} size={18} /></TouchableOpacity>
+    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>setOptionsModal(true)}><MaterialCommunityIcons name="export-variant" color={'gray'} size={18} /></TouchableOpacity>
         </View>}
       </View>
       
       
     </View>
-    
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={optionsModal}
+        
+      >
+       
+       <TouchableWithoutFeedback 
+            
+          
+            onPress={() => {setOptionsModal(false)}}>
+        
+        <View style={{height:hp('60%')}}></View>
+        </TouchableWithoutFeedback>
+
+        
+          <TouchableOpacity 
+            
+            activeOpacity={1} 
+            
+            style={{backgroundColor:'white',height:hp('35%'),borderColor:'gray',borderTopWidth:10,borderRadius: 20,}}
+          >
+              
+        <Button label={!tweet.data.is_saved ? 'Agregar Tweet a Elementos guardados':'Eliminar Tweet de Elementos Guardados'} 
+           buttonStyle={{backgroundColor:'#EAEAEA',marginTop:hp('14%'),height:hp('10%')}}
+           labelStyle={{color:'gray',fontWeight:'normal',textAlign:'center'}}
+           icon={<MaterialCommunityIcons name={!tweet.data.is_saved ? "bookmark-plus-outline":'bookmark-minus-outline'} color={'gray'} size={40} />}
+            onPress={()=>{saveTweet(tweet.data.id,tweet.id,tweet.data.is_saved);setOptionsModal(false);}}/>
+        
+        <Button label={'Cancelar'} 
+           buttonStyle={{backgroundColor:'#EAEAEA',marginBottom:hp('0%')}}
+           labelStyle={{color:'black'}}
+            onPress={()=>setOptionsModal(false)}/>
+       
+       
+     
+        </TouchableOpacity>
+      
+       
+      </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteModal}
+        
+      >
+       
+       <TouchableWithoutFeedback 
+            
+          
+            onPress={() => {setDeleteModal(false)}}>
+        
+        <View style={{height:hp('60%')}}></View>
+        </TouchableWithoutFeedback>
+
+        
+          <TouchableOpacity 
+            
+            activeOpacity={1} 
+            
+            style={{backgroundColor:'white',height:hp('35%'),borderColor:'gray',borderTopWidth:10,borderRadius: 20,}}
+          >
+              
+        <Button label={'Eliminar mi Tweet'} 
+           buttonStyle={{backgroundColor:'#EAEAEA',marginTop:hp('14%'),height:hp('10%')}}
+           labelStyle={{color:'#F85050',fontWeight:'normal',textAlign:'center'}}
+           icon={<MaterialCommunityIcons name={'trash-can-outline'} color={'#F85050'} size={40} />}
+            onPress={()=>
+            {
+            startDelete(tweet.data.id,tweet.id);
+           
+            }}/>
+        
+        <Button label={'Cancelar'} 
+           buttonStyle={{backgroundColor:'#EAEAEA',marginBottom:hp('0%')}}
+           labelStyle={{color:'black'}}
+            onPress={()=>setDeleteModal(false)}/>
+       
+       
+     
+        </TouchableOpacity>
+      
+       
+      </Modal>
     
     
   </View>
@@ -98,6 +205,14 @@ Tweet = connect(
         retweetTweet(idDB,id,is_retweeted){
             
             dispatch(actionsTweets.startRetweetingTweet(idDB,id,is_retweeted))
+        },
+        saveTweet(idDB,id,is_saved){
+            
+            dispatch(actionsTweets.startSavingTweet(idDB,id,is_saved))
+        },
+        deleteTweet(idDB,id){
+            
+            dispatch(actionsTweets.startRemovingTweet(idDB,id))
         },
     }),
   )(Tweet);
