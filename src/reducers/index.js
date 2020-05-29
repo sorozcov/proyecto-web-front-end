@@ -90,6 +90,7 @@ export const isSearchTweetsFetching = state => searchSelector.isSearchTweetsFetc
 export const getSearchFetchingError = state => searchSelector.getSearchFetchingError(state.search);
 
 //Chat selectors
+export const getSelectedUserMessage = (state) => chatSelector.getSelectedUserMessage(state.chat);
 export const getUserMessage = (state, id) => chatSelector.getUserMessage(state.chat, id);
 export const getUserMessages = state => chatSelector.getUserMessages(state.chat);
 export const getChatMessage = (state, id) => chatSelector.getChatMessage(state.chat, id);

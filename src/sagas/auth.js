@@ -112,16 +112,7 @@ import TOKEN_LIFE_TIME from './settings/tokenLifeTime';
           yield put(actions.authenticationUserInformationCompleted(jsonResultUser));
           
         } else {
-          yield AsyncStorage.removeItem('auth');
-          yield put(actions.logout());
-          yield put(actions.failTokenRefresh('Se venció la sesión de tu usuario'));
-          yield delay(200);
-          const alertButtons =[
-                {text: 'Aceptar', style:'default'},
-            ]
-          const titleError ="Estuviste desconectado por mucho tiempo"
-          const errorMessage="Se venció la sesión de tu usuario."
-          yield call(Alert.alert,titleError,errorMessage,alertButtons)        
+          console.log('error')
         }
       }
     } catch (error) {
@@ -143,9 +134,11 @@ import TOKEN_LIFE_TIME from './settings/tokenLifeTime';
 function* refreshToken(action) {
   const expiration = yield select(selectors.getAuthExpiration);
   const now =  parseInt(new Date().getTime() / 1000);
+  console.log(expiration - now)
   if (expiration - now < (TOKEN_LIFE_TIME/2)) {
     try {
       const token = yield select(selectors.getAuthToken);
+      console.log(token)
       const response = yield call(
         fetch,
         `${API_BASE_URL}/token-refresh/`,

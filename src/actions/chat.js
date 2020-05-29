@@ -90,3 +90,12 @@ export const updateChatUserMessage = chat => ({
   type: types.CHAT_USER_MESSAGES_UPDATE,
   payload: chat,
 });
+
+export const selectChatUserMessage = chat => ({
+  type: types.CHAT_USER_MESSAGES_SELECT,
+  payload: chat,
+});
+
+export const deselectChatUserMessage = () => ({
+  type: types.CHAT_USER_MESSAGES_DESELECT,
+});

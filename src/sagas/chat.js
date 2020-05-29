@@ -197,6 +197,8 @@ function* addUserMessages(action) {
 
             yield put(actions.startAddingChatMessage({ id, date, content, chat:chatId, sender:{ is_me:true } }));
             
+            yield put(actions.selectChatUserMessage(action.payload));
+            
           } else {
             const { detail } = yield response.json();
             let errorMessage ="Error guardando el chat.";

@@ -85,8 +85,10 @@ export default connect(
       dispatch(actionsProfile.setSelectedProfileUserId(userId));
       navigation.navigate('Profile');
     },
-    selectChatId(navigation, {chat, first_name, username, userid}){         
-      navigation.navigate('Chat',{ chat, first_name, username, userid });
+    selectChatId(navigation, {chat, first_name, username, userid}){
+      dispatch(chatActions.clearChatMessages());
+      dispatch(chatActions.selectChatUserMessage({chat, first_name, username, userid}));         
+      navigation.navigate('Chat');
     },
   }),
 )(DirectMessages);
@@ -162,6 +164,8 @@ const styles = StyleSheet.create({
   messageStyle:{
       color:'gray',
       paddingLeft:wp('1%'),
+      paddingBottom:wp('3%'),
+      width:wp('75%'),
       fontSize:15
   },
   titleContainer:{

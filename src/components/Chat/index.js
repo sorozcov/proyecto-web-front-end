@@ -12,22 +12,18 @@ import * as chatActions from '../../actions/chat';
 import * as actionsProfile from '../../actions/profile';
 
 
-function Chat({navigation, route, startFetchingChatMessages, messages, isChatMessagesFetching, selectProfileUserId, sendMessage}) {
-  const chatId = parseInt(JSON.stringify(route.params.chat));
-  const userId = parseInt(JSON.stringify(route.params.userid));
-  const first_name = JSON.stringify(route.params.first_name).replace(/["']/g, "");
-  const username = JSON.stringify(route.params.username).replace(/["']/g, "");
+function Chat({navigation, route, startFetchingChatMessages, messages, isChatMessagesFetching, selectProfileUserId, sendMessage, userMessage}) {
   const [chatInput, setchatInput] = useState("");
   const refFlatList = useRef(null);
   useEffect(() => {
-    if(!isNaN(chatId)) {
-      startFetchingChatMessages(chatId);
-      const timer = setInterval(() => startFetchingChatMessages(chatId), 5000);
+    if(userMessage.chat != null) {
+      startFetchingChatMessages(userMessage.chat);
+      const timer = setInterval(() => startFetchingChatMessages(userMessage.chat), 5000);
       return () => clearInterval(timer);
     }
   },[]);
-  if(first_name!==null)
-    navigation.setOptions({ headerTitle: first_name });
+  if(userMessage.first_name!==null)
+    navigation.setOptions({ headerTitle: userMessage.first_name });
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container} 
@@ -36,7 +32,7 @@ function Chat({navigation, route, startFetchingChatMessages, messages, isChatMes
         <View style={styles.inner}>
           <View style={styles.chatTextStyle}>
             <ChatTextInput onChange={setchatInput} value={chatInput} placeholder={'Escribe un mensaje'} multiline={false} send={() => {
-              sendMessage(chatId, chatInput, username, userId, first_name);
+              sendMessage(userMessage.chat, chatInput, userMessage.username, userMessage.userid, userMessage.first_name);
               setchatInput('');
               }}/>
           </View>
@@ -84,12 +80,13 @@ function Chat({navigation, route, startFetchingChatMessages, messages, isChatMes
 
 export default connect(
   state => ({
+    userMessage: selectors.getSelectedUserMessage(state),
     messages: selectors.getChatMessages(state),
     isChatMessagesFetching: selectors.isChatMessagesFetching(state),
   }),
   dispatch => ({
     startFetchingChatMessages(chatId){
-      if(!isNaN(chatId))
+      if(chatId != null)
         dispatch(chatActions.startFetchingChatMessages(chatId));
     },
     selectProfileUserId(navigation, userId){         
@@ -100,7 +97,7 @@ export default connect(
       const content = chatInput.trim().replace( /[\r\n]+/gm, " " )
       if(content!==""){
         const date = new Date();
-        if(!isNaN(chatId)){
+        if(chatId != null){
           dispatch(chatActions.updateChatUserMessage(({ chat: chatId, content, date, username, userid, first_name })));
           const id = randomString();
           dispatch(chatActions.startAddingChatMessage(({ id, date, content, chat:chatId, sender:{ is_me:true } })));

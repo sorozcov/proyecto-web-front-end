@@ -3,6 +3,20 @@ import { combineReducers } from 'redux';
 import * as types from '../types/chat';
 
 
+const SelectedUserMessage = (state = null, action) => {
+  switch(action.type) {
+    case types.CHAT_USER_MESSAGES_SELECT: {
+      return action.payload;
+    }
+    case types.CHAT_USER_MESSAGES_DESELECT: {
+      return null;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 //User Messages
 const UserMessagesById = (state = {}, action) => {
   switch(action.type) {
@@ -271,6 +285,7 @@ const error = (state = null, action) => {
 
 
 export default combineReducers({
+  SelectedUserMessage,
   UserMessagesById,
   UserMessagesOrder,
   ChatMessagesById,
@@ -283,6 +298,7 @@ export default combineReducers({
 });
 
 
+export const getSelectedUserMessage = (state) => state.SelectedUserMessage;
 export const getUserMessage = (state, id) => state.UserMessagesById[id];
 export const getUserMessages = state => state.UserMessagesOrder.map(id => getUserMessage(state, id));
 export const getChatMessage = (state, id) => state.ChatMessagesById[id];
