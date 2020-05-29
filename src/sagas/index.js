@@ -1,7 +1,7 @@
 import { fork, all,spawn } from 'redux-saga/effects';
 import { watchLoginStarted,watchUserInformationRequest, watchRefreshTokenStarted } from './auth';
 import { watchSignUpStarted } from './signUp';
-import { watchAddTweet,watchRemoveTweet,watchTweetsHomeFetch } from './tweets';
+import { watchAddTweet,watchRemoveTweet,watchTweetsHomeFetch,watchLikeTweet,watchRetweetTweet,watchSaveTweet } from './tweets';
 import { watchProfileInfoRequest, watchProfileFollowersFetch, watchProfileFollowingFetch, watchProfileMyTweetsFetch, watchProfileLikedTweetsFetch } from './profile';
 import { watchSearchUsersFetch, watchSearchTweetsFetch } from './search';
 import { watchUserMessagesFetch, watchChatMessagesFetch, watchUserMessagesAdd, watchChatMessagesAdd } from './chat';
@@ -18,6 +18,9 @@ function* mainSaga() {
     fork(watchTweetsHomeFetch),
     fork(watchAddTweet),
     fork(watchRemoveTweet),
+    fork(watchSaveTweet),
+    fork(watchLikeTweet),
+    fork(watchRetweetTweet),
     fork(watchProfileInfoRequest),
     fork(watchProfileFollowersFetch),
     fork(watchProfileFollowingFetch),

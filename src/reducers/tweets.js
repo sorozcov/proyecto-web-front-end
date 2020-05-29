@@ -37,14 +37,17 @@ const byId = (state = {}, action) => {
     case types.TWEET_REMOVE_COMPLETED: {
       return omit(state, action.payload.id);
     }
+    
+
     case types.TWEET_REMOVE_STARTED: {
-      const { id } = action.payload;
-      const newState = {...state};
-      newState[id] = {
-        ...newState[id],
+      const newState = { ...state };
+      newState[action.payload.id] = {
+        ...newState[action.payload.id],
         isConfirmed: false,
       };
+      return newState;
     }
+    
     case types.TWEET_REMOVE_FAILED: {
       const newState = {...state};
       newState[id] = {
@@ -54,6 +57,7 @@ const byId = (state = {}, action) => {
     }
 
     case types.TWEET_LIKE_STARTED: {
+      
       const newState = {...state};
       const { id,is_liked } = action.payload;
       if(!is_liked){
@@ -92,7 +96,7 @@ const byId = (state = {}, action) => {
     case types.TWEET_RETWEET_FAILED: {
       const newState = {...state};
       const { id,is_retweeted } = action.payload;
-      if(is_retweeted){
+      if(!is_retweeted){
         newState[id].data.retweets -=1
       }else{
         newState[id].data.retweets +=1
