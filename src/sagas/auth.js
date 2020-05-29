@@ -134,11 +134,9 @@ import TOKEN_LIFE_TIME from './settings/tokenLifeTime';
 function* refreshToken(action) {
   const expiration = yield select(selectors.getAuthExpiration);
   const now =  parseInt(new Date().getTime() / 1000);
-  console.log(expiration - now)
   if (expiration - now < (TOKEN_LIFE_TIME/2)) {
     try {
       const token = yield select(selectors.getAuthToken);
-      console.log(token)
       const response = yield call(
         fetch,
         `${API_BASE_URL}/token-refresh/`,
