@@ -78,7 +78,7 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
         <ButtonOption options={['Tweets','Me Gusta']}  onPressVar={toolBarOption} onPressAction={setToolBarOption} />
       </View>
       {toolBarOption===0 && 
-        <TweetList navigation={navigation} tweetArray={profileMyTweets} container={{height: hp('56%')}}
+        <TweetList navigation={navigation} tweetArray={profileMyTweets} container={{height: Platform.OS === 'ios' ? hp('56%') : hp('57.5%')}}
           key={'profileMyTweets'} 
           isFetching={isProfileFetchingTweets}  onRefresh={()=>{
             startFetchingProfileInfo();  
@@ -90,7 +90,7 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
         </TweetList>
       }      
       {toolBarOption===1 && 
-        <TweetList navigation={navigation} tweetArray={profileLikedTweets} container={{height: hp('56%')}}
+        <TweetList navigation={navigation} tweetArray={profileLikedTweets} container={{height: Platform.OS === 'ios' ? hp('56%') : hp('57.5%')}}
           key={'profileLikedTweets'} 
           infoEmptyText={profileInfoIsMe ?  'No tienes ningún Me Gusta todavía' : 'No hay nada que mostrar.'} 
         recommendEmptyText={profileInfoIsMe ? 'Pulsa el corazón en cualquier Tweet para demostrar que te gusta. Cuando lo hagas, se mostrará aquí.':''}
