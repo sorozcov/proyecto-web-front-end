@@ -39,19 +39,112 @@ const byId = (state = {}, action) => {
     }
     case types.TWEET_REMOVE_STARTED: {
       const { id } = action.payload;
-      const newState = state;
+      const newState = {...state};
       newState[id] = {
-        ...newState[id]['tweet'],
+        ...newState[id],
         isConfirmed: false,
       };
     }
     case types.TWEET_REMOVE_FAILED: {
-      const newState = state;
+      const newState = {...state};
       newState[id] = {
-        ...newState[id]['tweet'],
+        ...newState[id],
         isConfirmed: true,
       };
     }
+
+    case types.TWEET_LIKE_STARTED: {
+      const newState = {...state};
+      const { id,is_liked } = action.payload;
+      if(!is_liked){
+        newState[id].data.likes +=1
+      }else{
+        newState[id].data.likes -=1
+      }
+      newState[id].data.is_liked = !is_liked;
+      return newState;
+    }
+
+    case types.TWEET_LIKE_FAILED: {
+      const newState = {...state};
+      const { id,is_liked } = action.payload;
+      if(!is_liked){
+        newState[id].data.likes -=1
+      }else{
+        newState[id].data.likes +=1
+      }
+      newState[id].data.is_liked = is_liked;
+      return newState;
+    }
+
+    case types.TWEET_RETWEET_STARTED: {
+      const newState = {...state};
+      const { id,is_retweeted } = action.payload;
+      if(!is_retweeted){
+        newState[id].data.retweets +=1
+      }else{
+        newState[id].data.retweets -=1
+      }
+      newState[id].data.is_retweeted = !is_retweeted;
+      return newState;
+    }
+
+    case types.TWEET_RETWEET_FAILED: {
+      const newState = {...state};
+      const { id,is_retweeted } = action.payload;
+      if(is_retweeted){
+        newState[id].data.retweets -=1
+      }else{
+        newState[id].data.retweets +=1
+      }
+      newState[id].data.is_retweeted = is_retweeted;
+      return newState;
+    }
+
+    case types.TWEET_SAVE_TWEET_STARTED: {
+      const newState = {...state};
+      const { id,is_saved } = action.payload;
+      newState[id].data.is_saved = !is_saved;
+      return newState;
+    }
+
+    case types.TWEET_SAVE_TWEET_FAILED: {
+      const newState = {...state};
+      const { id,is_saved } = action.payload;
+      newState[id].data.is_saved = is_saved;
+      return newState;
+    }
+
+    case types.TWEET_COMMENT_STARTED: {
+      const newState = {...state};
+      const { id } = action.payload;
+      newState[id].data.comments +=1;
+      return newState;
+    }
+
+    case types.TWEET_COMMENT_FAILED: {
+      const newState = {...state};
+      const { id } = action.payload;
+      newState[id].data.comments +=1;
+      return newState;
+    }
+
+
+    case types.TWEET_FOLLOW_STARTED: {
+      const newState = {...state};
+      const { id,user_followed_by_me } = action.payload;
+
+      newState[id].data.user_followed_by_me = !user_followed_by_me;
+      return newState;
+    }
+
+    case types.TWEET_FOLLOW_FAILED: {
+      const newState = {...state};
+      const { id,user_followed_by_me } = action.payload;
+      newState[id].data.user_followed_by_me = user_followed_by_me;
+      return newState;
+    }
+    
     default: {
       return state;
     }
