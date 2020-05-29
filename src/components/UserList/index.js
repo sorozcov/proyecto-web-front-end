@@ -34,7 +34,7 @@ export default function UserList({ navigation, container={}, infoContainer={},in
         // onEndReached={()=> onLoadMore()}
         renderItem={(user) => (
           otherAction 
-          ? <TouchableOpacity onPress={()=> action(user.item.id, user.item.first_name)}>
+          ? <TouchableOpacity onPress={()=> action(user.item)}>
               <View>
                 <User navigation={navigation} otherAction={otherAction} user={ user.item } ></User>
               </View>

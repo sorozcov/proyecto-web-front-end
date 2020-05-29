@@ -12,7 +12,7 @@ import * as chatActions from '../../actions/chat';
 import UserList from '../UserList';
 
 
-function NewMessage({navigation, clearSearchUsers, startFetchingSearchUsers, users, isSearchUsersFetching, getUserMessageInfoBySelectedUser, clearChatMessages}) {
+function NewMessage({navigation, clearSearchUsers, startFetchingSearchUsers, users, isSearchUsersFetching, getUserMessageInfoBySelectedUser, clearChatMessages, goToChat}) {
   const [searchInput, setSearchInput] = useState("");
   useEffect(() => { 
     if(searchInput === '')
@@ -24,15 +24,16 @@ function NewMessage({navigation, clearSearchUsers, startFetchingSearchUsers, use
     <View style={styles.container}>
       <SearchTextInput onChange={setSearchInput} value={searchInput} placeholder={'Buscar personas'} multiline={false} />
       <UserList otherAction={true} navigation={navigation} userArray={users} container={{height: hp('80%')}}
-        currentKey={'users'} infoEmptyText={''} isFetching={isSearchUsersFetching} action={(userId, first_name)=> {
-          const userMessage = getUserMessageInfoBySelectedUser(userId);
-          console.log(userMessage);
+        currentKey={'users'} infoEmptyText={''} isFetching={isSearchUsersFetching} action={({id, first_name, username})=> {
+          const userMessage = getUserMessageInfoBySelectedUser(id);
+          var selectedUserChat = {};
           if(userMessage.length > 0){
-            navigation.navigate('Chat',{ chatId: userMessage[0].chat, first_name: userMessage[0].first_name });
+            selectedUserChat = (userMessage[0]);
           } else {
             clearChatMessages();
-            navigation.navigate('Chat',{ chatId: null, first_name: first_name });
+            selectedUserChat = ({ chatId: null, first_name, username, userid: id })
           }
+          goToChat(navigation,selectedUserChat);
         }}
         recommendEmptyText={''} >
       </UserList>
@@ -57,6 +58,11 @@ export default connect(
     },
     clearChatMessages(){
       dispatch(chatActions.clearChatMessages());
+    },
+    goToChat(navigation, selectedUserChat){
+      dispatch(chatActions.clearChatMessages());
+      dispatch(chatActions.selectChatUserMessage(selectedUserChat));
+      navigation.navigate('Chat');
     },
   }),
 )(NewMessage);

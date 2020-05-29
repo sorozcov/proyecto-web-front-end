@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
-export default function ChatTextInput({onChange,value,disabled,label,placeholder,keyboardType,secureTextEntry,multiline,maxLength,style}) {
+export default function ChatTextInput({onChange,value,disabled,label,placeholder,keyboardType,secureTextEntry,multiline,maxLength,style, send}) {
   return (
     <View style={styles.flexRow}>
       <TextInput
@@ -22,7 +22,7 @@ export default function ChatTextInput({onChange,value,disabled,label,placeholder
         maxLength={maxLength}
         style={{...styles.inputContainerStyle,...style}}
       />        
-      <TouchableOpacity style={styles.icon}>
+      <TouchableOpacity style={styles.icon} onPress={send}>
         <MaterialCommunityIcons
           name="send"
           color='#00ACEE'

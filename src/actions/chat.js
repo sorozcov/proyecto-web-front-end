@@ -43,3 +43,59 @@ export const failFetchingChatMessages = error => ({
 export const clearChatMessages = () => ({
   type: types.CHAT_MESSAGES_CLEAR,
 });
+
+export const startAddingChatUsersMessages = chat => ({
+  type: types.CHAT_USER_MESSAGES_ADD_STARTED,
+  payload: chat,
+});
+
+export const completeAddingChatUsersMessages = (oldId, chat) => ({
+  type: types.CHAT_USER_MESSAGES_ADD_COMPLETED,
+  payload: {
+    oldId,
+    chat,
+  },
+});
+
+export const failAddingChatUsersMessages = (oldId, error) => ({
+  type: types.CHAT_USER_MESSAGES_ADD_FAILED,
+  payload: {
+    oldId,
+    error,
+  },
+});
+
+export const startAddingChatMessage = message => ({
+  type: types.CHAT_MESSAGES_ADD_STARTED,
+  payload: message,
+});
+
+export const completeAddingChatMessage = (oldId, message) => ({
+  type: types.CHAT_MESSAGES_ADD_COMPLETED,
+  payload: {
+    oldId,
+    message,
+  },
+});
+
+export const failAddingChatMessage = (oldId, error) => ({
+  type: types.CHAT_MESSAGES_ADD_FAILED,
+  payload: {
+    oldId,
+    error,
+  },
+});
+
+export const updateChatUserMessage = chat => ({
+  type: types.CHAT_USER_MESSAGES_UPDATE,
+  payload: chat,
+});
+
+export const selectChatUserMessage = chat => ({
+  type: types.CHAT_USER_MESSAGES_SELECT,
+  payload: chat,
+});
+
+export const deselectChatUserMessage = () => ({
+  type: types.CHAT_USER_MESSAGES_DESELECT,
+});

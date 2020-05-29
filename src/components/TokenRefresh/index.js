@@ -7,6 +7,7 @@ import * as actions from '../../actions/auth';
 const TokenRefresh = ({ onRefresh, reviewTime = 10000 }) => {
   useEffect(
     () => {
+      onRefresh();
       const interval = setInterval(onRefresh, reviewTime);
       return () => {
         clearInterval(interval);
