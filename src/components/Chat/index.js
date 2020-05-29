@@ -4,6 +4,7 @@ import TimeAgo from 'react-native-timeago';
 import moment from 'moment';
 import { StyleSheet, View, KeyboardAvoidingView, SafeAreaView, TouchableWithoutFeedback, Keyboard, FlatList, TouchableOpacity, Image, Text } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import randomString from 'random-string';
 
 import ChatTextInput from '../General/ChatTextInput'
 import * as selectors from '../../reducers';
@@ -11,12 +12,20 @@ import * as chatActions from '../../actions/chat';
 import * as actionsProfile from '../../actions/profile';
 
 
-function Chat({navigation, route, startFetchingChatMessages, messages, isChatMessagesFetching, selectProfileUserId}) {
-  const chatId = parseInt(JSON.stringify(route.params.chatId));
+function Chat({navigation, route, startFetchingChatMessages, messages, isChatMessagesFetching, selectProfileUserId, sendMessage}) {
+  const chatId = parseInt(JSON.stringify(route.params.chat));
+  const userId = parseInt(JSON.stringify(route.params.userid));
   const first_name = JSON.stringify(route.params.first_name).replace(/["']/g, "");
+  const username = JSON.stringify(route.params.username).replace(/["']/g, "");
   const [chatInput, setchatInput] = useState("");
   const refFlatList = useRef(null);
-  useEffect(() => startFetchingChatMessages(chatId),[]);
+  useEffect(() => {
+    if(!isNaN(chatId)) {
+      startFetchingChatMessages(chatId);
+      const timer = setInterval(() => startFetchingChatMessages(chatId), 5000);
+      return () => clearInterval(timer);
+    }
+  },[]);
   if(first_name!==null)
     navigation.setOptions({ headerTitle: first_name });
   return (
@@ -26,7 +35,10 @@ function Chat({navigation, route, startFetchingChatMessages, messages, isChatMes
       <SafeAreaView  style={styles.container}>
         <View style={styles.inner}>
           <View style={styles.chatTextStyle}>
-            <ChatTextInput onChange={setchatInput} value={chatInput} placeholder={'Escribe un mensaje'} multiline={false} />
+            <ChatTextInput onChange={setchatInput} value={chatInput} placeholder={'Escribe un mensaje'} multiline={false} send={() => {
+              sendMessage(chatId, chatInput, username, userId, first_name);
+              setchatInput('');
+              }}/>
           </View>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <FlatList style={{margin:0,}}
@@ -77,12 +89,26 @@ export default connect(
   }),
   dispatch => ({
     startFetchingChatMessages(chatId){
-      if(chatId !== null)
+      if(!isNaN(chatId))
         dispatch(chatActions.startFetchingChatMessages(chatId));
     },
     selectProfileUserId(navigation, userId){         
       dispatch(actionsProfile.setSelectedProfileUserId(userId));
       navigation.navigate('Profile');
+    },
+    sendMessage(chatId, chatInput, username, userid, first_name){         
+      const content = chatInput.trim().replace( /[\r\n]+/gm, " " )
+      if(content!==""){
+        const date = new Date();
+        if(!isNaN(chatId)){
+          dispatch(chatActions.updateChatUserMessage(({ chat: chatId, content, date, username, userid, first_name })));
+          const id = randomString();
+          dispatch(chatActions.startAddingChatMessage(({ id, date, content, chat:chatId, sender:{ is_me:true } })));
+        } else{
+          chatId = randomString();
+          dispatch(chatActions.startAddingChatUsersMessages(({ chat: chatId, content, date, username, userid, first_name })));
+        }
+      }
     },
   }),
 )(Chat);

@@ -96,5 +96,7 @@ export const getChatMessage = (state, id) => chatSelector.getChatMessage(state.c
 export const getChatMessages = state => chatSelector.getChatMessages(state.chat);
 export const isUserMessagesFetching = state => chatSelector.isUserMessagesFetching(state.chat);
 export const isChatMessagesFetching = state => chatSelector.isChatMessagesFetching(state.chat);
+export const isUserMessagesAdding = state => chatSelector.isUserMessagesAdding(state.chat);
+export const isChatMessagesAdding = state => chatSelector.isChatMessagesAdding(state.chat);
 export const getChatFetchingError = state => chatSelector.getChatFetchingError(state.chat);
 export const getUserMessageInfoBySelectedUser = (state, id) => chatSelector.getUserMessageInfoBySelectedUser(state.chat,id);

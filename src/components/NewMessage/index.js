@@ -24,14 +24,13 @@ function NewMessage({navigation, clearSearchUsers, startFetchingSearchUsers, use
     <View style={styles.container}>
       <SearchTextInput onChange={setSearchInput} value={searchInput} placeholder={'Buscar personas'} multiline={false} />
       <UserList otherAction={true} navigation={navigation} userArray={users} container={{height: hp('80%')}}
-        currentKey={'users'} infoEmptyText={''} isFetching={isSearchUsersFetching} action={(userId, first_name)=> {
-          const userMessage = getUserMessageInfoBySelectedUser(userId);
-          console.log(userMessage);
+        currentKey={'users'} infoEmptyText={''} isFetching={isSearchUsersFetching} action={({id, first_name, username})=> {
+          const userMessage = getUserMessageInfoBySelectedUser(id);
           if(userMessage.length > 0){
-            navigation.navigate('Chat',{ chatId: userMessage[0].chat, first_name: userMessage[0].first_name });
+            navigation.navigate('Chat',{ ...(userMessage[0]) });
           } else {
             clearChatMessages();
-            navigation.navigate('Chat',{ chatId: null, first_name: first_name });
+            navigation.navigate('Chat',{ chatId: null, first_name, username, userid: id });
           }
         }}
         recommendEmptyText={''} >

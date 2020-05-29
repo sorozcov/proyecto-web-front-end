@@ -39,7 +39,7 @@ function DirectMessages({navigation,startFetchingChatUserMessages, isUserMessage
         onRefresh={startFetchingChatUserMessages}
         // onEndReached={()=> onLoadMore()}
         renderItem={(message) => (
-          <TouchableOpacity onPress={()=>selectChatId(navigation,message.item.chat,message.item.first_name)}>
+          <TouchableOpacity onPress={()=>selectChatId(navigation,{...message.item})}>
             <View style={styles.messageContainer}>
               <View style={styles.flexRow}>
                 <TouchableOpacity onPress={()=>selectProfileUserId(navigation,message.item.userid)}>
@@ -85,8 +85,8 @@ export default connect(
       dispatch(actionsProfile.setSelectedProfileUserId(userId));
       navigation.navigate('Profile');
     },
-    selectChatId(navigation, chatId, first_name){         
-      navigation.navigate('Chat',{ chatId, first_name });
+    selectChatId(navigation, {chat, first_name, username, userid}){         
+      navigation.navigate('Chat',{ chat, first_name, username, userid });
     },
   }),
 )(DirectMessages);

@@ -17,6 +17,37 @@ const UserMessagesById = (state = {}, action) => {
       });
       return newState;
     }
+    case types.CHAT_USER_MESSAGES_ADD_STARTED: {
+      const newState = { ...state };
+      newState[action.payload.chat] = {
+        ...action.payload,
+        isConfirmed: false,
+      };
+      return newState;
+    }
+    case types.CHAT_USER_MESSAGES_ADD_COMPLETED: {
+      const { oldId, chat } = action.payload;
+      const newState = omit(state, oldId);
+      newState[chat.chat] = {
+        ...chat,
+        isConfirmed: true,
+      };
+      return newState;
+    }
+    case types.CHAT_USER_MESSAGES_ADD_FAILED: {
+      const { oldId } = action.payload;
+      const newState = omit(state, oldId);
+      return newState;
+    }
+    case types.CHAT_USER_MESSAGES_UPDATE: {
+      return {
+        ...state,
+        [action.payload.chat]: {
+          ...state[action.payload.chat],
+          ...action.payload,
+        },
+      };
+    }
     default: {
       return state;
     }
@@ -27,6 +58,17 @@ const UserMessagesOrder = (state = [], action) => {
   switch(action.type) {
     case types.CHAT_USER_MESSAGES_FETCH_COMPLETED: {
       return [...action.payload.order];
+    }
+    case types.CHAT_USER_MESSAGES_ADD_STARTED: {
+      return [action.payload.chat,...state ];
+    }
+    case types.CHAT_USER_MESSAGES_ADD_COMPLETED: {
+      const { oldId, chat } = action.payload;
+      return state.map(id => id === oldId ? chat.chat : id);
+    }
+    case types.CHAT_USER_MESSAGES_ADD_FAILED: {
+      const { oldId } = action.payload;
+      return state.filter(id => id !== oldId);
     }
     default: {
       return state;
@@ -49,6 +91,28 @@ const ChatMessagesById = (state = {}, action) => {
       });
       return newState;
     }
+    case types.CHAT_MESSAGES_ADD_STARTED: {
+      const newState = { ...state };
+      newState[action.payload.id] = {
+        ...action.payload,
+        isConfirmed: false,
+      };
+      return newState;
+    }
+    case types.CHAT_MESSAGES_ADD_COMPLETED: {
+      const { oldId, message } = action.payload;
+      const newState = omit(state, oldId);
+      newState[message.id] = {
+        ...message,
+        isConfirmed: true,
+      };
+      return newState;
+    }
+    case types.CHAT_MESSAGES_ADD_FAILED: {
+      const { oldId } = action.payload;
+      const newState = omit(state, oldId);
+      return newState;
+    }
     case types.CHAT_MESSAGES_CLEAR: {
       const newState = {}
       return newState;
@@ -64,6 +128,17 @@ const ChatMessagesOrder = (state = [], action) => {
     case types.CHAT_MESSAGES_FETCH_COMPLETED: {
       return [...action.payload.order];
     }
+    case types.CHAT_MESSAGES_ADD_STARTED: {
+      return [action.payload.id,...state ];
+    }
+    case types.CHAT_MESSAGES_ADD_COMPLETED: {
+      const { oldId, message } = action.payload;
+      return state.map(id => id === oldId ? message.id : id);
+    }
+    case types.CHAT_MESSAGES_ADD_FAILED: {
+      const { oldId } = action.payload;
+      return state.filter(id => id !== oldId);
+    }
     case types.CHAT_MESSAGES_CLEAR: {
       const newState = []
       return newState;
@@ -74,7 +149,7 @@ const ChatMessagesOrder = (state = [], action) => {
   }
 };
 
-//Search Users
+//user messages
 const isFetchingUserMessages = (state = false, action)=>{
   switch(action.type) {
     case types.CHAT_USER_MESSAGES_FETCH_STARTED: {
@@ -92,7 +167,7 @@ const isFetchingUserMessages = (state = false, action)=>{
   }
 }
 
-//SearchTweets
+//Chat messages
 const isFetchingChatMessages = (state = false, action)=>{
   switch(action.type) {
     case types.CHAT_MESSAGES_FETCH_STARTED: {
@@ -102,6 +177,42 @@ const isFetchingChatMessages = (state = false, action)=>{
       return false;
     }
     case types.CHAT_MESSAGES_FETCH_FAILED: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+//user messages
+const isAddingUserMessages = (state = false, action)=>{
+  switch(action.type) {
+    case types.CHAT_USER_MESSAGES_ADD_STARTED: {
+      return true;
+    }
+    case types.CHAT_USER_MESSAGES_ADD_COMPLETED: {
+      return false;
+    }
+    case types.CHAT_USER_MESSAGES_ADD_FAILED: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+//Chat messages
+const isAddingChatMessages = (state = false, action)=>{
+  switch(action.type) {
+    case types.CHAT_MESSAGES_ADD_STARTED: {
+      return true;
+    }
+    case types.CHAT_MESSAGES_ADD_COMPLETED: {
+      return false;
+    }
+    case types.CHAT_MESSAGES_ADD_FAILED: {
       return false;
     }
     default: {
@@ -132,6 +243,26 @@ const error = (state = null, action) => {
     case types.CHAT_MESSAGES_FETCH_COMPLETED: {
       return null;
     }
+    //Search Tweets
+    case types.CHAT_USER_MESSAGES_ADD_FAILED: {
+      return action.payload.error;
+    }
+    case types.CHAT_USER_MESSAGES_ADD_STARTED: {
+      return null;
+    }
+    case types.CHAT_USER_MESSAGES_ADD_COMPLETED: {
+      return null;
+    }
+    //Search Tweets
+    case types.CHAT_MESSAGES_ADD_FAILED: {
+      return action.payload.error;
+    }
+    case types.CHAT_MESSAGES_ADD_STARTED: {
+      return null;
+    }
+    case types.CHAT_MESSAGES_ADD_COMPLETED: {
+      return null;
+    }
     default: {
       return state;
     }
@@ -146,6 +277,8 @@ export default combineReducers({
   ChatMessagesOrder,
   isFetchingUserMessages,
   isFetchingChatMessages,
+  isAddingUserMessages,
+  isAddingChatMessages,
   error,
 });
 
@@ -156,5 +289,7 @@ export const getChatMessage = (state, id) => state.ChatMessagesById[id];
 export const getChatMessages = state => state.ChatMessagesOrder.map(id => getChatMessage(state, id));
 export const isUserMessagesFetching = state => state.isFetchingUserMessages;
 export const isChatMessagesFetching = state => state.isFetchingChatMessages;
+export const isUserMessagesAdding = state => state.isAddingUserMessages;
+export const isChatMessagesAdding = state => state.isAddingChatMessages;
 export const getChatFetchingError = state => state.error;
 export const getUserMessageInfoBySelectedUser = (state, id) => (getUserMessages(state).filter(userMessage => userMessage.userid === id));
