@@ -149,7 +149,7 @@ const byId = (state = {}, action) => {
       
       const newState = {...state};
       const comment  = action.payload;
-      let id= 'tweet-' + comment.tweet.id;
+      let id= 'tweet-' + comment.tweet;
       if(newState[id]){
           newState[id].data.comments +=1
       }
@@ -158,8 +158,8 @@ const byId = (state = {}, action) => {
 
     case typesTweetSelected.TWEET_COMMENT_ADD_FAILED: {
       const newState = {...state};
-      const {comment}  = action.payload;
-      let id= 'tweet-' + comment.tweet.id;
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet;
       if(newState[id]){
           newState[id].data.comments -=1
       }
@@ -169,7 +169,7 @@ const byId = (state = {}, action) => {
     case typesTweetSelected.TWEET_COMMENT_REMOVE_STARTED: {
       
       const newState = {...state};
-      const { comment } = action.payload;
+      const  comment  = action.payload;
       let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
           newState[id].data.comments -=1
@@ -179,7 +179,7 @@ const byId = (state = {}, action) => {
 
     case typesTweetSelected.TWEET_COMMENT_REMOVE_FAILED: {
       const newState = {...state};
-      const { comment } = action.payload;
+      const { comment}  = action.payload;
       let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
           newState[id].data.comments +=1

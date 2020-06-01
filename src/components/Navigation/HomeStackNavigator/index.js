@@ -12,6 +12,8 @@ import NewTweet from '../../NewTweet';
 import MySavedTweets from '../../MySavedTweets';
 import NewComment from '../../NewComment';
 import TweetFullScreen from '../../TweetFullScreen';
+import UserLikeList from '../../UsersLikeList';
+import UsersRetweetList from '../../UsersRetweetList';
 
 
 
@@ -55,6 +57,16 @@ export default function HomeStack({navigation,route}) {
             name="NewComment" 
             options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
             component={NewComment} />
+        <Stack.Screen 
+            name="UserRetweetList" 
+            options={{ title:'Retweets', headerTitleAlign:'center'}} 
+            component={UsersRetweetList} />
+        <Stack.Screen 
+            name="UserLikeList" 
+            options={{ title:'Marcados como Me Gusta por', headerTitleAlign:'center'}} 
+            component={UserLikeList} />
+
+        
         
       </Stack.Navigator>
    

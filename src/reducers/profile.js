@@ -238,7 +238,7 @@ const profileMyTweetsById = (state = {}, action) => {
     case typesTweetSelected.TWEET_COMMENT_REMOVE_STARTED: {
       
       const newState = {...state};
-      const { comment } = action.payload;
+      const comment = action.payload;
       let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
           newState[id].data.comments -=1
@@ -404,7 +404,7 @@ const profileLikedTweetsById = (state = {}, action) => {
     case typesTweetSelected.TWEET_COMMENT_REMOVE_STARTED: {
       
       const newState = {...state};
-      const { comment } = action.payload;
+      const  comment  = action.payload;
       let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
           newState[id].data.comments -=1
@@ -440,23 +440,7 @@ const profileLikedTweetsById = (state = {}, action) => {
       return newState;
     }
 
-    case tweetTypes.TWEET_COMMENT_STARTED: {
-      const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id].data.comments +=1;
-      }
-      return newState;
-    }
 
-    case tweetTypes.TWEET_COMMENT_FAILED: {
-      const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id].data.comments +=1;
-      }
-      return newState;
-    }
     default: {
       return state;
     }

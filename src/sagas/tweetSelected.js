@@ -15,7 +15,7 @@ import * as actions from '../actions/tweetSelected';
 import * as types from '../types/tweetSelected';
 import * as schemasComment from '../schemas/comments';
 import * as schemasUsers from '../schemas/users';
-import { actionTypes } from 'redux-form';
+
 
 
 
@@ -85,7 +85,7 @@ export function* watchAddComment() {
 function* removeComment(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
-
+    console.log(action.payload);
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       
@@ -100,7 +100,7 @@ function* removeComment(action) {
           },
         }
       );
-      
+      console.log(response.status);
       if (response.status <= 300) {
         yield put(actions.completeRemoveComment({comment:action.payload,oldId:action.payload.id,}));
         
@@ -125,7 +125,7 @@ function* removeComment(action) {
     
     console.log("ERROR", error)
     let errorMessage ="Falló la conexión eliminado el comentario.";
-    yield put(actions.failRemoveComment({...action.payload,oldId:action.payload.id,error:errorMessage}));
+    yield put(actions.failRemoveComment({comment:action.payload,oldId:action.payload.id,error:errorMessage}));
   }
 }
 
@@ -156,7 +156,7 @@ function* fetchComments(action) {
           },
         }
       );
-     
+      
       if (response.status <= 300) {
         const jsonResult = yield response.json();
         
@@ -164,14 +164,17 @@ function* fetchComments(action) {
           entities: { comments },
           result,
         } = normalize(jsonResult, schemasComment.comments);
-       
+        
         yield put(
           actions.completeFetchingTweetComments(
             comments,
             result,
           ),
         );
+       
       } else {
+        const error = yield response.json();
+        
         const { detail } = yield response.json();
         let errorMessage ="Error obteniendo comentarios.";
         if(detail!=undefined){errorMessage=detail}
@@ -180,6 +183,7 @@ function* fetchComments(action) {
       }
     }
   } catch (error) {
+    
     console.log("ERROR", error)
     let errorMessage ="Error en la conexión.";
     yield put(actions.failFetchingTweetComments(errorMessage));
@@ -194,10 +198,11 @@ export function* watchCommentsTweetFetch() {
 }
 
 function* fetchLikesUsers(action) {
+    
     try {
       const isAuth = yield select(selectors.isAuthenticated);
       const tweetId = yield select(selectors.getTweetSelectedId)
-      
+      console.log(tweetId);
       if (isAuth) {
         const token = yield select(selectors.getAuthToken);
         const response = yield call(
@@ -211,7 +216,7 @@ function* fetchLikesUsers(action) {
             },
           }
         );
-       
+        console.log(response.status); 
         if (response.status <= 300) {
           const jsonResult = yield response.json();
           
@@ -226,6 +231,7 @@ function* fetchLikesUsers(action) {
               result,
             ),
           );
+          console.log(users); 
         } else {
           const { detail } = yield response.json();
           let errorMessage ="Error obteniendo usuarios que han gustado la publicación.";
@@ -275,7 +281,7 @@ export function* watchTweetUserLikesFetch() {
             entities: { users },
             result,
           } = normalize(jsonResult, schemasUsers.users);
-         
+          
           yield put(
             actions.completeFetchingTweetRetweetUsers(
               users,

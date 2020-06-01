@@ -1,129 +1,82 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View,Text,Image,ScrollView } from 'react-native';
+import TimeAgo from 'react-native-timeago';
+import { StyleSheet, View, Image,FlatList,Text, Platform } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { reduxForm, Field } from 'redux-form';
+import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
-import Button from '../General/Button';
-import TextInputTweet from '../General/TextInputTweet'
-import * as tweetsActions from '../../actions/tweets';
+import * as tweetActions from '../../actions/tweets';
+import * as tweetSelectedActions from '../../actions/tweetSelected';
+import TweetList from '../TweetList';
+import TweetFull from '../TweetFull'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import randomString from 'random-string'
+import Comment from '../Comment'
 
 
 
-function NewTweet({navigation, dirty, valid, handleSubmit,userId,userInformation,startAddingTweet}) {
-
-  const newTweet = values => {
-    let content = values.tweet.trim().replace( /[\r\n]+/gm, " " )
-    startAddingTweet({navigation,content:values.tweet,userId,userInformation})
-  }
-
-
+function HomeFeed({navigation,tweetSelected,comments,startFetchingCommentsTweets,isFetchingComments}) {
+  useEffect(startFetchingCommentsTweets,[]);
+  const refFlatList = React.useRef(null);
   return (
     <View style={styles.container}>
-      <View style={{height:hp('2%')}}/>
-      <Button label={'Twittear'} 
-       disabled={!(dirty && valid)}
-       onPress={handleSubmit(newTweet)}/>
-      <ScrollView style={styles.container}>
-      <View style={styles.flexRow}>
-        <View style={styles.imageContainer} >
-            <Image style={styles.imageProfile}   source={require('../../assets/images/egg.jpg')}></Image>
-        </View>
-
-        <View style={{...styles.contentCotainer}}>
-        <Field name={'tweet'} component={TextInputTweet}  placeholder='¿Qué está pasando?' keyboardType='default' multiline={true} />
-        </View>
-
+      <TweetFull tweet={tweetSelected} navigation={navigation}/>
+      <View style={{margin:0,height:hp('68%')}}>
+      <FlatList style={{margin:0}}
+        data={comments}
+        ref={refFlatList}
+        key={'CommentList'} 
+        numColumns={1}
+        keyExtractor={(comment, index) => String(comment.id)}
+        onEndReachedThreshold={0.1}
+        refreshing={isFetchingComments}
+        onRefresh={startFetchingCommentsTweets}
+        // onEndReached={()=> onLoadMore()}
+        renderItem={(comment) => (
+          
+          <Comment comment={comment.item}/>
+          
+          )
+        }
+        
+        /> 
       </View>
-      </ScrollView>
-      
-      
-
+     
     </View>
   );
 }
 
 export default connect(
   state => ({
-    userId:selectors.getAuthUserID(state),
-    userInformation:selectors.getAuthUserInformation(state),
+    isFetchingComments: selectors.isTweetFetchingComments(state),
+    comments:selectors.getTweetComments(state),
+    tweetsHome: selectors.getTweets(state),
+    tweetSelected:selectors.getTweetInfo(state),
+
+   
   }),
   dispatch => ({
-    startAddingTweet({navigation,content,userId,userInformation}) {
-      let id= randomString();
-      let payload={
-        id,
-        itemType:'tweet',
-        data:{
-          user:userInformation,
-          date: new Date(),
-          likes:0,
-          comments:0,
-          retweets:0,
-          content:content,
-          id,
-          is_mine:true,
-          user_follows_me: false,
-          user_followed_by_me: false,
-          is_retweeted: false,
-          is_liked: false,
-
-        },
-        content,
-        user:userId,  
-        
-
-
-      }
-      dispatch(tweetsActions.startAddingTweet(payload));    
-      navigation.navigate('HomeFeed')  
+    startFetchingTweetsHome() {
+      dispatch(tweetActions.startFetchingTweetsHome());
+      
+    },
+    startFetchingCommentsTweets() {
+      dispatch(tweetSelectedActions.startFetchingTweetComments());
+      
+    },
+    startFetchingLikeUsers() {
+      dispatch(tweetSelectedActions.startFetchingTweetLikeUsers());
+      
+    },
+    startFetchingRetweetUsers() {
+      dispatch(tweetSelectedActions.startFetchingRetweetUsers());
+      
     },
   }),
-)(reduxForm({ 
-  form: 'newTweet',
-  enableReinitialize : true,
-  validate: (values) => {
-    const errors = {};
-
-    errors.tweet = !values.tweet || values.tweet.replace( /[\r\n]+/gm, "").length==0 || values.tweet.trim()==""
-      ? 'Este campo es obligatorio'
-      : undefined;
-    return errors;
-  }
-})(NewTweet));
+)(HomeFeed);
 
 
 const styles = StyleSheet.create({
   container: {
     height: hp('100%'),
-    backgroundColor: '#fff',
-   
   },
-  flexRow:{
-    flexDirection:'row'
-  },
-  imageContainer:{
-      width:wp('15%')
-  },
-  imageProfile:{
-      borderRadius:hp('50%'),
-      height:hp('5%'),
-      width:hp('5%'),
-      margin:wp('4%'),
-      marginRight:wp('0.5%'),
-  },
-  titleInfo:{
-      width:wp('35%'),
-      flexDirection:'row',
-  },
-  contentCotainer:{
-      height:hp('100%'), 
-      width:wp('82%'),
-      flexDirection:'column',
-      
-
-  },
-
 });

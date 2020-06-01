@@ -126,7 +126,7 @@ const byId = (state = {}, action) => {
       
       const newState = {...state};
       
-      const { comment } = action.payload;
+      const  comment  = action.payload;
       let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
           newState[id].data.comments -=1

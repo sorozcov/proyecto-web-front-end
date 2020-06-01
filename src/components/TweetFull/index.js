@@ -10,7 +10,7 @@ import * as actionsProfile from '../../actions/profile'
 import * as actionsTweets from '../../actions/tweets'
 import * as actionsTweetSelected from '../../actions/tweetSelected'
 import Button from '../General/Button';
-
+let moment = require('moment');
 
 function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed,likeTweet,retweetTweet,saveTweet,deleteTweet,newComment,selectTweetInfo}) {
     const [optionsModal, setOptionsModal] = useState(false);
@@ -43,10 +43,9 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
     }
     
     return(
-    <TouchableOpacity onPress={()=>{
-        selectTweetInfo(tweet.data.id,tweet,navigation)
-    }}>
+    
     <View style={tweet.isConfirmed? {...styles.tweetContainer,...styleContainer}:{...styles.tweetContainer,...styleContainer,backgroundColor:'transparent'}}>
+    <View style={{flexDirection:'column'}}>
     <View style={{...styles.flexRow}}>
         
       <TouchableOpacity onPress={()=>selectProfileUserId(navigation,tweet.data.user.id)}>
@@ -70,7 +69,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
           <View style={styles.titleInfo}>
             <Text numberOfLines={1} style={styles.userNameStyle}>{tweet.data.user.first_name}</Text>
             <Text numberOfLines={1}  style={styles.infoUserNameStyle}>@{tweet.data.user.username}  · </Text>
-            <TimeAgo style={styles.infoUserNameStyle} time={tweet.data.date} hideAgo={true} interval={300}/>
+            
             
           </View>
           <View style={styles.caretContainer}>
@@ -79,19 +78,51 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
         </View>
         <View style={{...styles.contentCotainer,...styleContent}}>
             <Text style={styles.textContainerStyle}>{tweet.data.content}</Text>
+            <Text style={styles.dateStyle}>{moment(tweet.data.date).format(' h:mm · MM/D/YY')}</Text>
         </View>
-        {/* {tweet.itemType=='retweet' && tweet.itemType!==null && 
-                    <View style={{paddingBottom:hp('1%')}}>
-                    <Tweet navigation={navigation} styleContent={{width:wp('62%')}} styleContainer={{borderBottomColor:'#EAEAEA',borderColor:'#EAEAEA',borderWidth:1,borderRadius:10,width:wp('80%')}} tweet={{data:tweet.data.originalTweet,itemType:null}} ></Tweet>
-                    </View>
-        } */}
-        {tweet.itemType!==null && <View style={styles.footerContainerStyle}>
-    <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="chat-outline" color={'gray'} size={18} onPress={()=>newComment(tweet.data.id,tweet,navigation)} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.comments)}</Text></TouchableOpacity>
-     <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="twitter-retweet" onPress={()=>retweetTweet(tweet.data.id,tweet.id,tweet.data.is_retweeted)}  color={tweet.data.is_retweeted ? 'green':'gray'} size={22} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.retweets)}</Text></TouchableOpacity>
-    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>likeTweet(tweet.data.id,tweet.id,tweet.data.is_liked)}><MaterialCommunityIcons name={tweet.data.is_liked ? 'heart':'heart-outline'}  color={tweet.data.is_liked ? 'red':'gray'} size={18} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.likes)}</Text></TouchableOpacity>
-    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>setOptionsModal(true)}><MaterialCommunityIcons name="export-variant" color={'gray'} size={18} /></TouchableOpacity>
-        </View>}
+       
       </View>
+      </View>
+      <View style={{flexDirection:'column',width:wp('100%')}}
+            style={{
+                borderBottomColor: '#EAEAEA',
+                borderBottomWidth: 1,
+            }}
+            />
+    <View style={styles.infoLikesStyle}>
+            <View style={{flexDirection:'row',paddingBottom:hp('0.5%'),paddingLeft:wp('5%')}}>
+                {tweet.data.retweets>0 && <TouchableOpacity onPress={()=>navigation.navigate('UserRetweetList')} style={{flexDirection:'row'}}>
+                    <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{likeFormat(tweet.data.retweets)} </Text>
+                    <Text style={styles.caption}>Retweets </Text> 
+                    
+                
+                </TouchableOpacity>}
+                
+                {tweet.data.likes>0 && <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>navigation.navigate('UserLikeList')}>
+                    <Text style={{...styles.caption,fontWeight:'bold',color:'black'}}>{likeFormat(tweet.data.likes)} </Text>
+                    <Text style={styles.caption}>Likes </Text> 
+                    </TouchableOpacity>}
+                {tweet.data.likes==0 && tweet.data.retweets==0 && <TouchableOpacity style={{flexDirection:'row'}}>
+                    
+                    <Text style={styles.caption}>No hay actividad en este tweet. </Text> 
+                    
+                
+                </TouchableOpacity>}
+            </View>
+    </View>
+    <View style={{flexDirection:'column',width:wp('100%')}}
+                style={{
+                    borderBottomColor: '#EAEAEA',
+                    borderBottomWidth: 1,
+                }}
+                />
+      
+        {tweet.itemType!==null && <View style={styles.footerContainerStyle}>
+    <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="chat-outline" color={'gray'} size={24} onPress={()=>newComment(tweet.data.id,tweet,navigation)} /></TouchableOpacity>
+     <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="twitter-retweet" onPress={()=>retweetTweet(tweet.data.id,tweet.id,tweet.data.is_retweeted)}  color={tweet.data.is_retweeted ? 'green':'gray'} size={24} /></TouchableOpacity>
+    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>likeTweet(tweet.data.id,tweet.id,tweet.data.is_liked)}><MaterialCommunityIcons name={tweet.data.is_liked ? 'heart':'heart-outline'}  color={tweet.data.is_liked ? 'red':'gray'} size={24} /></TouchableOpacity>
+    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>setOptionsModal(true)}><MaterialCommunityIcons name="export-variant" color={'gray'} size={24} /></TouchableOpacity>
+        </View>}
       
       
     </View>
@@ -182,7 +213,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
     
     
   </View>
-  </TouchableOpacity>
+ 
   )
 
 }
@@ -242,12 +273,12 @@ const styles = StyleSheet.create({
         flexDirection:'row'
     },
     imageContainer:{
-        width:wp('17%')
+        width:wp('20%')
     },
     imageProfile:{
         borderRadius:hp('50%'),
-        height:hp('5.4%'),
-        width:hp('5.4%'),
+        height:hp('6.5%'),
+        width:hp('6.5%'),
         margin:wp('3%'),
         marginTop:hp('1.5%'),
         marginRight:wp('0.5%'),
@@ -264,20 +295,20 @@ const styles = StyleSheet.create({
     },
     userNameStyle:{
         marginTop:wp('2%'),
-        fontSize:17,
+        fontSize:21,
         fontWeight:'bold',
     },
     infoUserNameStyle:{
         marginTop:wp('2%'),
         color:'gray',
         paddingLeft:wp('1%'),
-        fontSize:17
+        fontSize:21
     },
     retweetInfo:{
         marginTop:wp('1.3%'),
         color:'gray',
         paddingLeft:wp('1%'),
-        fontSize:14
+        fontSize:21
     },
     titleContainer:{
         width:wp('85%')
@@ -291,15 +322,35 @@ const styles = StyleSheet.create({
     },
     textContainerStyle:{
         marginTop:wp('2%'),
-        fontSize:16,
+        fontSize:21,
         marginRight:wp('2%')
+    },
+    dateStyle:{
+        marginTop:wp('3%'),
+        fontSize:14,
+        color:'gray',
+        marginRight:wp('2%')
+    },
+    infoLikesStyle:{
+        flexDirection:'row',
+        width:wp('100%'),
+        marginTop:wp('2%'),
+        paddingBottom:hp('0.5%'),
+        
     },
     footerContainerStyle:{
         flexDirection:'row',
-        width:wp('65%'),
+        width:wp('100%'),
+        marginTop:wp('2%'),
         paddingBottom:hp('0.5%'),
-        justifyContent:'space-between'
+        justifyContent:'space-around'
     },
+    caption: {
+        fontSize: wp('4%'),
+        lineHeight: hp('2%'),
+        paddingTop: hp('0.8%'),
+        color:'gray'
+      },
 
 
   });

@@ -15,7 +15,7 @@ import Tweet from '../Tweet'
 
 function HomeFeed({navigation,tweetsHome,token,startFetchingTweetsHome,isFetchingHomeTweets,user}) {
   useEffect(startFetchingTweetsHome,[]);
-  console.log(token);
+ 
   const refFlatList = React.useRef(null);
   return (
     <View style={styles.container}>

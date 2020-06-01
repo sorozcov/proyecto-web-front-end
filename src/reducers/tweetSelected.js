@@ -136,8 +136,8 @@ const tweetCommentsById = (state = {}, action) => {
     }
 
     case types.TWEET_COMMENT_REMOVE_COMPLETED: {
-      if(state[action.payload.id]){
-        return omit(state, action.payload.id);
+      if(state[action.payload.oldId]){
+        return omit(state, action.payload.oldId);
       }
       return state;
     }
@@ -156,10 +156,10 @@ const tweetCommentsById = (state = {}, action) => {
     
     case types.TWEET_COMMENT_REMOVE_FAILED: {
       const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id] = {
-          ...newState[id],
+      const { oldId } = action.payload;
+      if(newState[oldId]){
+        newState[oldId] = {
+          ...newState[oldId],
           isConfirmed: true,
         };
       }
@@ -188,7 +188,7 @@ const tweetCommentsOrder = (state = [], action) => {
       return state.map(id => id !== oldId);
     }
     case types.TWEET_COMMENT_REMOVE_COMPLETED: {
-      return state.filter(id => id !== action.payload.id);
+      return state.filter(id => id !== action.payload.oldId);
     }
     default: {
       return state;
@@ -284,8 +284,9 @@ const error = (state = null, action) => {
     case types.TWEET_INFO_FETCH_COMPLETED: {
       return null;
     }
-    //USER LIKES
-    case types.TWEET_LIKES_USERS_FETCH_STARTED: {
+ 
+     //USER likes
+     case types.TWEET_LIKES_USERS_FETCH_FAILED: {
       return action.payload.error;
     }
     case types.TWEET_LIKES_USERS_FETCH_STARTED: {
@@ -369,7 +370,7 @@ export const geRetweetUser = (state, id) => state.userRetweetById[id];
 export const getRetweetUsers = state => state.userRetweetOrder.map(id => geRetweetUser(state, id));
 
 export const getTweetComment = (state, id) => state.tweetCommentsById[id];
-export const getTweetComments = state => state.tweetCommentsOrder.map(id => getTweetComments(state, id));
+export const getTweetComments = state => state.tweetCommentsOrder.map(id => getTweetComment(state, id));
 
 export const isTweetFetchingInfo = state => state.isFetchingInfo;
 export const isTweetFetchingLikeUsers = state => state.isFetchingLikeUsers;
