@@ -10,7 +10,7 @@ import * as actionsTweetSelected from '../../actions/tweetSelected'
 
 function NotificationsList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' , selectProfileUserId, infoText='',selectTweetInfo }) {
   const refFlatList = React.useRef(null);
-  console.log(userArray);
+  
   const isEmpty=(isFetching)=>{
     if(!isFetching){
       return(
@@ -36,7 +36,12 @@ function NotificationsList({ navigation, container={}, infoContainer={},infoEmpt
         onRefresh={onRefresh}
         // onEndReached={()=> onLoadMore()}
         renderItem={(notification) => (
-          // <TouchableOpacity onPress={()=>  selectTweetInfo(notification.item.tweet.id,notification.item.tweet,navigation)}>
+           <TouchableOpacity onPress={()=>  
+           notification.item.originalTweet===undefined ? selectTweetInfo(notification.item.tweet.id,
+           tweet={data:notification.item.tweet,...notification.item.tweet,itemType:'tweet',id:'tweet-'+notification.item.tweet.id,isConfirmed:true}
+           ,navigation) : selectTweetInfo(notification.item.originalTweet.id,
+            originalTweet={data:notification.item.originalTweet,...notification.item.originalTweet,itemType:'tweet',id:'tweet-'+notification.item.originalTweet.id,isConfirmed:true}
+            ,navigation)}>
             <View style={styles.notificationContainer}>
               <View style={styles.flexRow}>
                 <TouchableOpacity onPress={()=>selectProfileUserId(navigation,notification.item.user.id)}>
@@ -57,7 +62,7 @@ function NotificationsList({ navigation, container={}, infoContainer={},infoEmpt
                 </View>
               </View>
             </View>
-          // </TouchableOpacity>
+          </TouchableOpacity>
           )
         }
         ListEmptyComponent={isEmpty(isFetching)}

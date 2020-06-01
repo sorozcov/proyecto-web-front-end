@@ -127,23 +127,6 @@ const byId = (state = {}, action) => {
       return newState;
     }
 
-    case types.TWEET_COMMENT_STARTED: {
-      const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id].data.comments +=1;
-      }
-      return newState;
-    }
-
-    case types.TWEET_COMMENT_FAILED: {
-      const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id].data.comments +=1;
-      }
-      return newState;
-    }
 
     case typesTweetSelected.TWEET_COMMENT_ADD_STARTED: {
       

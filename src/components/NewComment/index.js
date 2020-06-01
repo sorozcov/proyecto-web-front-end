@@ -65,7 +65,7 @@ export default connect(
         tweet:{id:tweetSelectedId},
       }
       dispatch(tweetsSelectedActions.startAddingComment(payload));    
-      navigation.navigate('HomeFeed')  
+      navigation.pop(); 
     },
   }),
 )(reduxForm({ 
