@@ -2,6 +2,7 @@ import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/profile';
 import * as tweetTypes from '../types/tweets'
+import * as typesTweetSelected from '../types/tweetSelected'
 
 //Profile selected user id
 const profileSelectedUserId = (state = null, action) => {
@@ -213,23 +214,48 @@ const profileMyTweetsById = (state = {}, action) => {
       return newState;
     }
 
-    case tweetTypes.TWEET_COMMENT_STARTED: {
+    case typesTweetSelected.TWEET_COMMENT_ADD_STARTED: {
+      
       const newState = {...state};
-      const { id } = action.payload;
+      const comment  = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
-        newState[id].data.comments +=1;
+          newState[id].data.comments +=1
       }
       return newState;
     }
 
-    case tweetTypes.TWEET_COMMENT_FAILED: {
+    case typesTweetSelected.TWEET_COMMENT_ADD_FAILED: {
       const newState = {...state};
-      const { id } = action.payload;
+      const {comment}  = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
       if(newState[id]){
-        newState[id].data.comments +=1;
+          newState[id].data.comments -=1
       }
       return newState;
     }
+
+    case typesTweetSelected.TWEET_COMMENT_REMOVE_STARTED: {
+      
+      const newState = {...state};
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments -=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_REMOVE_FAILED: {
+      const newState = {...state};
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments +=1
+      }
+      return newState;
+    }
+
     default: {
       return state;
     }
@@ -350,6 +376,48 @@ const profileLikedTweetsById = (state = {}, action) => {
           newState[id].data.retweets +=1
         }
         newState[id].data.is_retweeted = is_retweeted;
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_ADD_STARTED: {
+      
+      const newState = {...state};
+      const comment  = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments +=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_ADD_FAILED: {
+      const newState = {...state};
+      const {comment}  = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments -=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_REMOVE_STARTED: {
+      
+      const newState = {...state};
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments -=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_REMOVE_FAILED: {
+      const newState = {...state};
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments +=1
       }
       return newState;
     }

@@ -26,6 +26,7 @@ function SavedTweetsS({navigation,tweetsSaved,token,startFetchingSavedTweets,isF
       </TweetList>
       
       <FAB  onPress={()=>navigation.navigate('NewTweet')}
+        buttonStyle={{marginTop: hp('80%'),}}
         icon={(<MaterialCommunityIcons name="feather" color={'white'} size={27} />)}
       />
     </View>

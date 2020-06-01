@@ -9,6 +9,7 @@ import tweets, * as tweetsSelector from './tweets';
 import profile, * as profileSelector from './profile';
 import search, * as searchSelector from './search';
 import chat, * as chatSelector from './chat';
+import tweetSelected, * as tweetSelectedSelectors from './tweetSelected';
 import savedTweets, * as savedTweetsSelector from './savedTweets';
 import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   search,
   chat,
   savedTweets,
+  tweetSelected,
   form: formReducer,
   alertReducer,
 });
@@ -110,3 +112,18 @@ export const isUserMessagesAdding = state => chatSelector.isUserMessagesAdding(s
 export const isChatMessagesAdding = state => chatSelector.isChatMessagesAdding(state.chat);
 export const getChatFetchingError = state => chatSelector.getChatFetchingError(state.chat);
 export const getUserMessageInfoBySelectedUser = (state, id) => chatSelector.getUserMessageInfoBySelectedUser(state.chat,id);
+
+//Tweet Selected Selectors
+export const getTweetSelectedId = state => tweetSelectedSelectors.getTweetSelectedId(state.tweetSelected)
+export const getTweetInfo = state => tweetSelectedSelectors.getTweetInfo(state.tweetSelected)
+export const getLikeUser = (state, id) => tweetSelectedSelectors.getLikeUser(state.tweetSelected,id)
+export const getLikeUsers = state => tweetSelectedSelectors.getLikeUsers(state.tweetSelected)
+export const geRetweetUser = (state, id) => tweetSelectedSelectors.geRetweetUser(state.tweetSelected,id)
+export const getRetweetUsers = state => tweetSelectedSelectors.getRetweetUsers(state.tweetSelected)
+export const getTweetComment =(state, id) => tweetSelectedSelectors.getTweetComment(state.tweetSelected,id)
+export const getTweetComments = state => tweetSelectedSelectors.getTweetComments(state.tweetSelected)
+export const isTweetFetchingInfo = state => tweetSelectedSelectors.isTweetFetchingInfo(state.tweetSelected)
+export const isTweetFetchingLikeUsers = state => tweetSelectedSelectors.isTweetFetchingLikeUsers(state.tweetSelected)
+export const isTweetFetchingRetwetUsers = state => tweetSelectedSelectors.isTweetFetchingRetwetUsers(state.tweetSelected)
+export const isTweetFetchingComments = state => tweetSelectedSelectors.isTweetFetchingComments(state.tweetSelected)
+export const getErrorTweetSelected = state => tweetSelectedSelectors.getErrorTweetSelected(state.tweetSelected)

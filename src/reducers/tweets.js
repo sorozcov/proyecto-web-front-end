@@ -1,7 +1,7 @@
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/tweets';
-
+import * as typesTweetSelected from '../types/tweetSelected'
 
 const byId = (state = {}, action) => {
   switch(action.type) {
@@ -34,6 +34,12 @@ const byId = (state = {}, action) => {
         isConfirmed: true,
       };
       return newState;
+    }
+    case types.TWEET_ADD_FAILED: {
+      if(state[action.payload.oldId]){
+        return omit(state, action.payload.oldId);
+      }
+      return state;
     }
     case types.TWEET_REMOVE_COMPLETED: {
       if(state[action.payload.id]){
@@ -95,6 +101,49 @@ const byId = (state = {}, action) => {
       return newState;
     }
 
+    case typesTweetSelected.TWEET_COMMENT_ADD_STARTED: {
+      
+      const newState = {...state};
+      const comment  = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments +=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_ADD_FAILED: {
+      const newState = {...state};
+      const {comment}  = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments -=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_REMOVE_STARTED: {
+      
+      const newState = {...state};
+      
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments -=1
+      }
+      return newState;
+    }
+
+    case typesTweetSelected.TWEET_COMMENT_REMOVE_FAILED: {
+      const newState = {...state};
+      const { comment } = action.payload;
+      let id= 'tweet-' + comment.tweet.id;
+      if(newState[id]){
+          newState[id].data.comments +=1
+      }
+      return newState;
+    }
+
     case types.TWEET_RETWEET_STARTED: {
       
       const newState = {...state};
@@ -142,23 +191,7 @@ const byId = (state = {}, action) => {
       return newState;
     }
 
-    case types.TWEET_COMMENT_STARTED: {
-      const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id].data.comments +=1;
-      }
-      return newState;
-    }
-
-    case types.TWEET_COMMENT_FAILED: {
-      const newState = {...state};
-      const { id } = action.payload;
-      if(newState[id]){
-        newState[id].data.comments +=1;
-      }
-      return newState;
-    }
+    
 
 
 

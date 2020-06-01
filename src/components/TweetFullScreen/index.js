@@ -16,7 +16,7 @@ function NewTweet({navigation, dirty, valid, handleSubmit,userId,userInformation
 
   const newTweet = values => {
     let content = values.tweet.trim().replace( /[\r\n]+/gm, " " )
-    startAddingTweet({navigation,content:content,userId,userInformation})
+    startAddingTweet({navigation,content:values.tweet,userId,userInformation})
   }
 
 
