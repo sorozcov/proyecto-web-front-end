@@ -14,7 +14,7 @@ import TweetList from '../TweetList';
 import Button from '../General/Button';
 
 
-function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile,isProfileFetchingTweets,isProfileFetchingTweetsLike, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets,profileInfoIsMe,profileInfoImFollowing,profileInfoTheyFollow }) {
+function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile,isProfileFetchingTweets,isProfileFetchingTweetsLike, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets,profileInfoIsMe,profileInfoImFollowing,profileInfoTheyFollow, startFollowProfile }) {
   const refFlatList = React.useRef(null);
   const [toolBarOption, setToolBarOption] = useState(0);
   useEffect(() => {
@@ -34,11 +34,18 @@ function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTw
         <View style={{flexDirection:"row"}}>
             <Image style={{borderRadius:hp('50%'),height:hp('8%'),width:hp('8%')}} source={require('../../assets/images/egg.jpg')}></Image>
             <View style={{flexDirection:'column'}}>
-              {!profileInfoIsMe && !isFetchingProfile && <Button label={profileInfoImFollowing ? 'Siguiendo':'Seguir'} buttonStyle={{height: hp('4%'),width: wp('25%'),marginLeft:wp('43%')}} labelStyle={{fontSize:wp('3.2%')}} onPress={()=> console.log('Hola')} />}
+              {!profileInfoIsMe && !isFetchingProfile && 
+                <Button label={profileInfoImFollowing ? 'Siguiendo':'Seguir'} 
+                  buttonStyle={profileInfoImFollowing ? {height: hp('4%'),width: wp('25%'),marginLeft:wp('43%'),backgroundColor:'white', borderColor:'#00ACEE', borderWidth:2} : {height: hp('4%'),width: wp('25%'),marginLeft:wp('43%')}} 
+                  labelStyle={profileInfoImFollowing ? {fontSize:wp('3.2%'), color:'#00ACEE'} : {fontSize:wp('3.2%')}} 
+                  onPress={()=> startFollowProfile(profileInfo.id, profileInfo.im_following)} 
+                />
+              }
               {!profileInfoIsMe && profileInfoTheyFollow && !isFetchingProfile  && 
-              <View style={styles.theyFollow}>
-                <Text  style={{textAlign:'center'}}>Te Sigue </Text>
-              </View>}
+                <View style={styles.theyFollow}>
+                  <Text  style={{textAlign:'center'}}>Te Sigue </Text>
+                </View>
+              }
             </View>
         </View>
         {profileInfo!==null ? (
@@ -130,6 +137,9 @@ export default connect(
     },
     startFetchingProfileLikedTweets() {
       dispatch(profileActions.startFetchingProfileLikedTweets());      
+    },
+    startFollowProfile(id, im_following) {
+      dispatch(profileActions.startFollowProfile(id, im_following));      
     },
   }),
 )(Profile);

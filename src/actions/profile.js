@@ -96,3 +96,27 @@ export const failFetchingProfileLikedTweets = error => ({
     error,
   },
 });
+
+
+//Follow
+export const startFollowProfile = (id, im_following) => ({
+  type: types.PROFILE_FOLLOW_STARTED,
+  payload: {
+    id,
+    im_following
+  },
+});
+
+export const completeFollowProfile = im_following => ({
+  type: types.PROFILE_FOLLOW_COMPLETED,
+  payload: {
+    im_following
+  },
+});
+
+export const failFollowProfile = error => ({
+  type: types.PROFILE_FOLLOW_FAILED,
+  payload: {
+    error
+  },
+});

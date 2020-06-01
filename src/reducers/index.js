@@ -9,6 +9,7 @@ import tweets, * as tweetsSelector from './tweets';
 import profile, * as profileSelector from './profile';
 import search, * as searchSelector from './search';
 import chat, * as chatSelector from './chat';
+import notifications, * as notificationsSelector from './notifications';
 import tweetSelected, * as tweetSelectedSelectors from './tweetSelected';
 import savedTweets, * as savedTweetsSelector from './savedTweets';
 import { AUTHENTICATION_IDENTITY_CLEARED } from '../types/auth';
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   search,
   chat,
   savedTweets,
+  notifications,
   tweetSelected,
   form: formReducer,
   alertReducer,
@@ -112,6 +114,18 @@ export const isUserMessagesAdding = state => chatSelector.isUserMessagesAdding(s
 export const isChatMessagesAdding = state => chatSelector.isChatMessagesAdding(state.chat);
 export const getChatFetchingError = state => chatSelector.getChatFetchingError(state.chat);
 export const getUserMessageInfoBySelectedUser = (state, id) => chatSelector.getUserMessageInfoBySelectedUser(state.chat,id);
+
+//Notifications selectors
+export const getNotificationsRetweet = (state, id) => notificationsSelector.getNotificationsRetweet(state.notifications, id);
+export const getNotificationsRetweets = state => notificationsSelector.getNotificationsRetweets(state.notifications);
+export const getNotificationsComment = (state, id) => notificationsSelector.getNotificationsComment(state.notifications, id);
+export const getNotificationsComments = state => notificationsSelector.getNotificationsComments(state.notifications);
+export const getNotificationsLike = (state, id) => notificationsSelector.getNotificationsLike(state.notifications, id);
+export const getNotificationsLikes = state => notificationsSelector.getNotificationsLikes(state.notifications);
+export const isNotificationsRetweetsFetching = state => notificationsSelector.isNotificationsRetweetsFetching(state.notifications);
+export const isNotificationsCommentsFetching = state => notificationsSelector.isNotificationsCommentsFetching(state.notifications);
+export const isNotificationsLikesFetching = state => notificationsSelector.isNotificationsLikesFetching(state.notifications);
+export const getNotificationsFetchingError = state => notificationsSelector.getNotificationsFetchingError(state.notifications);
 
 //Tweet Selected Selectors
 export const getTweetSelectedId = state => tweetSelectedSelectors.getTweetSelectedId(state.tweetSelected)
