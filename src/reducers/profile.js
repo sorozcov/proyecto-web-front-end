@@ -19,6 +19,19 @@ const profileInfo = (state = null, action) => {
     case types.PROFILE_INFO_FETCH_STARTED: {
       return null;
     }
+    case types.PROFILE_FOLLOW_COMPLETED: {
+      const newState = {...state};
+      const { im_following } = action.payload;
+      if(newState){
+        if(im_following){
+          newState.followers -=1
+        }else{
+          newState.followers +=1
+        }
+        newState.im_following = !im_following;
+      }
+      return newState;
+    }
     case types.PROFILE_INFO_FETCH_COMPLETED: {
       
       return action.payload.profile;

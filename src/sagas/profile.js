@@ -291,3 +291,52 @@ export function* watchProfileLikedTweetsFetch() {
   );
 }
 
+//Follow Profile
+function* followProfile(action) {
+  try {
+    const isAuth = yield select(selectors.isAuthenticated);
+    const userId = yield select(selectors.getAuthUserID);
+    const otherUserId = action.payload.id;
+    const im_following = action.payload.im_following;
+    if (isAuth) {
+      const token = yield select(selectors.getAuthToken);
+      const url = im_following ? 'followers/unfollow/':'followers/';
+      const  response = yield call(
+          fetch,
+          `${API_BASE_URL}/${url}`,
+          {
+            method: 'POST',
+            body: JSON.stringify({userFollower:userId, userFollowing:otherUserId}),
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': `JWT ${token}`,
+            },
+          }
+        );
+      
+      if (response.status <= 300) {
+
+        yield put(actions.completeFollowProfile(im_following));
+        
+
+      } else {
+        const { detail } = yield response.json();
+        let errorMessage ="Error al seguir al usuario.";
+        if(detail!=undefined){errorMessage=detail}
+        yield put(actions.failFollowProfile(errorMessage));
+      }
+    }
+  } catch (error) {
+    
+    console.log("ERROR", error)
+    let errorMessage ="Falló la conexión.";
+    yield put(actions.failFollowProfile(errorMessage));
+  }
+}
+
+export function* watchFollowProfile() {
+  yield takeEvery(
+    types.PROFILE_FOLLOW_STARTED,
+    followProfile,
+  );
+}

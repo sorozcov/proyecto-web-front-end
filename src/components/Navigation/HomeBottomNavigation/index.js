@@ -9,6 +9,8 @@ import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import HomeStack from '../HomeStackNavigator';
 import DirectMessagesStack from '../DirectMessagesStackNavigator';
+import NotificationsStackNavigator from '../NotificationsStackNavigator';
+import ExploreStackNavigator from '../ExploreStackNavigator';
 
 
 
@@ -49,7 +51,7 @@ function HomeBottomNavigation({navigation}) {
             ),
           }}
         />
-        <Tab.Screen name="Explore" component={componentExample} 
+        <Tab.Screen name="Explore" component={ExploreStackNavigator} 
           options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => (
@@ -57,7 +59,7 @@ function HomeBottomNavigation({navigation}) {
              style={{ marginTop: 0,paddingBottom:8 }}/>
            ),
          }}/>
-         <Tab.Screen name="Notifications" component={componentExample} 
+         <Tab.Screen name="Notifications" component={NotificationsStackNavigator} 
           options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => (
