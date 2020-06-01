@@ -33,7 +33,7 @@ function HomeFeed({navigation,tweetSelected,comments,startFetchingCommentsTweets
         // onEndReached={()=> onLoadMore()}
         renderItem={(comment) => (
           
-          <Comment comment={comment.item}/>
+          <Comment navigation={navigation} comment={comment.item}/>
           
           )
         }

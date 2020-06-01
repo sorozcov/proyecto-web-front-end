@@ -56,19 +56,7 @@ function DrawerScreen({navigation,user,logout,userInformation, selectProfileUser
           labelStyle={{ fontSize: 16}}
           onPress={() => selectProfileUserId(navigation,userInformation.id)}
         />
-         <DrawerItem
-          icon={({ color, size}) => (
-            <MaterialCommunityIcons
-              name="card-text-outline"
-              color={color}
-              size={size}
-            />
-          )}
-          style={{paddingTop:0,marginTop:0}}
-          label="Listas"
-          labelStyle={{ fontSize: 16}}
-          // onPress={() => navigation.navigate('Perfil', { screen: 'ProfilesScreen' })}
-        />
+         
          <DrawerItem
           icon={({ color, size}) => (
             <MaterialCommunityIcons

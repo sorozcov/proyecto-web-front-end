@@ -135,7 +135,7 @@ Comment = connect(
     }),
     dispatch => ({
         selectProfileUserId(navigation, userId){
-            
+            console.log(userId);
             dispatch(actionsProfile.setSelectedProfileUserId(userId));
             navigation.navigate('Profile');
         },

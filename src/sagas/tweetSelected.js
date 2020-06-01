@@ -49,7 +49,7 @@ function* addComment(action) {
             comment,
           }),
         );
-        console.log(comment)
+        
         
 
       } else {
@@ -85,7 +85,7 @@ export function* watchAddComment() {
 function* removeComment(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
-    console.log(action.payload);
+    
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       
@@ -100,7 +100,7 @@ function* removeComment(action) {
           },
         }
       );
-      console.log(response.status);
+    
       if (response.status <= 300) {
         yield put(actions.completeRemoveComment({comment:action.payload,oldId:action.payload.id,}));
         
@@ -202,7 +202,7 @@ function* fetchLikesUsers(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
       const tweetId = yield select(selectors.getTweetSelectedId)
-      console.log(tweetId);
+      
       if (isAuth) {
         const token = yield select(selectors.getAuthToken);
         const response = yield call(
@@ -216,7 +216,7 @@ function* fetchLikesUsers(action) {
             },
           }
         );
-        console.log(response.status); 
+        
         if (response.status <= 300) {
           const jsonResult = yield response.json();
           
@@ -231,7 +231,7 @@ function* fetchLikesUsers(action) {
               result,
             ),
           );
-          console.log(users); 
+          
         } else {
           const { detail } = yield response.json();
           let errorMessage ="Error obteniendo usuarios que han gustado la publicación.";

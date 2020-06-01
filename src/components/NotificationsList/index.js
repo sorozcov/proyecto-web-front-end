@@ -6,10 +6,11 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import * as actionsProfile from '../../actions/profile';
+import * as actionsTweetSelected from '../../actions/tweetSelected'
 
-
-function NotificationsList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' , selectProfileUserId, infoText='' }) {
+function NotificationsList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' , selectProfileUserId, infoText='',selectTweetInfo }) {
   const refFlatList = React.useRef(null);
+  console.log(userArray);
   const isEmpty=(isFetching)=>{
     if(!isFetching){
       return(
@@ -35,7 +36,7 @@ function NotificationsList({ navigation, container={}, infoContainer={},infoEmpt
         onRefresh={onRefresh}
         // onEndReached={()=> onLoadMore()}
         renderItem={(notification) => (
-          <TouchableOpacity onPress={()=> console.log('Notificación')}>
+          // <TouchableOpacity onPress={()=>  selectTweetInfo(notification.item.tweet.id,notification.item.tweet,navigation)}>
             <View style={styles.notificationContainer}>
               <View style={styles.flexRow}>
                 <TouchableOpacity onPress={()=>selectProfileUserId(navigation,notification.item.user.id)}>
@@ -56,7 +57,7 @@ function NotificationsList({ navigation, container={}, infoContainer={},infoEmpt
                 </View>
               </View>
             </View>
-          </TouchableOpacity>
+          // </TouchableOpacity>
           )
         }
         ListEmptyComponent={isEmpty(isFetching)}
@@ -73,6 +74,10 @@ export default connect(
       dispatch(actionsProfile.setSelectedProfileUserId(userId));
       navigation.navigate('Profile');
     },
+    selectTweetInfo(id,tweet,navigation){
+      dispatch(actionsTweetSelected.setSelectedTweetId(id,tweet))
+      navigation.navigate('TweetFullScreen')
+  },
   }),
 )(NotificationsList);
 
@@ -123,12 +128,12 @@ const styles = StyleSheet.create({
       width:wp('20%')
   },
   imageProfile:{
-      borderRadius:hp('50%'),
-      height:hp('8%'),
-      width:hp('8%'),
-      margin:wp('2%'),
-      marginRight:wp('0.5%'),
-  },
+    borderRadius:hp('50%'),
+    height:Platform.OS=='ios'?hp('6%'):hp('8%'),
+    width:Platform.OS=='ios'?hp('6%'):hp('8%'),
+    margin:wp('2%'),
+    marginRight:wp('0.5%'),
+},
   titleInfo:{
       width:wp('35%'),
       flexDirection:'row',

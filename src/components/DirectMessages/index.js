@@ -1,7 +1,7 @@
 import React,{useEffect, useRef} from 'react';
 import { connect } from 'react-redux';
 import TimeAgo from 'react-native-timeago';
-import { StyleSheet, View, Image,FlatList,Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image,FlatList,Text, TouchableOpacity ,Platform} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
   },
   imageProfile:{
       borderRadius:hp('50%'),
-      height:hp('8%'),
-      width:hp('8%'),
+      height:Platform.OS=='ios'?hp('6%'):hp('8%'),
+      width:Platform.OS=='ios'?hp('6%'):hp('8%'),
       margin:wp('2%'),
       marginRight:wp('0.5%'),
   },
