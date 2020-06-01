@@ -6,26 +6,27 @@ import { reduxForm, Field } from 'redux-form';
 import * as selectors from '../../reducers';
 import Button from '../General/Button';
 import TextInputTweet from '../General/TextInputTweet'
-import * as tweetsActions from '../../actions/tweets';
+import * as tweetsSelectedActions from '../../actions/tweetSelected';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import randomString from 'random-string'
+import tweetSelected from '../../reducers/tweetSelected';
 
 
 
-function NewTweet({navigation, dirty, valid, handleSubmit,userId,userInformation,startAddingTweet}) {
+function NewComment({navigation, dirty, valid, handleSubmit,userId,userInformation,startAddingComment,tweetSelectedId}) {
 
-  const newTweet = values => {
+  const newComment = values => {
     let content = values.tweet.trim().replace( /[\r\n]+/gm, " " )
-    startAddingTweet({navigation,content:content,userId,userInformation})
+    startAddingComment({navigation,content:content,userId,userInformation,tweetSelectedId})
   }
 
 
   return (
     <View style={styles.container}>
       <View style={{height:hp('2%')}}/>
-      <Button label={'Twittear'} 
+      <Button label={'Comentar'} 
        disabled={!(dirty && valid)}
-       onPress={handleSubmit(newTweet)}/>
+       onPress={handleSubmit(newComment)}/>
       <ScrollView style={styles.container}>
       <View style={styles.flexRow}>
         <View style={styles.imageContainer} >
@@ -49,40 +50,26 @@ export default connect(
   state => ({
     userId:selectors.getAuthUserID(state),
     userInformation:selectors.getAuthUserInformation(state),
+    tweetSelectedId:selectors.getTweetSelectedId(state),
   }),
   dispatch => ({
-    startAddingTweet({navigation,content,userId,userInformation}) {
+    startAddingComment({navigation,content,userId,userInformation,tweetSelectedId}) {
       let id= randomString();
       let payload={
         id,
-        itemType:'tweet',
-        data:{
-          user:userInformation,
-          date: new Date(),
-          likes:0,
-          comments:0,
-          retweets:0,
-          content:content,
-          id,
-          is_mine:true,
-          user_follows_me: false,
-          user_followed_by_me: false,
-          is_retweeted: false,
-          is_liked: false,
-
-        },
-        content,
-        user:userId,  
-        
-
-
+        user:userInformation,
+        date: new Date(),
+        content:content,
+        is_mine:true,
+        content, 
+        tweet:{id:tweetSelectedId},
       }
-      dispatch(tweetsActions.startAddingTweet(payload));    
+      dispatch(tweetsSelectedActions.startAddingComment(payload));    
       navigation.navigate('HomeFeed')  
     },
   }),
 )(reduxForm({ 
-  form: 'newTweet',
+  form: 'newComment',
   enableReinitialize : true,
   validate: (values) => {
     const errors = {};
@@ -92,7 +79,7 @@ export default connect(
       : undefined;
     return errors;
   }
-})(NewTweet));
+})(NewComment));
 
 
 const styles = StyleSheet.create({

@@ -8,10 +8,11 @@ import { connect } from 'react-redux';
 import * as selectors from '../../reducers';
 import * as actionsProfile from '../../actions/profile'
 import * as actionsTweets from '../../actions/tweets'
+import * as actionsTweetSelected from '../../actions/tweetSelected'
 import Button from '../General/Button';
 
 
-function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed,likeTweet,retweetTweet,saveTweet,deleteTweet}) {
+function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfileUserId,isTweetConfirmed,likeTweet,retweetTweet,saveTweet,deleteTweet,newComment}) {
     const [optionsModal, setOptionsModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     function likeFormat(num) {
@@ -42,6 +43,9 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
     }
     
     return(
+    <TouchableOpacity onPress={()=>{
+        navigation.navigate('TweetFullScreen');
+    }}>
     <View style={tweet.isConfirmed? {...styles.tweetContainer,...styleContainer}:{...styles.tweetContainer,...styleContainer,backgroundColor:'transparent'}}>
     <View style={{...styles.flexRow}}>
         
@@ -82,7 +86,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
                     </View>
         } */}
         {tweet.itemType!==null && <View style={styles.footerContainerStyle}>
-    <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="chat-outline" color={'gray'} size={18}  /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.comments)}</Text></TouchableOpacity>
+    <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="chat-outline" color={'gray'} size={18} onPress={()=>newComment(tweet.data.id,tweet,navigation)} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.comments)}</Text></TouchableOpacity>
      <TouchableOpacity style={{flexDirection:'row'}}><MaterialCommunityIcons name="twitter-retweet" onPress={()=>retweetTweet(tweet.data.id,tweet.id,tweet.data.is_retweeted)}  color={tweet.data.is_retweeted ? 'green':'gray'} size={22} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.retweets)}</Text></TouchableOpacity>
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>likeTweet(tweet.data.id,tweet.id,tweet.data.is_liked)}><MaterialCommunityIcons name={tweet.data.is_liked ? 'heart':'heart-outline'}  color={tweet.data.is_liked ? 'red':'gray'} size={18} /><Text style={{paddingLeft:3,color:'gray'}}>{likeFormat(tweet.data.likes)}</Text></TouchableOpacity>
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>setOptionsModal(true)}><MaterialCommunityIcons name="export-variant" color={'gray'} size={18} /></TouchableOpacity>
@@ -178,6 +182,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
     
     
   </View>
+  </TouchableOpacity>
   )
 
 }
@@ -213,6 +218,10 @@ Tweet = connect(
         deleteTweet(idDB,id){
             
             dispatch(actionsTweets.startRemovingTweet(idDB,id))
+        },
+        newComment(id,tweet,navigation){
+            dispatch(actionsTweetSelected.setSelectedTweetId(id,tweet))
+            navigation.navigate('NewComment')
         },
     }),
   )(Tweet);

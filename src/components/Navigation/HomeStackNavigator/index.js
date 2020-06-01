@@ -10,6 +10,8 @@ import Profile from '../../Profile';
 import Followers from '../../Followers';
 import NewTweet from '../../NewTweet';
 import MySavedTweets from '../../MySavedTweets';
+import NewComment from '../../NewComment';
+import TweetFullScreen from '../../TweetFullScreen';
 
 
 
@@ -45,6 +47,14 @@ export default function HomeStack({navigation,route}) {
             name="SavedTweets" 
             options={{ title:'Elementos guardados', headerTitleAlign:'center'}} 
             component={MySavedTweets} />
+        <Stack.Screen 
+            name="TweetFullScreen" 
+            options={{ title:'Tweet', headerTitleAlign:'center'}} 
+            component={TweetFullScreen} />
+        <Stack.Screen 
+            name="NewComment" 
+            options={{ title: (<MaterialCommunityIcons name="twitter" color={'#00ACEE'} size={38}/>), headerTitleAlign:'center'}} 
+            component={NewComment} />
         
       </Stack.Navigator>
    
