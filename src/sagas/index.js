@@ -5,7 +5,7 @@ import { watchSavedTweetsFetch,watchAddTweet,watchRemoveTweet,watchTweetsHomeFet
 import { watchProfileInfoRequest, watchProfileFollowersFetch, watchProfileFollowingFetch, watchProfileMyTweetsFetch, watchProfileLikedTweetsFetch } from './profile';
 import { watchSearchUsersFetch, watchSearchTweetsFetch } from './search';
 import { watchUserMessagesFetch, watchChatMessagesFetch, watchUserMessagesAdd, watchChatMessagesAdd } from './chat';
-import { watchAddComment,watchRemoveComment } from './tweetSelected';
+import { watchAddComment,watchRemoveComment,watchTweetUserLikesFetch,watchTweetUserRetweetsFetch,watchCommentsTweetFetch } from './tweetSelected';
 import { watchAlertChannel } from 'redux-saga-rn-alert';
 
 
@@ -37,6 +37,9 @@ function* mainSaga() {
     fork(watchChatMessagesAdd),
     fork(watchAddComment),
     fork(watchRemoveComment),
+    fork(watchTweetUserLikesFetch),
+    fork(watchTweetUserRetweetsFetch),
+    fork(watchCommentsTweetFetch),
     
     spawn(watchAlertChannel),
   ]);
