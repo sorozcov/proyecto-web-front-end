@@ -47,7 +47,7 @@ let ip4 = 'tu_ip_4';
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
 # App running
-<img width="260" height="562" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/43o48j"><img>
+<img src="https://imgflip.com/gif/43o48j.gif" width="40" height="40" />
 
 
 # Nota importante:
