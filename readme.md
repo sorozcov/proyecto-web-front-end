@@ -47,7 +47,7 @@ let ip4 = 'tu_ip_4';
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
 # App running
-
+<p float="left">
 <img src="/demo/1.gif" width="250" height="500"/>
 <img src="/demo/2.gif" width="250" height="500"/>
 <img src="/demo/3.gif" width="250" height="500"/>
@@ -55,7 +55,7 @@ let ip4 = 'tu_ip_4';
 <img src="/demo/5.gif" width="250" height="500"/>
 <img src="/demo/6.gif" width="250" height="500"/>
 <img src="/demo/7.gif" width="250" height="500"/>
-
+</p>
 # Nota importante:
 Deben estar corriendo simultáneamente ambos proyectos para que todo funcione.
 
