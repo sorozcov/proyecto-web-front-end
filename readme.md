@@ -25,6 +25,7 @@ DATABASES = {
 * virtualenv venv   (Crear virtualenv para correr el servidor en la carpeta principal)
 * ./venv/Scripts/Activate (Activar virtualenv)
 * pip install -r requirements.txt (Instalar dependencias de python)
+* pip install psycopg2
 * cd mysite 
 * python manage.py migrate (Migraciones de django)
 * python manage.py makemigrations (Migraciones de django)
@@ -48,13 +49,13 @@ let ip4 = 'tu_ip_4';
 
 # App running
 <p float="left">
-<img src="/demo/1.gif" width="250" height="500" style="margin-right:20"/>
-<img src="/demo/2.gif" width="250" height="500" style="margin-right:20"/>
-<img src="/demo/3.gif" width="250" height="500" style="margin-right:20"/>
-<img src="/demo/4.gif" width="250" height="500" style="margin-right:20"/>
-<img src="/demo/5.gif" width="250" height="500" style="margin-right:20"/>
-<img src="/demo/6.gif" width="250" height="500" style="margin-right:20"/>
-<img src="/demo/7.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/1.gif" width="250" height="500" style="margin-right:100"/>
+<img src="/demo/2.gif" width="250" height="500" style="margin-right:100"/>
+<img src="/demo/3.gif" width="250" height="500" style="margin-right:100"/>
+<img src="/demo/4.gif" width="250" height="500" style="margin-right:100"/>
+<img src="/demo/5.gif" width="250" height="500" style="margin-right:100"/>
+<img src="/demo/6.gif" width="250" height="500" style="margin-right:100"/>
+<img src="/demo/7.gif" width="250" height="500" style="margin-right:100"/>
 </p>
 # Nota importante:
 Deben estar corriendo simultáneamente ambos proyectos para que todo funcione.
