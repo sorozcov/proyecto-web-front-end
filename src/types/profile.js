@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                         Tipos del reductor Profile                         */
+/* -------------------------------------------------------------------------- */
+
 export const PROFILE_USER_ID_SELECTED = 'PROFILE_USER_ID_SELECTED';
 
 export const PROFILE_INFO_FETCH_STARTED = 'PROFILE_INFO_FETCH_STARTED';

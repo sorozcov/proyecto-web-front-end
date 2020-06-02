@@ -1,3 +1,6 @@
+/* -------------------------------------------------------------------------- */
+/*                           Tipos del reductor Chat                          */
+/* -------------------------------------------------------------------------- */
 
 export const CHAT_USER_MESSAGES_FETCH_STARTED = 'CHAT_USER_MESSAGES_FETCH_STARTED';
 export const CHAT_USER_MESSAGES_FETCH_COMPLETED = 'CHAT_USER_MESSAGES_FETCH_COMPLETED';

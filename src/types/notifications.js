@@ -1,3 +1,6 @@
+/* -------------------------------------------------------------------------- */
+/*                      Tipos del reductor Notifications                      */
+/* -------------------------------------------------------------------------- */
 
 export const NOTIFICATIONS_RETWEETS_FETCH_STARTED = 'NOTIFICATIONS_RETWEETS_FETCH_STARTED';
 export const NOTIFICATIONS_RETWEETS_FETCH_COMPLETED = 'NOTIFICATIONS_RETWEETS_FETCH_COMPLETED';

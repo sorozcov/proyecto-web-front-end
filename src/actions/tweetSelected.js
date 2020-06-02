@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                     Acciones del reductor TweetSelected                    */
+/* -------------------------------------------------------------------------- */
+
 import * as types from '../types/tweetSelected';
 
 export const setSelectedTweetId = (id,tweet) => ({

@@ -1,3 +1,6 @@
+/* -------------------------------------------------------------------------- */
+/*                          Tipos del reductor Search                         */
+/* -------------------------------------------------------------------------- */
 
 export const SEARCH_USERS_FETCH_STARTED = 'SEARCH_USERS_FETCH_STARTED';
 export const SEARCH_USERS_FETCH_COMPLETED = 'SEARCH_USERS_FETCH_COMPLETED';

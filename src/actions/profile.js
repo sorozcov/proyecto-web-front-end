@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                        Acciones del reductor Profile                       */
+/* -------------------------------------------------------------------------- */
+
 import * as types from '../types/profile';
 
 export const setSelectedProfileUserId = (id) => ({

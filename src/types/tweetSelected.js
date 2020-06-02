@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                      Tipos del reductor TweetSelected                      */
+/* -------------------------------------------------------------------------- */
+
 export const TWEET_ID_SELECTED = 'TWEET_ID_SELECTED';
 
 export const TWEET_INFO_FETCH_STARTED = 'TWEET_INFO_FETCH_STARTED';

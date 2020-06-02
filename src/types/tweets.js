@@ -1,8 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                          Tipos del reductor Tweets                         */
+/* -------------------------------------------------------------------------- */
+
 export const TWEETS_HOME_FETCH_STARTED = 'TWEETS_FETCH_STARTED';
 export const TWEETS_HOME_FETCH_COMPLETED = 'TWEETS_FETCH_COMPLETED';
 export const TWEETS_HOME_FETCH_FAILED = 'TWEETS_FETCH_FAILED';
-
-
 
 export const TWEETS_SAVED_FETCH_STARTED = 'TWEETS_SAVED_FETCH_STARTED';
 export const TWEETS_SAVED_FETCH_COMPLETED = 'TWEETS_SAVED_FETCH_COMPLETED';
