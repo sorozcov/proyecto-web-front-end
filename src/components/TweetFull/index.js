@@ -32,7 +32,7 @@ function Tweet({navigation,tweet,styleContainer={},styleContent={},selectProfile
                 },
                 {
                     text: 'Eliminar',
-                    onPress:() => {deleteTweet(id,tweetid);setDeleteModal(false);},
+                    onPress:() => {deleteTweet(id,tweetid);setDeleteModal(false);navigation.navigate('HomeFeed')},
                     style: 'destructive'
                 }
             ],
