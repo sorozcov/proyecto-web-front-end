@@ -1,6 +1,12 @@
+/* -------------------------------------------------------------------------- */
+/*                             Componente Explore                             */
+/* -------------------------------------------------------------------------- */
+// Este componente es un buscador en el que se tienen dos filtros que son busquedas de usuarios
+// y busquedas de tweets.
+
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View,Text,Image,ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import SearchTextInput from '../General/SearchTextInput'

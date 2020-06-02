@@ -1,8 +1,12 @@
-import React from 'react';
+/* -------------------------------------------------------------------------- */
+/*                             Componente UserList                            */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un flatlist que muestra la información de un array usuarios.
 
+import React from 'react';
 import { StyleSheet, View, FlatList, Text, TouchableOpacity  } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import User from '../User';
 
 export default function UserList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' ,otherAction=false, action=null }) {

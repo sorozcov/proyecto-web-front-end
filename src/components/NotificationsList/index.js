@@ -1,12 +1,16 @@
+/* -------------------------------------------------------------------------- */
+/*                        Componente NotificationsList                        */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un flatlist dque despliega una lista de notificaciones con su información respectiva.
+
 import React from 'react';
 import { connect } from 'react-redux';
 import TimeAgo from 'react-native-timeago';
 import { StyleSheet, View, FlatList, Text, TouchableOpacity, Image  } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import * as actionsProfile from '../../actions/profile';
-import * as actionsTweetSelected from '../../actions/tweetSelected'
+import * as actionsTweetSelected from '../../actions/tweetSelected';
 
 function NotificationsList({ navigation, container={}, infoContainer={},infoEmptyTextStyle={},recommendEmptyTextStyle={}, viewCondition=true, userArray=[], currentKey='', isFetching, onRefresh, infoEmptyText="",iconEmpty=null,recommendEmptyText='' , selectProfileUserId, infoText='',selectTweetInfo }) {
   const refFlatList = React.useRef(null);

@@ -1,15 +1,20 @@
+/* -------------------------------------------------------------------------- */
+/*                          Componente DirectMessages                         */
+/* -------------------------------------------------------------------------- */
+// Este componente muestra la lista de mensajes que tiene el usuario con otros usuaios,
+// mostrando el último mensaje en cada chat.
+
 import React,{useEffect, useRef} from 'react';
 import { connect } from 'react-redux';
 import TimeAgo from 'react-native-timeago';
 import { StyleSheet, View, Image,FlatList,Text, TouchableOpacity ,Platform} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
 import * as chatActions from '../../actions/chat';
 import * as actionsProfile from '../../actions/profile';
-
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 
 function DirectMessages({navigation,startFetchingChatUserMessages, isUserMessagesFetching, userMessages, selectProfileUserId, selectChatId}) {

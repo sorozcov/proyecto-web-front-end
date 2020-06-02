@@ -1,14 +1,19 @@
+/* -------------------------------------------------------------------------- */
+/*                              Componente Signup                             */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene los campos necesarios para crear un nuevo usuario.
+
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, ScrollView } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import Button from '../General/Button';
-import TextInput from '../General/TextInput'
+import TextInput from '../General/TextInput';
 import ModalLoading from '../General/ModalLoading';
 import * as selectors from '../../reducers';
-import * as SignUpActions from '../../actions/signUp'
+import * as SignUpActions from '../../actions/signUp';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CommonActions } from '@react-navigation/native';
 

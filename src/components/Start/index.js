@@ -1,13 +1,18 @@
+/* -------------------------------------------------------------------------- */
+/*                              Componente Start                              */
+/* -------------------------------------------------------------------------- */
+// Este componente muestra la pantalla de inicio de la aplicación.
+
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommonActions } from '@react-navigation/native';
 
 
 import Button from '../General/Button';
 import * as selectors from '../../reducers';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CommonActions } from '@react-navigation/native';
 
 function Start({navigation,isAuthenticated}) {
   

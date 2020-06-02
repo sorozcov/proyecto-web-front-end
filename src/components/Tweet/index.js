@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                              Componente Tweet                              */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene y despiega toda la información de un tweet.
+
 import React,{useState} from 'react';
 import TimeAgo from 'react-native-timeago';
 import { StyleSheet, View, Image, Text, TouchableOpacity,Modal,TouchableWithoutFeedback ,Alert} from 'react-native';

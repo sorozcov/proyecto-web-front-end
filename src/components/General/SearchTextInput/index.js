@@ -1,5 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                         Componente SearchTextInput                         */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un textInput que se utiliza en pantallas de la aplicación de busqueda.
+
 import React from 'react';
-import { StyleSheet, View,TextInput,Text } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 

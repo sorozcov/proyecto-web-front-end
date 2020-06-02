@@ -1,12 +1,15 @@
+/* -------------------------------------------------------------------------- */
+/*                               Componente User                              */
+/* -------------------------------------------------------------------------- */
+// Este componente muestra la información general de un usuario.
+
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import * as selectors from '../../reducers';
 import * as actionsProfile from '../../actions/profile';
-import Button from '../General/Button';
 
 
 function User({navigation,user,styleContainer={},selectProfileUserId,otherAction=false, action}) {

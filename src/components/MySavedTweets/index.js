@@ -1,14 +1,20 @@
-import React,{useEffect} from 'react';
+/* -------------------------------------------------------------------------- */
+/*                           Componente SavedTweets                           */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene una lista de tweets y retweets guardados por el usuario. 
+
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, View, Image,FlatList,Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
 import * as tweetActions from '../../actions/tweets';
 import TweetList from '../TweetList';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 

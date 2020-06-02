@@ -1,8 +1,15 @@
-import React,{useEffect} from 'react';
+/* -------------------------------------------------------------------------- */
+/*                              Componente Login                              */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene los campos para hacer login en la aplicación.
+
+import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CommonActions } from '@react-navigation/native';
 
 import Button from '../General/Button';
 import TextInput from '../General/TextInput'
@@ -10,8 +17,6 @@ import ModalLoading from '../General/ModalLoading';
 import * as selectors from '../../reducers';
 import * as AuthActions from '../../actions/auth';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CommonActions } from '@react-navigation/native';
 
 
 

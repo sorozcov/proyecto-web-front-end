@@ -1,17 +1,18 @@
+/* -------------------------------------------------------------------------- */
+/*                      Componente ExploreStackNavigation                     */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo stack entre las pantallas relacionadas a explorar.
+
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 import Explore from '../../Explore';
 
 
-
 const Stack = createStackNavigator();
 
-export default function NotificationsStack({navigation,route}) {
+export default function ExploreStack({navigation,route}) {
   if(route.state && route.state.index > 0) {
     navigation.setOptions({tabBarVisible: false})
   } else {

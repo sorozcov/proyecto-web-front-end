@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                               Saga Principal                               */
+/* -------------------------------------------------------------------------- */
+
 import { fork, all,spawn } from 'redux-saga/effects';
 import { watchLoginStarted,watchUserInformationRequest, watchRefreshTokenStarted } from './auth';
 import { watchSignUpStarted } from './signUp';

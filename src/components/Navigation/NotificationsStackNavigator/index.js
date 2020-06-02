@@ -1,9 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                   Componente NotificationsStackNavigator                   */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo Stack de todas las pantallas de notificaciones. 
+
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 import Notifications from '../../Notifications';
 

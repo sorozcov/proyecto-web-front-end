@@ -1,15 +1,17 @@
+/* -------------------------------------------------------------------------- */
+/*                            Componente Followers                            */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene las lista de usuarios que sigue el usuario y la lista de usuarios que
+// siguen al usuario.
+
 import React,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Image,FlatList,Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-var moment = require('moment');
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CommonActions } from '@react-navigation/native';
 
 import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
-import User from '../User';
 import UserList from '../UserList';
 
 

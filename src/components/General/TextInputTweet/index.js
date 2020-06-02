@@ -1,5 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                        Componente TextInputTweet                           */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un textInput genérico que se utiliza enla pantalla de creación de un tweet y un comentario.
+
 import React from 'react';
-import { StyleSheet, View,TextInput,Text } from 'react-native';
+import { StyleSheet, View,TextInput } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 

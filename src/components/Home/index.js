@@ -1,15 +1,19 @@
+/* -------------------------------------------------------------------------- */
+/*                               Componente Home                              */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene una lista de tweets y retweets y muestra al usuario todos los
+// tweets de los usuarios que sigue.
+
 import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
-import TimeAgo from 'react-native-timeago';
-import { StyleSheet, View, Image,FlatList,Text, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
 import * as tweetActions from '../../actions/tweets';
 import TweetList from '../TweetList';
-
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Tweet from '../Tweet'
 
 
 

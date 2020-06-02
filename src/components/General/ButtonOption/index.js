@@ -1,7 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                           Componente ButtonOption                          */
+/* -------------------------------------------------------------------------- */
+// Este componente es un botón multiple que recibe un arreglo con la cantidad de opciones que quiera el usuario.
+
 import React from 'react';
-import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text,TouchableOpacity } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default function ButtonOption({buttonStyle={},labelStyle={},onPressVar=null, onPressAction=null, icon=null,disabled=false,options=['Uno','Dos','Tres']}) {

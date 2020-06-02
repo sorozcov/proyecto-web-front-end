@@ -1,8 +1,12 @@
-import React from 'react';
+/* -------------------------------------------------------------------------- */
+/*                            Componente TweetList                            */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un flatlist que contiene el array de tweets y los despliega.
 
+import React from 'react';
 import { StyleSheet, View, FlatList, Text  } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Tweet from '../Tweet';
 
 
