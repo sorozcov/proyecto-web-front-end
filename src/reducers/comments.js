@@ -1,97 +1,8 @@
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/tweetSelected';
-import comments,* as commentsSelectors from './comments'
 import * as tweetTypes from '../types/tweets'
 
-//Tw
-const tweetSelectedId = (state = null, action) => {
-  switch(action.type) {
-    case types.TWEET_ID_SELECTED: {
-      return action.payload.id;
-    }
-  }
-  return state;
-};
-
-//Tweet Information
-const tweetInfo = (state = null, action) => {
-  switch(action.type) {
-    case types.TWEET_ID_SELECTED: {
-      return action.payload.tweet;
-    }
-    case types.TWEET_INFO_FETCH_STARTED: {
-      return null;
-    }
-    case types.TWEET_INFO_FETCH_COMPLETED: {
-      return action.payload.profile;
-    }
-  }
-  return state;
-};
-
-//Likes Users
-const userLikesById = (state = {}, action) => {
-  switch(action.type) {
-    case types.TWEET_LIKES_USERS_FETCH_COMPLETED: {
-      const { entities, order } = action.payload;
-      const newState = {};
-      order.forEach(id => {
-        newState[id] = {
-          ...entities[id],
-          isConfirmed: true,
-        };
-      });
-      return newState;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-const userLikesOrder = (state = [], action) => {
-  switch(action.type) {
-    case types.TWEET_LIKES_USERS_FETCH_COMPLETED: {
-      return [...action.payload.order];
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-
-//Retweet Users
-const userRetweetById = (state = {}, action) => {
-  switch(action.type) {
-    case types.TWEET_RETWEETS_USERS_FETCH_COMPLETED: {
-      const { entities, order } = action.payload;
-      const newState = {};
-      order.forEach(id => {
-        newState[id] = {
-          ...entities[id],
-          isConfirmed: true,
-        };
-      });
-      return newState;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-const userRetweetOrder = (state = [], action) => {
-  switch(action.type) {
-    case types.TWEET_RETWEETS_USERS_FETCH_COMPLETED: {
-      return [...action.payload.order];
-    }
-    default: {
-      return state;
-    }
-  }
-};
 
 
 
@@ -197,63 +108,7 @@ const tweetCommentsOrder = (state = [], action) => {
   }
 };
 
-const isFetchingLikeUsers = (state = false, action)=>{
-  switch(action.type) {
 
-
-    
-    //Profile liked tweets
-    case types.TWEET_LIKES_USERS_FETCH_STARTED: {
-      return true;
-    }
-    case types.TWEET_LIKES_USERS_FETCH_COMPLETED: {
-      return false;
-    }
-    case types.TWEET_LIKES_USERS_FETCH_FAILED: {
-      return false;
-    }
-    default: {
-      return state;
-    }
-  }
-}
-
-const isFetchingRetweetUsers = (state = false, action)=>{
-  switch(action.type) {
-
-    //Profile liked tweets
-    case types.TWEET_RETWEET_USERS_FETCH_STARTED: {
-      return true;
-    }
-    case types.TWEET_RETWEET_USERS_FETCH_COMPLETED: {
-      return false;
-    }
-    case types.TWEET_RETWEET_USERS_FETCH_FAILED: {
-      return false;
-    }
-    default: {
-      return state;
-    }
-  }
-}
-
-const isFetchingInfo = (state = false, action) => {
-  switch(action.type) {
-    //Profile Information
-    case types.TWEET_INFO_FETCH_STARTED: {
-      return true;
-    }
-    case types.TWEET_INFO_FETCH_COMPLETED: {
-      return false;
-    }
-    case types.TWEET_INFO_FETCH_FAILED: {
-      return false;
-    }
-    default: {
-      return state;
-    }
-  }
-};
 
 const isFetchingComments = (state = false, action) => {
   switch(action.type) {
@@ -345,38 +200,16 @@ const error = (state = null, action) => {
 
 
 export default combineReducers({
-  tweetSelectedId,
-  tweetInfo,
-  userLikesById,
-  userLikesOrder,
-  userRetweetById,
-  userRetweetOrder,
-  
-  isFetchingLikeUsers,
-  isFetchingRetweetUsers,
-  isFetchingInfo,
-  comments,
+  tweetCommentsById,
+  tweetCommentsOrder,
+  isFetchingComments,
   error,
 });
 
 
-export const getTweetSelectedId = state => state.tweetSelectedId ? state.tweetSelectedId : null;
-export const getTweetInfo = state => state.tweetInfo ? state.tweetInfo : null;
 
-export const getLikeUser = (state, id) => state.userLikesById[id];
-export const getLikeUsers = state => state.userLikesOrder.map(id => getLikeUser(state, id));
+export const getTweetComment = (state, id) => state.tweetCommentsById[id];
+export const getTweetComments = state => state.tweetCommentsOrder.map(id => getTweetComment(state, id));
+export const isTweetFetchingComments = state => state.isFetchingComments;
 
-export const geRetweetUser = (state, id) => state.userRetweetById[id];
-export const getRetweetUsers = state => state.userRetweetOrder.map(id => geRetweetUser(state, id));
-
-export const getTweetComment = (state, id) => commentsSelectors.getTweetComment(state.comments,id);
-export const getTweetComments = state =>  commentsSelectors.getTweetComments(state.comments);
-export const isTweetFetchingComments = state => commentsSelectors.isTweetFetchingComments(state.comments);
-export const getErrorTweetSelectedComments = state => commentsSelectors.getErrorTweetSelectedComments(state.comments);
-
-export const isTweetFetchingInfo = state => state.isFetchingInfo;
-export const isTweetFetchingLikeUsers = state => state.isFetchingLikeUsers;
-export const isTweetFetchingRetwetUsers = state => state.isFetchingRetweetUsers;
-
-
-export const getErrorTweetSelected = state => state.error;
+export const getErrorTweetSelectedComments = state => state.error;
