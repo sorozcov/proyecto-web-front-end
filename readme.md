@@ -48,13 +48,13 @@ let ip4 = 'tu_ip_4';
 
 # App running
 <p float="left">
-<img src="/demo/1.gif" width="250" height="500"/>
-<img src="/demo/2.gif" width="250" height="500"/>
-<img src="/demo/3.gif" width="250" height="500"/>
-<img src="/demo/4.gif" width="250" height="500"/>
-<img src="/demo/5.gif" width="250" height="500"/>
-<img src="/demo/6.gif" width="250" height="500"/>
-<img src="/demo/7.gif" width="250" height="500"/>
+<img src="/demo/1.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/2.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/3.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/4.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/5.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/6.gif" width="250" height="500" style="margin-right:20"/>
+<img src="/demo/7.gif" width="250" height="500" style="margin-right:20"/>
 </p>
 # Nota importante:
 Deben estar corriendo simultáneamente ambos proyectos para que todo funcione.
