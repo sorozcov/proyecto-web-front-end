@@ -47,7 +47,7 @@ let ip4 = 'tu_ip_4';
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
 # App running
-![](https://imgflip.com/gif/43o48j.gif)
+![](https://imgflip.com/gif/43o48j)
 
 
 # Nota importante:
