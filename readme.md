@@ -47,7 +47,7 @@ let ip4 = 'tu_ip_4';
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
 # App running
-![alt text](https://github.com/sorozcov/proyecto-web-front-end/demo/1.gif "Inicio")
+![alt text](https://github.com/sorozcov/proyecto-web-front-end/blob/master/demo/1.gif)
 
 
 # Nota importante:
