@@ -1,12 +1,16 @@
+/* -------------------------------------------------------------------------- */
+/*                             Componente Profile                             */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la información de un perfil de un usuario.
+
 import React,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Image,Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import FAB from '../General/FAB';
 import moment from 'moment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
+import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
 import * as profileActions from '../../actions/profile';
 import ButtonOption from '../General/ButtonOption';
@@ -15,7 +19,6 @@ import Button from '../General/Button';
 
 
 function Profile({ navigation, startFetchingProfileInfo,startFetchingProfileMyTweets, startFetchingProfileLikedTweets, isFetchingProfile,isProfileFetchingTweets,isProfileFetchingTweetsLike, SelectedUserId, profileInfo, profileMyTweets, profileLikedTweets,profileInfoIsMe,profileInfoImFollowing,profileInfoTheyFollow, startFollowProfile }) {
-  const refFlatList = React.useRef(null);
   const [toolBarOption, setToolBarOption] = useState(0);
   useEffect(() => {
     if(toolBarOption===0)

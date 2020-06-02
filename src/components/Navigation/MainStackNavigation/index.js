@@ -1,9 +1,14 @@
+/* -------------------------------------------------------------------------- */
+/*                       Componente MainStackNavigation                       */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo Stack que unen los componentes de crear una cuenta, login y start, 
+// con el resto de la aplicación. Este también trae el token guardado en el AsyncStorage.
+
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 
 import LoginScreen from '../../Login';
 import SignUpScreen from '../../SignUp';

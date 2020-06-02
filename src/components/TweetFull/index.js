@@ -1,14 +1,18 @@
+/* -------------------------------------------------------------------------- */
+/*                            Componente TweetFull                            */
+/* -------------------------------------------------------------------------- */
+// Este componente despliega la información de un tweet en especifico a manera de detalle.
+
 import React,{useState} from 'react';
-import TimeAgo from 'react-native-timeago';
 import { StyleSheet, View, Image, Text, TouchableOpacity,Modal,TouchableWithoutFeedback ,Alert} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import * as selectors from '../../reducers';
-import * as actionsProfile from '../../actions/profile'
-import * as actionsTweets from '../../actions/tweets'
-import * as actionsTweetSelected from '../../actions/tweetSelected'
+import * as actionsProfile from '../../actions/profile';
+import * as actionsTweets from '../../actions/tweets';
+import * as actionsTweetSelected from '../../actions/tweetSelected';
 import Button from '../General/Button';
 let moment = require('moment');
 

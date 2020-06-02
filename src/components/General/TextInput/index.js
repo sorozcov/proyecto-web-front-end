@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                            Componente TextInput                            */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un textinput genérico que se utiliza en muchas pantallas de la aplicación.
+
 import React from 'react';
 import { StyleSheet, View,TextInput,Text } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';

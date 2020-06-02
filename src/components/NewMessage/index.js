@@ -1,11 +1,14 @@
+/* -------------------------------------------------------------------------- */
+/*                            Componente NewMessage                           */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un buscador de usuarios para iniciar un nuevo chat con otro usuario.
+
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View,Text,Image,ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { reduxForm, Field } from 'redux-form';
-import randomString from 'random-string'
 
-import SearchTextInput from '../General/SearchTextInput'
+import SearchTextInput from '../General/SearchTextInput';
 import * as selectors from '../../reducers';
 import * as searchActions from '../../actions/search';
 import * as chatActions from '../../actions/chat';

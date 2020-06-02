@@ -1,3 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                              Componente Chat                               */
+/* -------------------------------------------------------------------------- */
+// Este componente muestra al usuario los mensajes enviados y recibidos de un usuario en especifico y contiene un 
+// textInput en el que el usuario puede mandar un mensaje. Este componente se actualiza cada cinco segundos ya que 
+// tiene que mostrar siempre los mensajes más actualizados.
+
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import TimeAgo from 'react-native-timeago';

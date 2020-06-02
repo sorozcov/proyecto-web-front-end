@@ -1,9 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                  Componente DirectMessagesStackNavigation                  */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo stack entre las pantallas relacionadas a mensajes y chats.
+
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 import DirectMessages from '../../DirectMessages';
 import NewMessage from '../../NewMessage';

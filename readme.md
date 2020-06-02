@@ -25,6 +25,7 @@ DATABASES = {
 * virtualenv venv   (Crear virtualenv para correr el servidor en la carpeta principal)
 * ./venv/Scripts/Activate (Activar virtualenv)
 * pip install -r requirements.txt (Instalar dependencias de python)
+* pip install psycopg2
 * cd mysite 
 * python manage.py migrate (Migraciones de django)
 * python manage.py makemigrations (Migraciones de django)
@@ -46,16 +47,23 @@ let ip4 = 'tu_ip_4';
 * Se generá un codigo QR
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
-# App running
-![](https://imgflip.com/gif/43o48j)
-
-
 # Nota importante:
 Deben estar corriendo simultáneamente ambos proyectos para que todo funcione.
 
 Video explicativo del readme.md  https://screenrec.com/share/b7RePcku31
 
 Video de funcionamiento https://photos.google.com/share/AF1QipPIY_1yp9XAN3wMt7NDiEc6HqG-Wmd4c8OJy4BSpEaDi5wR8TcDcExN-I1cdtn16A?key=RWpZeXpuaERGQ2MwSDY5d1VtNXU0c0NPVDE1TkVR
+
+# App running
+<p float="left">
+<img src="/demo/1.gif" width="250" height="500"  hspace="20"/>
+<img src="/demo/2.gif" width="250" height="500"  hspace="20"/>
+<img src="/demo/3.gif" width="250" height="500"  hspace="20"/><br>
+<img src="/demo/4.gif" width="250" height="500"  hspace="20"/>
+<img src="/demo/5.gif" width="250" height="500"  hspace="20"/>
+<img src="/demo/6.gif" width="250" height="500"  hspace="20"/><br>
+<img src="/demo/7.gif" width="250" height="500"  hspace="20"/>
+</p>
 
 ## Proyecto Realizado por
 * Universidad del Valle de Guatemala

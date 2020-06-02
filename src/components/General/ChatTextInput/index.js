@@ -1,5 +1,10 @@
+/* -------------------------------------------------------------------------- */
+/*                          Componente ChatTextInput                          */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un text input que se utiliza en el componente de Chat.
+
 import React from 'react';
-import { StyleSheet, View,TextInput,Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View,TextInput, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 

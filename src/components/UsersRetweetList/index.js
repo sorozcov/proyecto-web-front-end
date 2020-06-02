@@ -1,15 +1,17 @@
+/* -------------------------------------------------------------------------- */
+/*                         Componente UsersRetweetList                        */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un flatlist con el array de usuarios que le han dado wetweet a un tweet.
+
 import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
-import TimeAgo from 'react-native-timeago';
-import { StyleSheet, View, Image,FlatList,Text, Platform } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import FAB from '../General/FAB';
+
 import * as selectors from '../../reducers';
 import * as actionsProfile from '../../actions/profile';
 import * as tweetSelectedActions from '../../actions/tweetSelected';
 import UserList from '../UserList';
-
-
 
 
 function UserLikes({navigation,tweetSelected,userRetweets,startFetchingRetweetUsers,isFetchingUserRetweets, selectProfileUserId}) {

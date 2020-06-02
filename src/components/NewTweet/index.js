@@ -1,14 +1,19 @@
+/* -------------------------------------------------------------------------- */
+/*                             Componente NewTweet                            */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un textinput para escribir un nuevo tweet y publicarlo por medio de un botón.
+
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View,Text,Image,ScrollView } from 'react-native';
+import { StyleSheet, View,Image,ScrollView } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { reduxForm, Field } from 'redux-form';
+import randomString from 'random-string';
+
 import * as selectors from '../../reducers';
 import Button from '../General/Button';
 import TextInputTweet from '../General/TextInputTweet'
 import * as tweetsActions from '../../actions/tweets';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import randomString from 'random-string'
 
 
 

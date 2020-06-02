@@ -1,7 +1,12 @@
+/* -------------------------------------------------------------------------- */
+/*                           Componente ModalLoading                          */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un modal que se utiliza en muchas pantallas de la aplicación y su 
+// función es indicar al usuario cuando se esta cargando información de la base de datos.
+
 import React from 'react';
 import { StyleSheet, View,Modal,ActivityIndicator } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default function ModalLoading({isLoading=false}) {

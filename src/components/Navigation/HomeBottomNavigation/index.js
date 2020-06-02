@@ -1,10 +1,14 @@
-import * as React from 'react';
-import { Text, Platform,Image,View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+/* -------------------------------------------------------------------------- */
+/*                       Componente HomeBottomNavigation                      */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo bottom entre las todas las pantallas 
+// dentro de la aplicación luego de iniciar sesión.
 
+import * as React from 'react';
+import { Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FAB from '../../General/FAB';
+
 import * as selectors from '../../../reducers';
 import { connect } from 'react-redux';
 import HomeStack from '../HomeStackNavigator';
@@ -13,16 +17,7 @@ import NotificationsStackNavigator from '../NotificationsStackNavigator';
 import ExploreStackNavigator from '../ExploreStackNavigator';
 
 
-
-
-
 const Tab = createBottomTabNavigator();
-
-function componentExample(){
-  return(<View style={{height:hp('100%')}}>
-      
-  </View>)
-}
 
 function HomeBottomNavigation({navigation}) {
  

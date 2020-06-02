@@ -1,7 +1,10 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+/* -------------------------------------------------------------------------- */
+/*                       Componente HomeStackNavigation                       */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo Stack de todas las pantallas del feed general.
 
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 

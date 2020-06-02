@@ -1,3 +1,9 @@
+/* -------------------------------------------------------------------------- */
+/*                             Componente Comment                             */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene un comentario y este es llamado luego por un flatlist para mostrar 
+// una lista de comentarios.
+
 import React,{useState} from 'react';
 import TimeAgo from 'react-native-timeago';
 import { StyleSheet, View, Image, Text, TouchableOpacity,Modal,TouchableWithoutFeedback ,Alert} from 'react-native';
@@ -6,9 +12,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { connect } from 'react-redux';
 
 import * as selectors from '../../reducers';
-import * as actionsProfile from '../../actions/profile'
-import * as actionsTweets from '../../actions/tweets'
-import * as actionsTweetSelected from '../../actions/tweetSelected'
+import * as actionsProfile from '../../actions/profile';
+import * as actionsTweetSelected from '../../actions/tweetSelected';
 import Button from '../General/Button';
 
 

@@ -1,6 +1,12 @@
+/* -------------------------------------------------------------------------- */
+/*                          Componente Notifications                          */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene listas de notificaciones separadas por tres filtros que son
+// publicaciones que le dieron like, que comentaron o que hicieron un retweet.
+
 import React,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import * as selectors from '../../reducers';

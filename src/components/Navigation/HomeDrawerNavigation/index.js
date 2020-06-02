@@ -1,3 +1,9 @@
+/* -------------------------------------------------------------------------- */
+/*                       Componente HomeDrawerNavigation                      */
+/* -------------------------------------------------------------------------- */
+// Este componente contiene la navegación de tipo Drawer que se encuentra en todas las pantallas 
+// dentro de la aplicación luego de que el usuario haga login.
+
 import * as React from 'react';
 import { Text, View, StyleSheet,Image, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
@@ -8,9 +14,8 @@ import { CommonActions } from '@react-navigation/native';
 import { connect } from 'react-redux';
 
 import * as selectors from '../../../reducers';
-import * as actionsAuth from '../../../actions/auth'
-import * as actionsProfile from '../../../actions/profile'
-import * as actionsTweets from '../../../actions/tweets'
+import * as actionsAuth from '../../../actions/auth';
+import * as actionsProfile from '../../../actions/profile';
 
 
 function DrawerScreen({navigation,user,logout,userInformation, selectProfileUserId,selectSavedTweets}) {
