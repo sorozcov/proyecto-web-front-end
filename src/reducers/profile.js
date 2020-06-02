@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                               Reducer Profile                              */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información del perfil de un usuario en específico.
+
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/profile';

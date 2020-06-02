@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                             Reducer savedTweets                            */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información de los tweets guardados por el usuario en sesión.
+
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/tweets';

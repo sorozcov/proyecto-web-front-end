@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                                Reducer Auth                                */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información del usuario en sesión.
+
 import jwtDecode from 'jwt-decode';
 import { combineReducers } from 'redux';
 

@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                                Reducer Tweet                               */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información de un tweet en específico.
+
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/tweets';

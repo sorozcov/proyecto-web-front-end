@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                               Reducer SignUp                               */
+/* -------------------------------------------------------------------------- */
+// Este reducer maneja el inicio de sesión de un usuario.
 
 import { combineReducers } from 'redux';
 

@@ -1,11 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                              Reducer Comments                              */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información de los comentarios de un tweet.
+
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/tweetSelected';
-import * as tweetTypes from '../types/tweets'
-
-
-
-
 
 
 //Comments

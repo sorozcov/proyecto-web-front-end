@@ -1,8 +1,12 @@
+/* -------------------------------------------------------------------------- */
+/*                                Reducer Index                               */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene un combine reducer de todos los demás reductores.
+
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form'
 import { alertReducer } from 'redux-saga-rn-alert';
 
-import * as types from '../types/auth';
 import auth, * as authSelectors from './auth';
 import signUp, * as signUpSelectors from './signUp';
 import tweets, * as tweetsSelector from './tweets';

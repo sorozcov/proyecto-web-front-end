@@ -1,4 +1,8 @@
-import omit from 'lodash/omit';
+/* -------------------------------------------------------------------------- */
+/*                            Reducer Notifications                           */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información de las notificaciones del usuario en sesión.
+
 import { combineReducers } from 'redux';
 import * as types from '../types/notifications';
 

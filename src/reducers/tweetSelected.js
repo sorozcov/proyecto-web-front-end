@@ -1,8 +1,12 @@
+/* -------------------------------------------------------------------------- */
+/*                            Reducer TweetSelected                           */
+/* -------------------------------------------------------------------------- */
+// Este reducer contiene toda la información de un tweet seleccionado por el usuario en sesión.
+
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import * as types from '../types/tweetSelected';
-import comments,* as commentsSelectors from './comments'
-import * as tweetTypes from '../types/tweets'
+import comments,* as commentsSelectors from './comments';
 
 //Tw
 const tweetSelectedId = (state = null, action) => {
