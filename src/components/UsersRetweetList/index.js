@@ -5,23 +5,23 @@ import { StyleSheet, View, Image,FlatList,Text, Platform } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FAB from '../General/FAB';
 import * as selectors from '../../reducers';
-import * as tweetActions from '../../actions/tweets';
+import * as actionsProfile from '../../actions/profile';
 import * as tweetSelectedActions from '../../actions/tweetSelected';
 import UserList from '../UserList';
 
 
 
 
-function UserLikes({navigation,tweetSelected,userRetweets,startFetchingRetweetUsers,isFetchingUserRetweets}) {
+function UserLikes({navigation,tweetSelected,userRetweets,startFetchingRetweetUsers,isFetchingUserRetweets, selectProfileUserId}) {
   useEffect(startFetchingRetweetUsers,[]);
   const refFlatList = React.useRef(null);
   return (
     <View style={styles.container}>
       
       <View style={{margin:0,height:hp('95%')}}>
-      <UserList navigation={navigation} userArray={userRetweets} container={{height: hp('80%')}}
+      <UserList otherAction={true} navigation={navigation} userArray={userRetweets} container={{height: hp('80%')}}
           currentKey={'RetweetLikes'} 
-          isFetching={isFetchingUserRetweets}  onRefresh={()=>{startFetchingRetweetUsers()}}>
+          isFetching={isFetchingUserRetweets}  onRefresh={()=>{startFetchingRetweetUsers()}} action={({id})=> selectProfileUserId(navigation,id)}>
         </UserList>
       </View>
      
@@ -44,8 +44,11 @@ export default connect(
     },
     startFetchingRetweetUsers() {
       dispatch(tweetSelectedActions.startFetchingTweetRetweetUsers());
-      
     },
+    selectProfileUserId(navigation, userId){
+      dispatch(actionsProfile.setSelectedProfileUserId(userId));
+      navigation.navigate('Profile');
+    }
   }),
 )(UserLikes);
 

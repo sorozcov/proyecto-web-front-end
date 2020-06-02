@@ -31,19 +31,19 @@ function Followers({ navigation, route, isFetchingProfile, startFetchingProfileF
       </View>
       
       {toolBarOption===1 && 
-        <UserList navigation={navigation} userArray={profileFollowers} container={{height: hp('80%')}}
+        <UserList otherAction={true} navigation={navigation} userArray={profileFollowers} container={{height: hp('80%')}}
           currentKey={'profileFollowers'} infoEmptyText={'Todavía no tienes seguidores'}
           recommendEmptyText={'Cuando alguien te siga, lo verás aquí.'}
-          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowers()}}>
+          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowers()}} action={({id})=> selectProfileUserId(navigation,id)}>
         </UserList>
       }
 
       {toolBarOption===0 && 
-        <UserList navigation={navigation} userArray={profileFollowing} 
+        <UserList otherAction={true} navigation={navigation} userArray={profileFollowing} 
           currentKey={'profileFollowing'}   container={{height: hp('80%')}}
           infoEmptyText={'Todavía no sigues a nadie'}
           recommendEmptyText={'Cuando lo hagas, estos usuarios se detallarán aquí y veras sus Tweets en tu cronología.'}
-          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowing()}}>
+          isFetching={isFetchingProfile}  onRefresh={()=>{startFetchingProfileFollowing()}} action={({id})=> selectProfileUserId(navigation,id)}>
         </UserList>
       }
     </View>

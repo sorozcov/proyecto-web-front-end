@@ -8,9 +8,9 @@ import * as selectors from '../../reducers';
 import * as tweetActions from '../../actions/tweets';
 import * as tweetSelectedActions from '../../actions/tweetSelected';
 import TweetList from '../TweetList';
-import TweetFull from '../TweetFull'
+import TweetFull from '../TweetFull';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Comment from '../Comment'
+import Comment from '../Comment';
 
 
 
