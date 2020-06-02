@@ -46,6 +46,10 @@ let ip4 = 'tu_ip_4';
 * Se generá un codigo QR
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
+# App running
+<img width="260" height="562" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/43o48j"></iframe></div><p><a href="https://imgflip.com/gif/43o48j">via Imgflip</a><img>
+
+
 # Nota importante:
 Deben estar corriendo simultáneamente ambos proyectos para que todo funcione.
 
