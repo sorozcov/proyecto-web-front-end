@@ -47,8 +47,8 @@ let ip4 = 'tu_ip_4';
 * Escaneamos el código con la aplicación y podremos probar la aplicación completa
 
 # App running
-![](https://github.com/sorozcov/proyecto-web-front-end/blob/master/demo/1.gif =250x500)
 
+<img src="/demo/1.gif" width="250" height="250"/>
 
 # Nota importante:
 Deben estar corriendo simultáneamente ambos proyectos para que todo funcione.
